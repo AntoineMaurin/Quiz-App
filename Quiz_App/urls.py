@@ -21,5 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage),
     path('portal', views.portalpage),
-    path('create', views.createquizzpage),
+    path('create', views.createquizpage),
+    path('startquiz', views.startquiz),
+    path('addquestion', views.addquestion),
+    path('submitquiz', views.submitquiz),
 ]

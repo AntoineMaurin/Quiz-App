@@ -3,20 +3,49 @@
 
 {% block title %}Portal{% endblock title %}
 
+{% block body_class %}bg-primary{% endblock body_class %}
+
 {% block body %}
-<section class="page-section bg-primary">
-  <div class="container-fluid bg-secondary py-3">
-    <div class="row">
-      <div class="col-6 text-center text-white">
-        <a href="/" class="h3 text-white lh-1-5">Discover</a>
-      </div>
-      <div class="col-6 text-center text-white">
-        <a href="portal" class="h3 text-white lh-1-5">Play</a>
+
+
+  <section class="page-section">
+    <div class="container-fluid bg-secondary py-3">
+      <div class="row">
+        <div class="col-6 text-center text-white">
+          <a href="/" class="h3 text-white lh-1-5">Discover</a>
+        </div>
+        <div class="col-6 text-center text-white">
+          <a href="portal" class="h3 text-white lh-1-5">Play</a>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="container mt-5 text-center">
-    <h1 class="display-3">Create</h1>
-  </div>
-</section>
+    <div class="container mt-5 text-center">
+      <blockquote class="blockquote">
+        <h1 class="display-3 mb-0">“Those who know, do. Those that understand, teach."</h1>
+      </blockquote>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center pt-5">
+        <div class="col-auto">
+          <button id="CreateQuizButton" onclick="showQuizNameForm()" class="btn btn-dark d-flex"><i class="fas fa-clipboard-check fa-2x my-auto ml-2 mr-3"></i><h1 class="display-4">Create a quiz</h1><i class="fas fa-clipboard-check fa-2x my-auto mr-2 ml-3"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="QuizNameForm" class="container">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <form class="mt-5" action="/startquiz" method="post"">
+            {% csrf_token %}
+            <div class="d-flex">
+              <input class="form-control pt-2" id="QuizName" type="text" name="quiz_name" required="true" placeholder="Quiz name" maxlength="30">
+              <button type="submit" class="btn text-white" id="inline-validate-button"><i class="fas fa-check-square"></i></button>
+              <button type="button" class="btn text-white" id="inline-cancel-button" onclick="document.getElementById('QuizName').value = ''"><i class="fas fa-times"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock body %}
