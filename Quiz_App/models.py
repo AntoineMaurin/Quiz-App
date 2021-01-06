@@ -1,7 +1,9 @@
 from django.db import models
 
+
 class Quiz(models.Model):
     title = models.CharField(max_length=30, default='Quiz')
+    is_public = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

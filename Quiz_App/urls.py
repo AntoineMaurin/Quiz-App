@@ -19,8 +19,8 @@ from Quiz_App import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.homepage),
-    path('portal', views.portalpage),
+    path('', views.discoverpage),
+    path('play', views.playpage),
     path('create', views.createquizpage),
     path('startquiz', views.startquiz),
     path('addquestion', views.addquestion),
