@@ -27,7 +27,7 @@
   <div class="row justify-content-center">
     <div class="col-7">
 
-      <form id="quiz_form" class="text-center" action="submitquiz" method="post">
+      <form id="quiz_form" class="text-center" action="/submitquiz" method="post">
         {% csrf_token %}
 
         <div class="question-section mt-5">
@@ -40,14 +40,14 @@
 
           <div class="form-row justify-content-around mt-5">
             <div class="col-5">
-              <label class="checkboxes">
+              <label class="checkboxes" title="Check thr right anwser">
                 <input type="checkbox" name="ans1_is_right">
                 <span class="checkmark"></span>
               </label>
               <input type="text" class="form-control" placeholder="Answer A" name="ans1">
             </div>
             <div class="col-5">
-              <label class="checkboxes">
+              <label class="checkboxes" title="Check thr right anwser">
                 <input type="checkbox" name="ans2_is_right">
                 <span class="checkmark"></span>
               </label>

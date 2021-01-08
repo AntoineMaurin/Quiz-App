@@ -36,7 +36,7 @@
     <div id="QuizNameForm" class="container">
       <div class="row justify-content-center">
         <div class="col-auto">
-          <form class="mt-5" action="/startquiz" method="post"">
+          <form class="mt-5" action="/questioncreation" method="post"">
             {% csrf_token %}
             <div class="d-flex">
               <input class="form-control pt-2" id="QuizName" type="text" name="quiz_name" required="true" placeholder="Quiz name" maxlength="30">

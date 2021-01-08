@@ -21,8 +21,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.discoverpage),
     path('play', views.playpage),
+    path('questioncreation', views.questioncreationpage),
     path('create', views.createquizpage),
-    path('startquiz', views.startquiz),
+    path('startquiz', views.startquizpage),
     path('addquestion', views.addquestion),
     path('submitquiz', views.submitquiz),
+    path('nextquestion', views.nextquestionpage),
 ]

@@ -98,6 +98,7 @@ div > .btn-dark {
   background-color: transparent;
   border: 2px solid white;
   border-radius: 15px;
+  color: #fff;
 }
 
 a, a:hover {

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_class %}custom-bg{% endblock body_class %}
+
+{% block body %}
+
+<div class="row justify-content-center mt-5 mx-auto">
+  <div class="col-auto">
+    <div class="mx-auto"><h1 class="font-exo-medium text-white">Good job ! You finished the quiz</h1></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-auto">
+      <a href="/"><button type="button" class="btn d-flex question-butttons display-4">Back</button></a>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
