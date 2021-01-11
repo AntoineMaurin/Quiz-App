@@ -1,0 +1,23 @@
+<div id="DeleteQuestionForm">
+  <div class="pl-3 py-2 border-bottom">
+    <h4 class="my-1" id="delete_question_title"></h4>
+  </div>
+  <form class="py-3 border" action="/deletequestion" method="post">
+    {% csrf_token %}
+    <div class="mb-2 px-3">
+      <p class="mb-3">Are you sure you want to delete this question ?</p>
+    </div>
+    <div class="mb-2 px-3">
+      <p class="mb-3" id="delete_question_message"></p>
+    </div>
+    <input type="hidden" id="delete_question_id" name="question_id" value="">
+    <div class="row justify-content-around text-center">
+      <div class="col">
+        <button type="submit" onclick="CloseDeleteQuestionForm()" class="">Supprimer</button>
+      </div>
+      <div class="col">
+        <div onclick="CloseDeleteQuestionForm()" class="">Annuler</div>
+      </div>
+    </div>
+  </form>
+</div>

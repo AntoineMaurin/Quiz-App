@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_class %}custom-bg{% endblock body_class %}
+
+{% block body %}
+
+<div class="row justify-content-center mt-5 mx-auto">
+  <div class="col-auto">
+    <div class="mx-auto"><h1 class="font-exo-medium text-white">{{ quiz.title }}</h1></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center mt-5 mx-auto">
+    <div class="col-auto">
+      <h2 class="font-exo-medium text-white">{{ quiz.question_set.all|length|add:"1" }} questions</h2>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5 text-white">
+  {% for question in questions %}
+    <form class="" action="/deletequestion" method="post">
+      {% csrf_token %}
+      <div class="row justify-content-center">
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+        <div class="col-6 question-title" value="{{ question.title }}">
+          {{ forloop.counter }}. {{ question.title }}
+        </div>
+        {% for answer in question.answer_set.all %}
+          <div class="col-auto">
+            {{ answer.title }}
+          </div>
+        {% endfor %}
+        <div class="col-1">
+          <div class="row">
+            <div class="col-auto edit-question">
+              <i class="fas fa-pen-nib"></i>
+            </div>
+            <div class="col-auto del-question">
+              <i class="fas fa-trash-alt"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  {% endfor %}
+</div>
+
+{% include "delete_question_form.html" %}
+
+{% endblock body %}

@@ -2,6 +2,8 @@ from django.shortcuts import render
 from Quiz_App.models import Quiz, Question, Answer
 from django.contrib import messages
 
+from django.http import JsonResponse
+
 
 def discoverpage(request):
     quizzes = Quiz.objects.filter(is_public=True)
@@ -42,23 +44,30 @@ def addquestion(request):
                 'answers have to be completed.')
                 return render(request, "quiz_question_form.html", {'quiz': quiz})
 
+        ans1_is_right = True if 'ans1_is_right' in request.POST else False
+        ans2_is_right = True if 'ans2_is_right' in request.POST else False
+
+        if not ans1_is_right and not ans2_is_right:
+            messages.error(request, 'The question needs to have at least one '
+            'right answer.')
+            return render(request, "quiz_question_form.html", {'quiz': quiz})
+
         question = Question.objects.create(title=question_text,
                                            quiz=quiz)
 
-        answer_1 = Answer.objects.create(title=ans1, question=question)
-        answer_2 = Answer.objects.create(title=ans2, question=question)
+        answer_1 = Answer.objects.create(title=ans1, question=question, is_right=ans1_is_right)
+        answer_2 = Answer.objects.create(title=ans2, question=question, is_right=ans2_is_right)
 
-        if 'ans1_is_right' in request.POST:
-            answer_1.is_right = True
-            answer_1.save()
-        if 'ans2_is_right' in request.POST:
-            answer_2.is_right = True
-            answer_2.save()
 
         return render(request, "quiz_question_form.html", {'quiz': quiz})
 
 def submitquiz(request):
-    return render(request, "createquiz.html")
+    if request.method == 'POST':
+        quiz_id = request.POST['quiz_id']
+        quiz = Quiz.objects.get(id=quiz_id)
+        questions = Question.objects.filter(quiz=quiz)
+        return render(request, "quiz_building_summary.html", {'quiz': quiz,
+                                                              'questions': questions})
 
 def startquizpage(request):
     id = request.GET['quiz_id']
@@ -92,3 +101,19 @@ def nextquestionpage(request):
                                                               })
     except(IndexError):
         return render(request, "results.html")
+
+
+def deletequestion(request):
+    if request.POST:
+        question_id = request.POST['question_id']
+
+        print(question_id)
+
+        question = Question.objects.get(id=question_id)
+        quiz = question.quiz
+        questions = Question.objects.filter(quiz=quiz)
+
+        Question.objects.get(id=question_id).delete()
+
+        return render(request, "quiz_building_summary.html", {'quiz': quiz,
+                                                              'questions': questions})

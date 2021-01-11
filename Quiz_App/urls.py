@@ -27,4 +27,5 @@ urlpatterns = [
     path('addquestion', views.addquestion),
     path('submitquiz', views.submitquiz),
     path('nextquestion', views.nextquestionpage),
+    path('deletequestion', views.deletequestion),
 ]

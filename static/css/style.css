@@ -177,3 +177,15 @@ a, a:hover {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+#DeleteQuestionForm {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  z-index: 9;
+  background-color: white;
+  max-width: 450px;
+  box-shadow: 0 0 5px;
+}
