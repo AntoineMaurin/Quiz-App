@@ -178,7 +178,7 @@ a, a:hover {
   transform: rotate(45deg);
 }
 
-#DeleteQuestionForm {
+#DeleteQuestionForm, #DeleteQuizForm {
   display: none;
   position: absolute;
   top: 50%;

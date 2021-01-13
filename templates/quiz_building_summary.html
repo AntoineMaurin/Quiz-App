@@ -7,14 +7,17 @@
 
 <div class="row justify-content-center mt-5 mx-auto">
   <div class="col-auto">
-    <div class="mx-auto"><h1 class="font-exo-medium text-white">{{ quiz.title }}</h1></div>
+    <div class="mx-auto text-center">
+      <h1 class="font-exo-medium text-white">{{ quiz.title }}</h1>
+      <h5 class="font-exo-medium text-white">Quiz code : {{ quiz.id }}</h5>
+    </div>
   </div>
 </div>
 
 <div class="container">
   <div class="row justify-content-center mt-5 mx-auto">
     <div class="col-auto">
-      <h2 class="font-exo-medium text-white">{{ quiz.question_set.all|length|add:"1" }} questions</h2>
+      <h2 class="font-exo-medium text-white">{{ quiz.question_set.all|length }} questions</h2>
     </div>
   </div>
 </div>
@@ -48,6 +51,18 @@
   {% endfor %}
 </div>
 
+<div class="container mt-5">
+  <div class="row justify-content-center pt-5">
+    <div class="col-auto mx-3">
+      <a href="/create"><button class="btn btn-dark d-flex mx-auto"><h1 class="text-white">Validate</h1></button></a>
+    </div>
+    <div class="col-auto mx-3">
+      <button class="btn btn-dark d-flex mx-auto" onclick="OpenDeleteQuizForm()"><h1 class="text-white">Delete</h1></button>
+    </div>
+  </div>
+</div>
+
 {% include "delete_question_form.html" %}
+{% include "delete_quiz_form.html" %}
 
 {% endblock body %}

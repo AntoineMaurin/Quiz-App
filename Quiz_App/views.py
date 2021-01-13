@@ -76,6 +76,7 @@ def startquizpage(request):
     ids_list = []
     for question in questions:
         ids_list.append(question.id)
+    request.session['question_number'] = 0
     request.session['questions_left'] = ids_list
     request.session['quiz_id'] = quiz.id
 
@@ -91,6 +92,7 @@ def nextquestionpage(request):
 
         quiz = Quiz.objects.get(id=quiz_id)
 
+        request.session['question_number'] += 1
         del(request.session['questions_left'][0])
         request.session.modified = True
 
@@ -98,6 +100,7 @@ def nextquestionpage(request):
                                                               'current_question': current_question,
                                                               'ans1': answers[0],
                                                               'ans2': answers[1],
+                                                              'question_number': request.session['question_number'],
                                                               })
     except(IndexError):
         return render(request, "results.html")
@@ -117,3 +120,7 @@ def deletequestion(request):
 
         return render(request, "quiz_building_summary.html", {'quiz': quiz,
                                                               'questions': questions})
+
+def deletequiz(request, id):
+    quiz_to_del = Quiz.objects.get(id=id).delete()
+    return render(request, "createquiz.html")

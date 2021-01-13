@@ -20,6 +20,13 @@ function CloseDeleteQuestionForm() {
   document.getElementById('DeleteQuestionForm').style.display = 'none';
 }
 
+function OpenDeleteQuizForm(){
+  document.getElementById('DeleteQuizForm').style.display = 'block';
+}
+
+function CloseDeleteQuizForm() {
+  document.getElementById('DeleteQuizForm').style.display = 'none';
+}
 
 $(document).ready(function(){
 
