@@ -13,6 +13,9 @@ def playpage(request):
     return render(request, "play.html")
 
 def createquizpage(request):
+    if request.method == 'POST':
+        quiz_id = request.POST['quiz_id']
+        messages.success(request, f'Your quiz code is {quiz_id}')
     return render(request, "createquiz.html")
 
 def questioncreationpage(request):
@@ -31,12 +34,11 @@ def addquestion(request):
     if request.method == 'POST':
         quiz_id = request.POST['quiz_id']
         question_text = request.POST['question_text']
-        ans1 = request.POST['ans1']
-        ans2 = request.POST['ans2']
+        answers = request.POST.getlist('answer')
 
         quiz = Quiz.objects.get(id=quiz_id)
 
-        fields_to_check = [question_text, ans1, ans2]
+        fields_to_check = [question_text, answers[0], answers[1]]
 
         for field in fields_to_check:
             if len(field) < 1:
@@ -55,9 +57,8 @@ def addquestion(request):
         question = Question.objects.create(title=question_text,
                                            quiz=quiz)
 
-        answer_1 = Answer.objects.create(title=ans1, question=question, is_right=ans1_is_right)
-        answer_2 = Answer.objects.create(title=ans2, question=question, is_right=ans2_is_right)
-
+        for answer in answers:
+            Answer.objects.create(title=answer, question=question, is_right=False)
 
         return render(request, "quiz_question_form.html", {'quiz': quiz})
 
@@ -110,8 +111,6 @@ def deletequestion(request):
     if request.POST:
         question_id = request.POST['question_id']
 
-        print(question_id)
-
         question = Question.objects.get(id=question_id)
         quiz = question.quiz
         questions = Question.objects.filter(quiz=quiz)
@@ -124,3 +123,11 @@ def deletequestion(request):
 def deletequiz(request, id):
     quiz_to_del = Quiz.objects.get(id=id).delete()
     return render(request, "createquiz.html")
+
+
+def testform(request):
+    if request.method == 'POST':
+        answers = request.POST.getlist('answer')
+        for answer in answers:
+            print(answer)
+    return render(request, "test_form.html")

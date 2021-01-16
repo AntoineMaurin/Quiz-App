@@ -29,4 +29,5 @@ urlpatterns = [
     path('nextquestion', views.nextquestionpage),
     path('deletequestion', views.deletequestion),
     path('deletequiz/<int:id>', views.deletequiz, name="deletequiz"),
+    path('testform', views.testform),
 ]

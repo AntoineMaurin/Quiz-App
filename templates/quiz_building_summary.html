@@ -54,7 +54,11 @@
 <div class="container mt-5">
   <div class="row justify-content-center pt-5">
     <div class="col-auto mx-3">
-      <a href="/create"><button class="btn btn-dark d-flex mx-auto"><h1 class="text-white">Validate</h1></button></a>
+      <form class="" action="/create" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+        <button type="submit" class="btn btn-dark d-flex mx-auto"><h1 class="text-white">Validate</h1></button>
+      </form>
     </div>
     <div class="col-auto mx-3">
       <button class="btn btn-dark d-flex mx-auto" onclick="OpenDeleteQuizForm()"><h1 class="text-white">Delete</h1></button>

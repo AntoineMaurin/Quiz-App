@@ -30,7 +30,7 @@
       <form id="quiz_form" class="text-center" action="/submitquiz" method="post">
         {% csrf_token %}
 
-        <div class="question-section mt-5">
+        <div class="mt-5">
           <div class="text-white text-left mb-2">
             <h5>Question {{ quiz.question_set.all|length|add:"1" }}</h5>
           </div>
@@ -38,27 +38,33 @@
             <input class="form-control form-control-lg" type="text" placeholder="Question" name="question_text">
           </div>
 
-          <div class="form-row justify-content-around mt-5">
+          <div class="form-row justify-content-around mt-5 question-section">
             <div class="col-5">
-              <label class="checkboxes" title="Check thr right anwser">
+              <label class="checkboxes" title="Check the right anwser">
                 <input type="checkbox" name="ans1_is_right">
                 <span class="checkmark"></span>
               </label>
-              <input type="text" class="form-control" placeholder="Answer A" name="ans1">
+              <input type="text" class="form-control" name="answer">
             </div>
             <div class="col-5">
               <label class="checkboxes" title="Check thr right anwser">
                 <input type="checkbox" name="ans2_is_right">
                 <span class="checkmark"></span>
               </label>
-              <input type="text" class="form-control" placeholder="Answer B" name="ans2">
+              <input type="text" class="form-control" name="answer">
             </div>
             <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
           </div>
 
-          <div class="row justify-content-around">
+          <div class="row justify-content-center buttons-section">
             <div class="mt-5 col-auto">
-              <button type="submit" class="btn btn-dark d-flex question-butttons" formaction="/addquestion"><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i><h3 class="">Add question</h3><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i></button>
+              <button class="btn btn-dark d-flex question-butttons" type="button" onclick="duplicate()"><h3 class="">+</h3></button>
+            </div>
+            <div class="mt-5 col-auto">
+              <button class="btn btn-dark d-flex question-butttons" type="button" onclick="removeRow()"><h3 class="">-</h3></button>
+            </div>
+            <div class="mt-5 col-auto">
+              <button class="btn btn-dark d-flex question-butttons" formaction="/addquestion"><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i><h3 class="">Add question</h3><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i></button>
             </div>
             <div class="mt-5 col-auto">
               <button type="submit" class="btn btn-dark d-flex question-butttons"><i class="fas fa-clipboard-check fa-2x my-auto ml-2 mr-3"></i><h3 class="">Finished</h3><i class="fas fa-clipboard-check fa-2x my-auto mr-2 ml-3"></i></button>

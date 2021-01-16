@@ -1,20 +1,52 @@
-// function duplicate() {
-//     var i = 0;
-//     var original = document.getElementsByClassName('question-section')[0];
-//     var clone = original.cloneNode(true); // "deep" clone
-//     clone.id = "duplicetor" + ++i; // there can only be one element with an ID
-//     original.parentNode.appendChild(clone);
-//
-//     var buttons = document.getElementsByClassName('buttons-section')[0];
-//     buttons.style.display = 'none';
-//     original.parentNode.appendChild(buttons);
-//     buttons.style.display = 'flex';
-//
-// }
+function duplicate() {
+    var i = 0;
+    var original = document.getElementsByClassName('question-section')[0];
+    var clone = original.cloneNode(true); // "deep" clone
+    original.parentNode.appendChild(clone);
 
-// function showQuizNameForm() {
-//   document.getElementById('QuizNameForm').style.display = 'block';
-// }
+    var all_buttons = document.getElementsByClassName('buttons-section');
+
+    for (button of all_buttons) {
+      button.style.display = 'none';
+    }
+
+    var buttons = document.getElementsByClassName('buttons-section')[0];
+    var buttons_clone = buttons.cloneNode(true);
+    original.parentNode.appendChild(buttons_clone);
+    buttons_clone.style.display = 'flex';
+
+}
+
+function removeRow() {
+  var all_answer_rows = document.getElementsByClassName('question-section');
+
+  var displayed_rows = [];
+
+  for (row of all_answer_rows) {
+    if (row.style.display !== 'none')
+
+      displayed_rows.push(row);
+
+    else {
+
+      console.log(row.getElementsByTagName('input'));
+    }
+  }
+
+  if (displayed_rows.length > 1) {
+    var last_element = displayed_rows[displayed_rows.length - 1];
+    for (elt of last_element.getElementsByTagName("input")) {
+      elt.value = '';
+    }
+    last_element.style.display = 'none';
+
+  }
+
+}
+
+function showQuizNameForm() {
+  document.getElementById('QuizNameForm').style.display = 'block';
+}
 
 function CloseDeleteQuestionForm() {
   document.getElementById('DeleteQuestionForm').style.display = 'none';
