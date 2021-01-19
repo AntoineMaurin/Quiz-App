@@ -35,10 +35,11 @@ def addquestion(request):
         quiz_id = request.POST['quiz_id']
         question_text = request.POST['question_text']
         answers = request.POST.getlist('answer')
+        are_right = request.POST.getlist('is_ans_right')
 
         quiz = Quiz.objects.get(id=quiz_id)
 
-        fields_to_check = [question_text, answers[0], answers[1]]
+        fields_to_check = answers + [question_text]
 
         for field in fields_to_check:
             if len(field) < 1:
@@ -46,19 +47,16 @@ def addquestion(request):
                 'answers have to be completed.')
                 return render(request, "quiz_question_form.html", {'quiz': quiz})
 
-        ans1_is_right = True if 'ans1_is_right' in request.POST else False
-        ans2_is_right = True if 'ans2_is_right' in request.POST else False
-
-        if not ans1_is_right and not ans2_is_right:
-            messages.error(request, 'The question needs to have at least one '
-            'right answer.')
-            return render(request, "quiz_question_form.html", {'quiz': quiz})
-
         question = Question.objects.create(title=question_text,
                                            quiz=quiz)
 
         for answer in answers:
-            Answer.objects.create(title=answer, question=question, is_right=False)
+            if answer in are_right:
+                Answer.objects.create(title=answer, question=question, is_right=True)
+                print('answer ', answer, 'created TRUE')
+            else:
+                Answer.objects.create(title=answer, question=question, is_right=False)
+                print('answer ', answer, 'created FALSE')
 
         return render(request, "quiz_question_form.html", {'quiz': quiz})
 

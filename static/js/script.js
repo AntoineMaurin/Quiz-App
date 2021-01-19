@@ -1,15 +1,20 @@
 function duplicate() {
     var i = 0;
-    var original = document.getElementsByClassName('question-section')[0];
+    var original = document.getElementsByClassName('answers-section')[0];
     var clone = original.cloneNode(true); // "deep" clone
+
     original.parentNode.appendChild(clone);
 
+    var displayed_rows = getDisplayedRows();
+    var last_element = displayed_rows[displayed_rows.length - 1];
+    for (elt of last_element.getElementsByTagName("input")) {
+      elt.value = '';
+    }
     var all_buttons = document.getElementsByClassName('buttons-section');
 
     for (button of all_buttons) {
       button.style.display = 'none';
     }
-
     var buttons = document.getElementsByClassName('buttons-section')[0];
     var buttons_clone = buttons.cloneNode(true);
     original.parentNode.appendChild(buttons_clone);
@@ -18,7 +23,22 @@ function duplicate() {
 }
 
 function removeRow() {
-  var all_answer_rows = document.getElementsByClassName('question-section');
+
+  var displayed_rows = getDisplayedRows();
+
+  if (displayed_rows.length > 1) {
+    var last_element = displayed_rows[displayed_rows.length - 1];
+    for (elt of last_element.getElementsByTagName("input")) {
+      elt.required = false;
+      elt.value = '';
+      elt.name = '';
+    }
+    last_element.style.display = 'none';
+  }
+}
+
+function getDisplayedRows() {
+  var all_answer_rows = document.getElementsByClassName('answers-section');
 
   var displayed_rows = [];
 
@@ -26,22 +46,8 @@ function removeRow() {
     if (row.style.display !== 'none')
 
       displayed_rows.push(row);
-
-    else {
-
-      console.log(row.getElementsByTagName('input'));
-    }
   }
-
-  if (displayed_rows.length > 1) {
-    var last_element = displayed_rows[displayed_rows.length - 1];
-    for (elt of last_element.getElementsByTagName("input")) {
-      elt.value = '';
-    }
-    last_element.style.display = 'none';
-
-  }
-
+  return displayed_rows;
 }
 
 function showQuizNameForm() {
@@ -64,6 +70,20 @@ $(document).ready(function(){
 
   var csrf = $("input[name=csrfmiddlewaretoken]").val();
 
+  $('#quiz_form').submit(function(event) {
+
+    $("input[type=checkbox]").each(function() {
+
+      if (this.checked) {
+
+        let answer_text = $(this).parent().siblings('input').val();
+        $(this).attr("value", answer_text);
+
+       }
+     });
+
+  });
+
   $("#CreateQuizButton").click(function(){
     $("#QuizNameForm").fadeToggle();
   });
@@ -79,10 +99,6 @@ $(document).ready(function(){
     clean_text = $.trim(question_number_and_title);
     question_number = clean_text.split(" ")[0];
     question_title = clean_text.split(/ (.+)/)[1];
-
-    // console.log(question_number_and_title);
-    // console.log(question_number);
-    // console.log(question_title);
 
     $("#delete_question_title").text("Question " + question_number);
     $("#delete_question_id").val(question_id);
