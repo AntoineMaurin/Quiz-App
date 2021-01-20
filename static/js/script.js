@@ -95,6 +95,7 @@ $(document).ready(function(){
     // var question_id = $(this).parent().find('name.question_id').val();
     var question_id = $(this).parent().parent().siblings('input[name=question_id]').val();
     var question_number_and_title = $(this).parent().parent().siblings('.question-title')[0].innerHTML;
+    var question_index = $(this).parent().parent().siblings('.question-title')[0].id;
 
     clean_text = $.trim(question_number_and_title);
     question_number = clean_text.split(" ")[0];
@@ -103,6 +104,7 @@ $(document).ready(function(){
     $("#delete_question_title").text("Question " + question_number);
     $("#delete_question_id").val(question_id);
     $("#delete_question_message").text(question_title);
+    $("form").attr("action", "/deletequestion/" + question_index);
 
   });
 });

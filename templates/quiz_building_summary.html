@@ -24,30 +24,26 @@
 
 <div class="container mt-5 text-white">
   {% for question in questions %}
-    <form class="" action="/deletequestion" method="post">
-      {% csrf_token %}
-      <div class="row justify-content-center">
-        <input type="hidden" name="question_id" value="{{ question.id }}">
-        <div class="col-6 question-title" value="{{ question.title }}">
-          {{ forloop.counter }}. {{ question.title }}
+    <div class="row justify-content-center">
+      <div id="{{ forloop.counter0 }}" class="col-6 question-title" value="{{ question.title }}">
+        {{ forloop.counter }}. {{ question.title }}
+      </div>
+      {% for answer in question.answer_set.all %}
+        <div class="col-auto">
+          {{ answer.title }}
         </div>
-        {% for answer in question.answer_set.all %}
-          <div class="col-auto">
-            {{ answer.title }}
+      {% endfor %}
+      <div class="col-1">
+        <div class="row">
+          <div class="col-auto edit-question">
+            <i class="fas fa-pen-nib"></i>
           </div>
-        {% endfor %}
-        <div class="col-1">
-          <div class="row">
-            <div class="col-auto edit-question">
-              <i class="fas fa-pen-nib"></i>
-            </div>
-            <div class="col-auto del-question">
-              <i class="fas fa-trash-alt"></i>
-            </div>
+          <div class="col-auto del-question">
+            <i class="fas fa-trash-alt"></i>
           </div>
         </div>
       </div>
-    </form>
+    </div>
   {% endfor %}
 </div>
 
@@ -56,7 +52,6 @@
     <div class="col-auto mx-3">
       <form class="" action="/create" method="post">
         {% csrf_token %}
-        <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
         <button type="submit" class="btn btn-dark d-flex mx-auto"><h1 class="text-white">Validate</h1></button>
       </form>
     </div>

@@ -14,7 +14,7 @@ def playpage(request):
 
 def createquizpage(request):
     if request.method == 'POST':
-        quiz_id = request.POST['quiz_id']
+        quiz_id = request.session['quiz_id']
         messages.success(request, f'Your quiz code is {quiz_id}')
     return render(request, "createquiz.html")
 
@@ -28,11 +28,12 @@ def questioncreationpage(request):
             is_public = False
         quiz = Quiz.objects.create(title=quiz_name,
                                    is_public=is_public)
+        request.session['quiz_id'] = quiz.id
     return render(request, "quiz_question_form.html", {'quiz': quiz})
 
 def addquestion(request):
     if request.method == 'POST':
-        quiz_id = request.POST['quiz_id']
+        quiz_id = request.session['quiz_id']
         question_text = request.POST['question_text']
         answers = request.POST.getlist('answer')
         are_right = request.POST.getlist('is_ans_right')
@@ -53,16 +54,14 @@ def addquestion(request):
         for answer in answers:
             if answer in are_right:
                 Answer.objects.create(title=answer, question=question, is_right=True)
-                print('answer ', answer, 'created TRUE')
             else:
                 Answer.objects.create(title=answer, question=question, is_right=False)
-                print('answer ', answer, 'created FALSE')
 
         return render(request, "quiz_question_form.html", {'quiz': quiz})
 
 def submitquiz(request):
     if request.method == 'POST':
-        quiz_id = request.POST['quiz_id']
+        quiz_id = request.session['quiz_id']
         quiz = Quiz.objects.get(id=quiz_id)
         questions = Question.objects.filter(quiz=quiz)
         return render(request, "quiz_building_summary.html", {'quiz': quiz,
@@ -105,27 +104,20 @@ def nextquestionpage(request):
         return render(request, "results.html")
 
 
-def deletequestion(request):
+def deletequestion(request, index):
     if request.POST:
-        question_id = request.POST['question_id']
+        quiz_id = request.session['quiz_id']
+        quiz = Quiz.objects.get(id=quiz_id)
 
-        question = Question.objects.get(id=question_id)
-        quiz = question.quiz
         questions = Question.objects.filter(quiz=quiz)
 
-        Question.objects.get(id=question_id).delete()
+        question = questions[index]
+        question.delete()
 
         return render(request, "quiz_building_summary.html", {'quiz': quiz,
                                                               'questions': questions})
 
 def deletequiz(request, id):
-    quiz_to_del = Quiz.objects.get(id=id).delete()
+    quiz_id = request.session['quiz_id']
+    Quiz.objects.get(id=quiz_id).delete()
     return render(request, "createquiz.html")
-
-
-def testform(request):
-    if request.method == 'POST':
-        answers = request.POST.getlist('answer')
-        for answer in answers:
-            print(answer)
-    return render(request, "test_form.html")
