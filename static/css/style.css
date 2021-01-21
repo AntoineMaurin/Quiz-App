@@ -178,7 +178,7 @@ a, a:hover {
   transform: rotate(45deg);
 }
 
-#DeleteQuestionForm, #DeleteQuizForm {
+#DeleteQuestionFormDiv, #DeleteQuizFormDiv, #EditQuestionFormDiv {
   display: none;
   position: absolute;
   top: 50%;
@@ -186,6 +186,5 @@ a, a:hover {
   transform: translate(50%, -50%);
   z-index: 9;
   background-color: white;
-  max-width: 450px;
   box-shadow: 0 0 5px;
 }

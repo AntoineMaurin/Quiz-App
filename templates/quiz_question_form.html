@@ -27,7 +27,7 @@
   <div class="row justify-content-center">
     <div class="col-7">
 
-      <form id="quiz_form" class="text-center" action="/submitquiz" method="post">
+      <form id="quiz_question_form" class="text-center" action="/submitquiz" method="post">
         {% csrf_token %}
 
         <div class="mt-5">
@@ -35,7 +35,7 @@
             <h5>Question {{ quiz.question_set.all|length|add:"1" }}</h5>
           </div>
           <div class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Question" name="question_text" >
+            <input class="form-control form-control-lg" type="text" placeholder="Question" name="question_text">
           </div>
 
           <div class="form-row justify-content-around mt-5 answers-section">

@@ -28,5 +28,7 @@ urlpatterns = [
     path('submitquiz', views.submitquiz),
     path('nextquestion', views.nextquestionpage),
     path('deletequestion/<int:index>', views.deletequestion),
+    path('editquestion/<int:index>', views.editquestion),
     path('deletequiz/<int:id>', views.deletequiz, name="deletequiz"),
+    path('ajaxgetanswers', views.ajaxgetanswers),
 ]
