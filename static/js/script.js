@@ -141,9 +141,6 @@ $(document).ready(function(){
     $("#EditQuestionFormDiv").children('form').attr("action", "/editquestion/" + question_index);
     $('#question_number').text("Question " + question_number);
     $("#question_to_edit").val(question_title);
-    console.log("j'crois que ça s'est bien passé");
-    console.log(question_index);
-    console.log(question_number_and_title);
     $.ajax({
       type: "GET",
       url: "/ajaxgetanswers",

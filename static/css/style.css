@@ -188,3 +188,7 @@ a, a:hover {
   background-color: white;
   box-shadow: 0 0 5px;
 }
+
+.mw-500 {
+  min-width: 500px;
+}

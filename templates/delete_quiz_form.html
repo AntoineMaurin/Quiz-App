@@ -2,7 +2,7 @@
   <div class="pl-3 py-2 border-bottom">
     <h4 class="my-1">{{ quiz.title }}</h4>
   </div>
-  <form class="py-3 border" action="{% url 'deletequiz' quiz.id %}" method="post">
+  <form class="py-3 border" action="/deletequiz" method="post">
     {% csrf_token %}
     <div class="mb-3 mx-3">
       <p class="mx-2 text-center">This action will delete your entire quiz.<br>Are you sure you want to continue ?</p>
