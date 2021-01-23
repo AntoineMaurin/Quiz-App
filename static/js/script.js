@@ -10,6 +10,7 @@ function duplicate() {
     var last_element = displayed_rows[displayed_rows.length - 1];
     for (elt of last_element.getElementsByTagName("input")) {
       elt.value = '';
+      elt.checked = false;
     }
     var all_buttons = document.getElementsByClassName('buttons-section');
 
@@ -23,11 +24,11 @@ function duplicate() {
 
 }
 
-function removeRow() {
+function removeRow(minimal_rows) {
 
   var displayed_rows = getDisplayedRows();
 
-  if (displayed_rows.length > 1) {
+  if (displayed_rows.length > minimal_rows) {
     var last_element = displayed_rows[displayed_rows.length - 1];
     for (elt of last_element.getElementsByTagName("input")) {
       elt.required = false;
@@ -152,13 +153,13 @@ $(document).ready(function(){
 
         var i;
         for (i = 0; i < number_of_rows; i++) {
-          removeRow();
+          removeRow(1);
         }
 
         for (res of result) {
           duplicate();
         }
-        removeRow();
+        removeRow(1);
 
         var j = 0;
         $("input[name=answer]").each(function() {
