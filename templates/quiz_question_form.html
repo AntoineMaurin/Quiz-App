@@ -5,9 +5,9 @@
 
 {% block body %}
 
-<div class="row justify-content-center mt-5 mx-auto">
+<div class="row justify-content-center mt-5 mx-auto mb-3">
   <div class="col-auto">
-    <div class="mx-auto"><h1 class="font-exo-medium text-white">{{ quiz.title }}</h1></div>
+    <div class="mx-auto"><h1 class="font-exo-medium text-white quiz-title">{{ quiz.title }}</h1></div>
   </div>
 </div>
 
@@ -25,7 +25,7 @@
 
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-7">
+    <div class="col-8 question_form_container">
 
       <form id="quiz_question_form" class="text-center" action="/submitquiz" method="post">
         {% csrf_token %}
@@ -38,35 +38,54 @@
             <input class="form-control form-control-lg" type="text" placeholder="Question" name="question_text">
           </div>
 
-          <div class="form-row justify-content-around mt-5 answers-section">
-            <div class="col-5">
-              <label class="checkboxes" title="Check the right anwser">
-                <input type="checkbox" name="is_ans_right">
-                <span class="checkmark"></span>
-              </label>
-              <input type="text" class="form-control" name="answer" >
+          <div class="row justify-content-center">
+            <div class="col-11 p-0">
+              <div class="form-row justify-content-end mt-5 mb-3 answers-section">
+                <div class="col-5">
+                  <div class="row">
+                    <div class="col-1">
+                      <label class="checkboxes" title="Check the right answer">
+                        <input type="checkbox" name="is_ans_right">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                    <div class="col-11">
+                      <input type="text" class="form-control" name="answer" >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-5 ml-5">
+                  <div class="row">
+                    <div class="col-1">
+                      <label class="checkboxes" title="Check the right answer">
+                        <input type="checkbox" name="is_ans_right">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                    <div class="col-11">
+                      <input type="text" class="form-control" name="answer" >
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-5">
-              <label class="checkboxes" title="Check thr right anwser">
-                <input type="checkbox" name="is_ans_right">
-                <span class="checkmark"></span>
-              </label>
-              <input type="text" class="form-control" name="answer" >
+
+            <div class="col-1 p-0 mt-2">
+              <div class="col-12 p-0">
+                <button class="btn question-form-btn d-flex question-butttons mx-auto" type="button" onclick="duplicate()"><h3 class="">+</h3></button>
+              </div>
+              <div class="col-12 p-0 mt-2">
+                <button class="btn question-form-btn d-flex question-butttons mx-auto" type="button" onclick="removeRow(1)"><h3 class="">-</h3></button>
+              </div>
             </div>
           </div>
 
-          <div class="row justify-content-center buttons-section">
-            <div class="mt-5 col-auto">
-              <button class="btn btn-dark d-flex question-butttons" type="button" onclick="duplicate()"><h3 class="">+</h3></button>
+          <div class="row justify-content-around buttons-section mt-3">
+            <div class="col-5">
+              <button id="add-question-button" class="btn question-form-btn d-flex question-butttons" formaction="/addquestion"><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i><h3 class="">Add question</h3><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i></button>
             </div>
-            <div class="mt-5 col-auto">
-              <button class="btn btn-dark d-flex question-butttons" type="button" onclick="removeRow(1)"><h3 class="">-</h3></button>
-            </div>
-            <div class="mt-5 col-auto">
-              <button id="add-question-button" class="btn btn-dark d-flex question-butttons" formaction="/addquestion"><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i><h3 class="">Add question</h3><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i></button>
-            </div>
-            <div class="mt-5 col-auto">
-              <button type="submit" class="btn btn-dark d-flex question-butttons"><i class="fas fa-clipboard-check fa-2x my-auto ml-2 mr-3"></i><h3 class="">Finished</h3><i class="fas fa-clipboard-check fa-2x my-auto mr-2 ml-3"></i></button>
+            <div class="col-5">
+              <button type="submit" class="btn question-form-btn d-flex question-butttons"><i class="fas fa-clipboard-check fa-2x my-auto ml-2 mr-3"></i><h3 class="">Finished</h3><i class="fas fa-clipboard-check fa-2x my-auto mr-2 ml-3"></i></button>
             </div>
           </div>
 

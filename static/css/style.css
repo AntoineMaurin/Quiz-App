@@ -7,27 +7,17 @@
   font-family: Exo;
 }
 
+.font-test {
+  font-family: 'Potta One', cursive;
+}
+
 .custom-bg {
   background-color: #ff9d00;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%23000' stroke-width='66.7' stroke-opacity='0.05' %3E%3Ccircle fill='%23ff9d00' cx='0' cy='0' r='1800'/%3E%3Ccircle fill='%23fb8d17' cx='0' cy='0' r='1700'/%3E%3Ccircle fill='%23f47d24' cx='0' cy='0' r='1600'/%3E%3Ccircle fill='%23ed6e2d' cx='0' cy='0' r='1500'/%3E%3Ccircle fill='%23e35f34' cx='0' cy='0' r='1400'/%3E%3Ccircle fill='%23d85239' cx='0' cy='0' r='1300'/%3E%3Ccircle fill='%23cc453e' cx='0' cy='0' r='1200'/%3E%3Ccircle fill='%23be3941' cx='0' cy='0' r='1100'/%3E%3Ccircle fill='%23b02f43' cx='0' cy='0' r='1000'/%3E%3Ccircle fill='%23a02644' cx='0' cy='0' r='900'/%3E%3Ccircle fill='%23901e44' cx='0' cy='0' r='800'/%3E%3Ccircle fill='%23801843' cx='0' cy='0' r='700'/%3E%3Ccircle fill='%236f1341' cx='0' cy='0' r='600'/%3E%3Ccircle fill='%235e0f3d' cx='0' cy='0' r='500'/%3E%3Ccircle fill='%234e0c38' cx='0' cy='0' r='400'/%3E%3Ccircle fill='%233e0933' cx='0' cy='0' r='300'/%3E%3Ccircle fill='%232e062c' cx='0' cy='0' r='200'/%3E%3Ccircle fill='%23210024' cx='0' cy='0' r='100'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url('../img/flat-design-background/3224165.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
   background-attachment: fixed;
   background-size: cover;
-}
-
-::-webkit-input-placeholder {
-   text-align: center;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-   text-align: center;
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   text-align: center;
-}
-
-:-ms-input-placeholder {
-   text-align: center;
 }
 
 .page-section {
@@ -35,11 +25,15 @@
 }
 
 .bg-primary {
-  background-color: #97E382 !important;
+  background-image: url('../img/flat-design-background/47378842.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .bg-secondary {
-  background-color: #2c2c2c !important;
+  background-color: #2c2c2c00 !important;
 }
 
 .lh-1-5 {
@@ -79,19 +73,48 @@ div > .btn-dark {
 }
 
 #inline-validate-button {
-  border-radius: 0px;
-  background-color: #5abb3f;
+  border-radius: 5px;
+  background-color: #242e37;
+  color: #fff;
+  font-size: 20px;
+  border: 1px solid #fff;
+}
+
+#inline-validate-button:hover {
+  background: #03e9f4;
   border: none;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 4px #03e9f4,
+              0 0 16px #03e9f4,
+              0 0 32px #03e9f4,
+              0 0 64px #03e9f4;
 }
 
 #inline-cancel-button {
-  border-radius: 0 5px 5px 0;
-  background-color: #c83e3e;
+  border-radius: 5px;
   border: none;
 }
 
+#inline-validate-button:focus, #inline-cancel-button:focus {
+  box-shadow: none;
+}
+
 #QuizName {
-  border-radius: 5px 0 0 5px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+}
+
+#QuizName:focus {
+  border: none;
+  background-color: transparent;
+  box-shadow:none;
+}
+
+#QuizName:required {
+  box-shadow:none;
 }
 
 .question-butttons, .question-butttons:hover {
@@ -191,4 +214,68 @@ a, a:hover {
 
 .mw-500 {
   min-width: 500px;
+}
+
+#CreateQuizButton {
+  background: linear-gradient(to bottom, #eee, #F5D313);
+  color: #2f4d65;
+  border: 3px solid #eee;
+  border-radius: 20px;
+}
+
+#CreateQuizButton:focus {
+  box-shadow:none;
+}
+
+.input-container {
+  border-bottom: 1px solid #ffffffa8;
+  min-width: 300px;
+}
+
+.form_box {
+  /* background: linear-gradient(to bottom, #242e37, #2F4D65); */
+  padding: 15px;
+  margin-top: 25px;
+  border-radius: 20px;
+  border: 1px solid white;
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: white !important;
+  opacity: .8 !important;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: white !important;
+  opacity: .8 !important;
+}
+
+::placeholder {
+  color: white !important;
+  opacity: .8 !important;
+}
+
+.question_form_container {
+	background-color: #152032d1;
+	padding: 0 30px 20px 20px;
+	border-radius: 20px;
+	box-shadow: 0px 0px 3px white;
+}
+
+.quiz-title {
+  font-size: 55px;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+.summary-container {
+  background-color: #0000009c;
+  border: 1px solid white;
+  border-radius: 20px;
+}
+
+.question-form-btn {
+  background-color: #0d141f !important;
 }

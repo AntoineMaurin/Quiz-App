@@ -61,6 +61,7 @@ def submitquiz(request):
 def deletequestion(request, index):
     if request.POST:
         quiz_id = request.session['quiz_id']
+        print(request.session['quiz_id'])
         quiz = Quiz.objects.get(id=quiz_id)
 
         questions = Question.objects.filter(quiz=quiz)
@@ -134,7 +135,7 @@ def add_answers(answers_titles, right_answers, question):
             Answer.objects.create(title=answer, question=question, is_right=False)
 
 
-"""Returns a boolean. Returns False if all the fields are not filled and if 
+"""Returns a boolean. Returns False if all the fields are not filled and if
 there is no right answer checked."""
 def treat_fields(fields_list, right_answers):
     if len(right_answers) < 1:

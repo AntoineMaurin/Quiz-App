@@ -12,16 +12,6 @@ function duplicate() {
       elt.value = '';
       elt.checked = false;
     }
-    var all_buttons = document.getElementsByClassName('buttons-section');
-
-    for (button of all_buttons) {
-      button.style.display = 'none';
-    }
-    var buttons = document.getElementsByClassName('buttons-section')[0];
-    var buttons_clone = buttons.cloneNode(true);
-    original.parentNode.appendChild(buttons_clone);
-    buttons_clone.style.display = 'flex';
-
 }
 
 function removeRow(minimal_rows) {

@@ -22,23 +22,27 @@
   </div>
 </div>
 
-<div class="container mt-5 text-white">
+<div class="container mt-5 text-white summary-container">
   {% for question in questions %}
-    <div class="row justify-content-center">
+    <div class="row justify-content-center font-exo-medium font-size-20 py-3">
       <div id="{{ forloop.counter0 }}" class="col-6 question-title" value="{{ question.title }}">
         {{ forloop.counter }}. {{ question.title }}
       </div>
-      {% for answer in question.answer_set.all %}
-        <div class="col-auto">
-          {{ answer.title }}
+      <div class="col-4">
+        <div class="row">
+          {% for answer in question.answer_set.all %}
+            <div class="col-3">
+              {{ answer.title }}
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
+      </div>
       <div class="col-1">
         <div class="row">
-          <div class="col-auto edit-question">
+          <div class="col-6 edit-question">
             <i class="fas fa-pen-nib"></i>
           </div>
-          <div class="col-auto del-question">
+          <div class="col-6 del-question">
             <i class="fas fa-trash-alt"></i>
           </div>
         </div>
