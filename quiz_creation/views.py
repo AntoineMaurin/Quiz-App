@@ -9,7 +9,8 @@ def createquizpage(request):
         quiz_id = request.session['quiz_id']
         messages.success(request, f'Your quiz code is {quiz_id}')
         return render(request, "discoverpage.html")
-    return render(request, "createquiz.html")
+    else:
+        return render(request, "createquiz.html")
 
 def questioncreationpage(request):
     if request.method == 'POST':
@@ -45,7 +46,7 @@ def addquestion(request):
         question = Question.objects.create(title=question_text,
                                            quiz=quiz)
 
-        add_answers(answers, right_answers, question)
+        bind_answers_to_question(answers, right_answers, question)
 
         return render(request, "quiz_question_form.html", {'quiz': quiz})
 
@@ -61,7 +62,6 @@ def submitquiz(request):
 def deletequestion(request, index):
     if request.POST:
         quiz_id = request.session['quiz_id']
-        print(request.session['quiz_id'])
         quiz = Quiz.objects.get(id=quiz_id)
 
         questions = Question.objects.filter(quiz=quiz)
@@ -75,6 +75,12 @@ def deletequestion(request, index):
         return render(request, "createquiz.html")
 
 
+"""The process of question edition is :
+-First, identify which question is being edited with its index.
+-Second, get the data from the edition form (same fields as the question
+creation form).
+-Third, replace the question text and its answers. For the answers, all the
+ancient answers are deleted before the new ones are added."""
 def editquestion(request, index):
     if request.POST:
         quiz_id = request.session['quiz_id']
@@ -93,14 +99,19 @@ def editquestion(request, index):
 
         Answer.objects.filter(question=question_to_edit).delete()
 
-        add_answers(new_answers, right_answers, question_to_edit)
+        bind_answers_to_question(new_answers, right_answers, question_to_edit)
 
-        return render(request, "quiz_building_summary.html", {'quiz': quiz,
-                                                              'questions': questions})
+        return render(request,
+                     "quiz_building_summary.html",
+                     {'quiz': quiz,
+                      'questions': questions})
     else:
         return render(request, "createquiz.html")
 
 
+"""Gets via ajax the index of the question to edit. Then returns a list of
+tuples where the first element is the answer text, and the second a boolean
+that tells if the answer is right or not."""
 def ajaxgetanswers(request):
     quiz_id = request.session['quiz_id']
     quiz = Quiz.objects.get(id=quiz_id)
@@ -127,7 +138,7 @@ def deletequiz(request):
 
 
 
-def add_answers(answers_titles, right_answers, question):
+def bind_answers_to_question(answers_titles, right_answers, question):
     for answer in answers_titles:
         if answer in right_answers:
             Answer.objects.create(title=answer, question=question, is_right=True)

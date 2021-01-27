@@ -311,3 +311,10 @@ a, a:hover {
 .form-control {
   background-clip: unset;
 }
+
+.play-button {
+  background-color: #f4d413;
+  color: #242e37;
+  font-size: 18px;
+  border-radius: 8px;
+}
