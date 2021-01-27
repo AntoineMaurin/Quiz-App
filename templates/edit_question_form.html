@@ -9,29 +9,36 @@
       <input id="question_to_edit" class="form-control form-control-lg" type="text" placeholder="Question" name="question_text">
     </div>
 
-    <div class="form-row justify-content-around mt-3 answers-section">
-      <div class="col-6">
-        <label class="checkboxes" title="Check the right anwser">
-          <input type="checkbox" name="is_ans_right">
-          <span class="checkmark"></span>
-        </label>
-        <input type="text" class="form-control" name="answer">
+    <div class="row justify-content-center">
+      <div class="col-11">
+        <div class="form-row justify-content-around mt-3 answers-section">
+          <div class="col-6">
+            <label class="checkboxes" title="Check the right anwser">
+              <input type="checkbox" name="is_ans_right">
+              <span class="checkmark"></span>
+            </label>
+            <input type="text" class="form-control" name="answer">
+          </div>
+        </div>
+      </div>
+      <div class="col-1 p-0 mt-2">
+        <div class="col-12 p-0">
+          <button class="btn question-form-btn d-flex question-butttons mx-auto w-100" type="button" onclick="duplicate()"><h3 class="">+</h3></button>
+        </div>
+        <div class="col-12 p-0 mt-2">
+          <button class="btn question-form-btn d-flex question-butttons mx-auto px-3 w-100" type="button" onclick="removeRow(2)"><h3 class="">-</h3></button>
+        </div>
       </div>
     </div>
 
     <div class="row justify-content-center text-center mt-3 pt-3 buttons-section">
       <div class="col">
-        <button type="submit" onclick="CloseEditQuestionForm()" class="btn btn-dark">Edit</button>
+        <button type="submit" onclick="CloseEditQuestionForm()" class="btn question-butttons px-3 font-size-20">Edit</button>
       </div>
       <div class="col">
-        <button type="button" onclick="duplicate()" class="btn btn-dark">+</button>
-      </div>
-      <div class="col">
-        <button type="button" onclick="removeRow(2)" class="btn btn-dark">-</button>
-      </div>
-      <div class="col">
-        <div onclick="CloseEditQuestionForm()" class="btn btn-dark">Cancel</div>
+        <div onclick="CloseEditQuestionForm()" class="btn question-butttons px-3 font-size-20">Cancel</div>
       </div>
     </div>
+
   </form>
 </div>

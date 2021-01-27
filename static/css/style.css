@@ -12,7 +12,6 @@
 }
 
 .custom-bg {
-  background-color: #ff9d00;
   background-image: url('../img/flat-design-background/3224165.jpg');
   background-repeat: no-repeat;
   background-position: center;
@@ -74,21 +73,22 @@ div > .btn-dark {
 
 #inline-validate-button {
   border-radius: 5px;
-  background-color: #242e37;
+  background-image: url('../img/flat-design-background/47378842.jpg');
   color: #fff;
   font-size: 20px;
-  border: 1px solid #fff;
+  border: none;
+  background-position: right;
 }
 
 #inline-validate-button:hover {
-  background: #03e9f4;
+  background: #f4d413;
   border: none;
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 4px #03e9f4,
-              0 0 16px #03e9f4,
-              0 0 32px #03e9f4,
-              0 0 64px #03e9f4;
+  box-shadow: 0 0 4px #f4d413,
+              0 0 16px #f4d413,
+              0 0 32px #f4d413,
+              0 0 64px #f4d413;
 }
 
 #inline-cancel-button {
@@ -122,6 +122,8 @@ div > .btn-dark {
   border: 2px solid white;
   border-radius: 15px;
   color: #fff;
+  padding-right: 20px;
+  background-color: #0d141f;
 }
 
 a, a:hover {
@@ -173,7 +175,7 @@ a, a:hover {
 
 /* When the checkbox is checked, add a blue background */
 .checkboxes input:checked ~ .checkmark {
-  background-color: lightgreen;
+  background-color: #009965;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -208,8 +210,12 @@ a, a:hover {
   right: 50%;
   transform: translate(50%, -50%);
   z-index: 9;
-  background-color: white;
-  box-shadow: 0 0 5px;
+
+  background-color: #152032f7;
+  padding: 0 30px 20px 20px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 8px white;
+  color: white;
 }
 
 .mw-500 {
@@ -217,9 +223,9 @@ a, a:hover {
 }
 
 #CreateQuizButton {
-  background: linear-gradient(to bottom, #eee, #F5D313);
-  color: #2f4d65;
-  border: 3px solid #eee;
+  background-image: url('../img/flat-design-background/47378842.jpg');
+  color: #fff;
+  border: 2px solid #fff;
   border-radius: 20px;
 }
 
@@ -233,11 +239,11 @@ a, a:hover {
 }
 
 .form_box {
-  /* background: linear-gradient(to bottom, #242e37, #2F4D65); */
+  background-image: url('../img/flat-design-background/47378842.jpg');
   padding: 15px;
   margin-top: 25px;
   border-radius: 20px;
-  border: 1px solid white;
+  box-shadow: 0px 0px 10px #2f4d65;
 }
 
 ::-webkit-input-placeholder { /* Edge */
@@ -276,6 +282,32 @@ a, a:hover {
   border-radius: 20px;
 }
 
-.question-form-btn {
-  background-color: #0d141f !important;
+.edit-question, .del-question {
+  cursor: pointer;
+}
+
+.question-card {
+  background-color: #152032;
+  color: #fff;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+
+.btn {
+  border-radius: 15px;
+}
+
+.gradient-button{
+  background-color: #0d141f;
+  color: white;
+  border: 1px solid;
+  border: none;
+}
+
+.black-cover {
+  background-color: #00000073;
+}
+
+.form-control {
+  background-clip: unset;
 }

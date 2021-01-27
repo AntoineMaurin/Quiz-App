@@ -1,66 +1,68 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block body_class %}custom-bg{% endblock body_class %}
+{% block body_class %}custom-bg page-section{% endblock body_class %}
 
 {% block body %}
+<div class="black-cover pt-5 h-100">
 
-<div class="row justify-content-center mt-5 mx-auto">
-  <div class="col-auto">
-    <div class="mx-auto text-center">
-      <h1 class="font-exo-medium text-white">{{ quiz.title }}</h1>
-      <h5 class="font-exo-medium text-white">Quiz code : {{ quiz.id }}</h5>
-    </div>
-  </div>
-</div>
-
-<div class="container">
   <div class="row justify-content-center mt-5 mx-auto">
     <div class="col-auto">
-      <h2 class="font-exo-medium text-white">{{ quiz.question_set.all|length }} questions</h2>
+      <div class="mx-auto text-center">
+        <h1 class="font-exo-medium text-white quiz-title">{{ quiz.title }}</h1>
+        <h5 class="font-exo-medium text-white">Quiz code : {{ quiz.id }}</h5>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="container mt-5 text-white summary-container">
-  {% for question in questions %}
-    <div class="row justify-content-center font-exo-medium font-size-20 py-3">
-      <div id="{{ forloop.counter0 }}" class="col-6 question-title" value="{{ question.title }}">
-        {{ forloop.counter }}. {{ question.title }}
+  <div class="container">
+    <div class="row justify-content-center mt-5 mx-auto">
+      <div class="col-auto">
+        <h2 class="font-exo-medium text-white">{{ quiz.question_set.all|length }} questions</h2>
       </div>
-      <div class="col-4">
-        <div class="row">
-          {% for answer in question.answer_set.all %}
-            <div class="col-3">
-              {{ answer.title }}
+    </div>
+  </div>
+
+  <div class="container mt-5 text-white">
+    {% for question in questions %}
+      <div class="row justify-content-center font-exo-medium font-size-20 py-2 question-card mt-3">
+        <div id="{{ forloop.counter0 }}" class="col-7 question-title" value="{{ question.title }}">
+          {{ forloop.counter }}. {{ question.title }}
+        </div>
+        <div class="col-4">
+          <div class="row">
+            {% for answer in question.answer_set.all %}
+              <div class="col-auto">
+                {{ answer.title }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-1 my-auto">
+          <div class="row">
+            <div class="col-6 edit-question">
+              <i class="far fa-edit"></i>
             </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="col-1">
-        <div class="row">
-          <div class="col-6 edit-question">
-            <i class="fas fa-pen-nib"></i>
-          </div>
-          <div class="col-6 del-question">
-            <i class="fas fa-trash-alt"></i>
+            <div class="col-6 del-question">
+              <i class="fas fa-trash-alt"></i>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  {% endfor %}
-</div>
+    {% endfor %}
+  </div>
 
-<div class="container mt-5">
-  <div class="row justify-content-center pt-5">
-    <div class="col-auto mx-3">
-      <form class="" action="/play" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-dark d-flex mx-auto"><h1 class="text-white">Validate</h1></button>
-      </form>
-    </div>
-    <div class="col-auto mx-3">
-      <button class="btn btn-dark d-flex mx-auto" onclick="OpenDeleteQuizForm()"><h1 class="text-white">Delete</h1></button>
+  <div class="container mt-5">
+    <div class="row justify-content-center pt-5">
+      <div class="col-auto mx-3">
+        <form class="" action="/play" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn font-exo-medium d-flex mx-auto question-butttons"><h1 class="text-white mt-2">Validate</h1></button>
+        </form>
+      </div>
+      <div class="col-auto mx-3">
+        <button class="btn font-exo-medium d-flex mx-auto question-butttons" onclick="OpenDeleteQuizForm()"><h1 class="text-white mt-2">Delete</h1></button>
+      </div>
     </div>
   </div>
 </div>

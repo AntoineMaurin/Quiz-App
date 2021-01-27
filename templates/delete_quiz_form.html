@@ -2,17 +2,17 @@
   <div class="pl-3 py-2 border-bottom">
     <h4 class="my-1">{{ quiz.title }}</h4>
   </div>
-  <form class="py-3 border" action="/deletequiz" method="post">
+  <form class="py-3" action="/deletequiz" method="post">
     {% csrf_token %}
     <div class="mb-3 mx-3">
-      <p class="mx-2 text-center">This action will delete your entire quiz.<br>Are you sure you want to continue ?</p>
+      <h5 class="mx-2 text-center">This action will delete your entire quiz.<br>Are you sure you want to continue ?</h5>
     </div>
     <div class="row justify-content-around text-center">
       <div class="col">
-        <button type="submit" onclick="CloseDeleteQuizForm()" class="btn btn-dark">Yes</button>
+        <button type="submit" onclick="CloseDeleteQuizForm()" class="btn question-butttons px-3 font-size-20">Yes</button>
       </div>
       <div class="col">
-        <div onclick="CloseDeleteQuizForm()" class="btn btn-dark">Cancel</div>
+        <div onclick="CloseDeleteQuizForm()" class="btn question-butttons px-3 font-size-20">Cancel</div>
       </div>
     </div>
   </form>
