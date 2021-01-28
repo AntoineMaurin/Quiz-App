@@ -23,5 +23,6 @@ urlpatterns = [
     path('play', views.playpage),
     path('startquiz', views.startquizpage),
     path('nextquestion', views.nextquestionpage),
+    path('questionresults', views.questionresultspage),
     path('', include('quiz_creation.urls')),
 ]

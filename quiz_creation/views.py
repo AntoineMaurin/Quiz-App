@@ -5,12 +5,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 
 def createquizpage(request):
-    if request.method == 'POST':
-        quiz_id = request.session['quiz_id']
-        messages.success(request, f'Your quiz code is {quiz_id}')
-        return render(request, "discoverpage.html")
-    else:
-        return render(request, "createquiz.html")
+    return render(request, "createquiz.html")
 
 def questioncreationpage(request):
     if request.method == 'POST':

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block body_class %}custom-bg{% endblock body_class %}
+{% block body_class %}playing-bg{% endblock body_class %}
 
 {% block body %}
 
@@ -13,32 +13,42 @@
 
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-7">
+    <div class="col-9">
       <div class="text-white text-left mb-2 mt-5">
         <h5>Question {{ question_number }}</h5>
       </div>
 
-      <div class="row justify-content-center mt-5 mx-auto">
+      <div class="row justify-content-center my-5 mx-auto">
         <div class="col-auto">
           <div class="mx-auto"><h2 class="font-exo-medium text-white">{{ current_question }}</h2></div>
         </div>
       </div>
 
-      <form id="quiz_form" class="text-center" action="/nextquestion" method="post">
+      <form id="quiz_form" class="text-center" action="/questionresults" method="post">
         {% csrf_token %}
 
-        <div class="row justify-content-around">
-          <div class="mt-5 col-auto">
-            <button type="submit" class="btn d-flex question-butttons"><h3 class="text-white">{{ ans1 }}</h3></button>
-          </div>
-          <div class="mt-5 col-auto">
-            <button type="submit" class="btn d-flex question-butttons"><h3 class="text-white">{{ ans2 }}</h3></button>
-          </div>
+        <div class="row mt-3 ml-3 px-5 justify-content-center">
+          {% for answer in answers %}
+            <div class="col-5 ml-5">
+              <div class="row mt-3">
+                <div class="col-1">
+                  <label class="checkboxes" title="Check the right answer">
+                    <input type="checkbox" name="is_answer_checked">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="col-auto p-0 text-white text-left">
+                  <h3>{{ answer.title }}</h3>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
         </div>
-
       </form>
     </div>
   </div>
 </div>
+
+<a class="text-white licence-image-link" href="https://www.vecteezy.com/free-vector/blue-burst">Blue Burst Vectors by Vecteezy</a>
 
 {% endblock body %}
