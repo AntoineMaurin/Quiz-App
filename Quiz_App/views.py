@@ -47,18 +47,9 @@ def nextquestionpage(request):
                                                               'question_number': request.session['question_number'],
                                                               })
     except(IndexError):
-        return render(request, "results.html")
+        # Generates results of the quiz played
+        results_data = get_quiz_results()
+        return render(request, "quiz_results.html", results_data)
 
-def questionresultspage(request):
-
-    if request.method == 'POST':
-        checked_answers = request.POST.getlist('is_answer_checked')
-
-        answered_question_id = request.session['questions_left'][0]
-        answered_question = Question.objects.get(id=answered_question_id)
-        all_answers = Answer.objects.filter(question=answered_question)
-
-        return render(request, "question_results.html",
-        {'checked_answers': checked_answers,
-         'answered_question': answered_question,
-         'all_answers': all_answers})
+def get_quiz_results():
+    return {}

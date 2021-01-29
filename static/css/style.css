@@ -20,7 +20,7 @@
 }
 
 .playing-bg {
-  background-image: url('../img/blue-abstract-design/GD21-1.jpg');
+  background-image: url('../img/flat-design-background/GD21-1.jpg');
 }
 
 .bg-primary, .custom-bg, .playing-bg {
@@ -42,6 +42,7 @@
 
 .page-section-covered {
   background-color: #00000073;
+  min-height: 100vh;
 }
 
 .lh-1-5 {
@@ -89,7 +90,7 @@ div > .btn-dark {
   background-position: right;
 }
 
-#inline-validate-button:hover {
+#inline-validate-button:hover, .play-button:hover {
   background: #f4d413;
   border: none;
   color: #fff;
@@ -183,7 +184,8 @@ a, a:hover {
 
 /* When the checkbox is checked, add a blue background */
 .checkboxes input:checked ~ .checkmark {
-  background-color: #009965;
+  background-color: #2fac54;
+  border: 1px solid white;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -200,8 +202,8 @@ a, a:hover {
 
 /* Style the checkmark/indicator */
 .checkboxes .checkmark:after {
-  left: 11px;
-  top: 6px;
+  left: 10px;
+  top: 5px;
   width: 10px;
   height: 15px;
   border: solid white;
@@ -316,8 +318,19 @@ a, a:hover {
 }
 
 .play-button {
-  background-color: #f4d413;
-  color: #242e37;
+  background-color: #242e37;
+  color: #f4d413;
   font-size: 18px;
   border-radius: 8px;
+  border: 1px solid;
+}
+
+.quiz-playing-butttons {
+  border: 1px solid white;
+  transition: all .1s ease-in-out;
+}
+
+.quiz-playing-butttons:hover {
+  transform: scale(1.1);
+  transition: all .1s ease-in-out;
 }
