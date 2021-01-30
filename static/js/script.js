@@ -90,6 +90,10 @@ $(document).ready(function(){
   $('#quiz_question_form').submit(function(event) {
     set_checkboxes_values_in_creation();
   });
+  $('#quiz_form').submit(function(event) {
+    set_checkboxes_values_in_playing();
+  });
+
 
   function set_checkboxes_values_in_edition() {
     $("input[type=checkbox]").each(function() {
@@ -109,6 +113,18 @@ $(document).ready(function(){
       if (this.checked) {
 
         let answer_text = $(this).parent().parent().siblings().children('input').val();
+        $(this).attr("value", answer_text);
+
+       }
+     });
+  }
+
+  function set_checkboxes_values_in_playing() {
+    $("input[type=checkbox]").each(function() {
+
+      if (this.checked) {
+
+        let answer_text = $(this).parent().siblings('h3').text();
         $(this).attr("value", answer_text);
 
        }

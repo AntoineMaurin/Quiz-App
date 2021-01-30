@@ -23,7 +23,11 @@
   background-image: url('../img/flat-design-background/GD21-1.jpg');
 }
 
-.bg-primary, .custom-bg, .playing-bg {
+.results-bg {
+  background-image: url('../img/flat-design-background/003.jpg');
+}
+
+.bg-primary, .custom-bg, .playing-bg, .results-bg {
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -300,6 +304,13 @@ a, a:hover {
   color: #fff;
   border-radius: 10px;
   border: 1px solid white;
+}
+
+.results-question-card {
+  background-color: #fff;
+  color: #242424;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px white;
 }
 
 .btn {

@@ -132,7 +132,6 @@ def deletequiz(request):
     return render(request, "createquiz.html")
 
 
-
 def bind_answers_to_question(answers_titles, right_answers, question):
     for answer in answers_titles:
         if answer in right_answers:

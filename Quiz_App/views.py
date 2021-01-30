@@ -29,13 +29,19 @@ def startquizpage(request):
 
 def nextquestionpage(request):
 
+    quiz_id = request.session['quiz_id']
+    quiz = Quiz.objects.get(id=quiz_id)
+
     try:
         current_question_id = request.session['questions_left'][0]
         current_question = Question.objects.get(id=current_question_id)
-        answers = Answer.objects.filter(question=current_question)
-        quiz_id = request.session['quiz_id']
+        checked_answers = request.POST.getlist('is_answer_checked')
 
-        quiz = Quiz.objects.get(id=quiz_id)
+
+        if 'quiz_results' in request.session:
+            request.session['quiz_results'][str(current_question.title)] = checked_answers
+        else:
+            request.session['quiz_results'] = {}
 
         request.session['question_number'] += 1
         del(request.session['questions_left'][0])
@@ -43,13 +49,16 @@ def nextquestionpage(request):
 
         return render(request, "quiz_question_playing.html", {'quiz': quiz,
                                                               'current_question': current_question,
-                                                              'answers': answers,
                                                               'question_number': request.session['question_number'],
                                                               })
     except(IndexError):
-        # Generates results of the quiz played
-        results_data = get_quiz_results()
-        return render(request, "quiz_results.html", results_data)
 
-def get_quiz_results():
-    return {}
+        all_questions = Question.objects.filter(quiz=quiz)
+        # Generates results of the quiz played
+        quiz_results = request.session['quiz_results']
+        # del(request.session['quiz_results'])
+        # request.session.modified = True
+
+        return render(request, "quiz_results.html", {'quiz': quiz,
+                                                     'all_questions': all_questions,
+                                                     'quiz_results': quiz_results})
