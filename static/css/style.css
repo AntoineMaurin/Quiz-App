@@ -177,8 +177,8 @@ a, a:hover {
   left: 0;
   height: 30px;
   width: 30px;
-  background-color: #eee;
   border-radius: 4px;
+  background-color: #ccc;
 }
 
 /* On mouse-over, add a grey background color */
@@ -186,35 +186,66 @@ a, a:hover {
   background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a green background */
 .checkboxes input:checked ~ .checkmark {
   background-color: #2fac54;
   border: 1px solid white;
 }
 
+/* When the checkbox is checked, add a red background */
+.checkboxes input:checked ~ .checkmark {
+  border: 1px solid white;
+}
+
+.checkboxes.red-bg input:checked ~ .checkmark {
+  background-color: #ac2f2f;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-family:courier;
+  color:white;
+}
+
+.checkboxes.green-bg input:checked ~ .checkmark {
+  background-color: #2fac54;
+  content: "";
+}
+
 /* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
+.checkboxes.red-bg .checkmark:after {
+  content: "+";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: -6px;
+  color: white;
+  transform: rotate(45deg);
+  font-size: 28px;
+}
+
+.checkboxes.green-bg .checkmark:after {
   content: "";
   position: absolute;
   display: none;
-}
-
-/* Show the checkmark when checked */
-.checkboxes input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the checkmark/indicator */
-.checkboxes .checkmark:after {
   left: 10px;
   top: 5px;
   width: 10px;
   height: 15px;
   border: solid white;
-  border-width: 0 3px 3px 0;
+  border-width: 0px 3px 3px 0px;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.checkmark input:checked:after {
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkboxes input:checked ~ .checkmark:after{
+  display: block;
 }
 
 #DeleteQuestionFormDiv, #DeleteQuizFormDiv, #EditQuestionFormDiv {
@@ -310,7 +341,7 @@ a, a:hover {
   background-color: #fff;
   color: #242424;
   border-radius: 10px;
-  box-shadow: 0px 0px 4px white;
+  box-shadow: 0px 0px 3px white;
 }
 
 .btn {
