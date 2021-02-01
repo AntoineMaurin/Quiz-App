@@ -51,15 +51,15 @@ def nextquestionpage(request):
 
             # Here i add the question as a key and the checked answers as value
             # in the 'quiz_resulst' dictionnary that i pass in the session dict
-            request.session['quiz_results'][str(current_question.title)] = checked_answers
-
+            request.session['quiz_results'].append([current_question_id, checked_answers])
+            print(request.session['quiz_results'])
             # Updates the list of questions left for the next one
             current_question_id = request.session['questions_left'][0]
             current_question = Question.objects.get(id=current_question_id)
 
         # If the dictionnary doesn't exist, create it (before the 1st question)
         else:
-            request.session['quiz_results'] = {}
+            request.session['quiz_results'] = []
 
         return render(request, "quiz_question_playing.html", {'quiz': quiz,
                                                               'current_question': current_question,
@@ -68,12 +68,14 @@ def nextquestionpage(request):
     # If there is no question left, generates the quiz_resulst page
     except(IndexError):
 
-        all_questions = Question.objects.filter(quiz=quiz)
-
         quiz_results = request.session['quiz_results']
+
+        for elt in quiz_results:
+            question = Question.objects.get(id=elt[0])
+            elt[0] = question
+
         del(request.session['quiz_results'])
         request.session.modified = True
 
         return render(request, "quiz_results.html", {'quiz': quiz,
-                                                     'all_questions': all_questions,
                                                      'quiz_results': quiz_results})

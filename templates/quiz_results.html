@@ -24,18 +24,18 @@
   </div>
 
   <div class="container my-5">
-    {% for question in all_questions %}
+    {% for elt in quiz_results %}
       <div class="row justify-content-center font-exo-medium results-question-card my-5 py-3">
-        <div id="{{ forloop.counter0 }}" class="row justify-content-center w-75 text-center question-title" value="{{ question.title }}">
-          <h3>{{ forloop.counter }}. {{ question.title }}</h3>
+        <div id="{{ forloop.counter0 }}" class="row justify-content-center w-75 text-center question-title" value="{{ question }}">
+          <h3>{{ forloop.counter }}. {{ elt.0 }}</h3>
         </div>
         <div class="row justify-content-center w-75 ">
-          {% for answer in question.answer_set.all %}
+          {% for answer in elt.0.answer_set.all %}
             <div class="col-5 ml-5">
               <div class="row mt-3">
-                <div class="col-auto">
-                  <label class="checkboxes red-bg" title="Check the right answer">
-                    <input type="checkbox" name="is_answer_checked">
+                <div class="col-auto pt-1 {% if answer.is_right %} green-bg {% endif %}">
+                  <label class="checkboxes {% if answer.is_right and answer.title in elt.1 %} green-checkmark {% elif not answer.is_right and answer.title in elt.1 or answer.is_right %} red-checkmark {% else %} no-bg {% endif %}" title="Check the right answer">
+                    <input type="checkbox" name="is_answer_checked" checked="" disabled="disabled">
                     <span class="checkmark"></span>
                   </label>
                   <h4 class="text-left">{{ answer.title }}</h4>
@@ -48,7 +48,7 @@
     {% endfor %}
     <div class="row justify-content-center py-5">
       <div class="col-auto mx-3">
-        <form class="" action="/play" method="post">
+        <form class="" action="/play" method="get">
           {% csrf_token %}
           <button type="submit" class="btn font-exo-medium d-flex px-3 question-butttons"><h1 class="text-white mt-2">Back</h1></button>
         </form>

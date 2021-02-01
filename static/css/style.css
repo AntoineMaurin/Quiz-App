@@ -178,7 +178,7 @@ a, a:hover {
   height: 30px;
   width: 30px;
   border-radius: 4px;
-  background-color: #ccc;
+  background-color: #eee;
 }
 
 /* On mouse-over, add a grey background color */
@@ -188,7 +188,7 @@ a, a:hover {
 
 /* When the checkbox is checked, add a green background */
 .checkboxes input:checked ~ .checkmark {
-  background-color: #2fac54;
+  background-color: transparent;
   border: 1px solid white;
 }
 
@@ -197,22 +197,30 @@ a, a:hover {
   border: 1px solid white;
 }
 
-.checkboxes.red-bg input:checked ~ .checkmark {
+.checkboxes.red-checkmark input:checked ~ .checkmark {
   background-color: #ac2f2f;
   align-items:center;
   justify-content:center;
   font-weight:bold;
   font-family:courier;
   color:white;
+  cursor: default;
 }
 
-.checkboxes.green-bg input:checked ~ .checkmark {
+.checkboxes.green-checkmark input:checked ~ .checkmark {
   background-color: #2fac54;
   content: "";
+  cursor: default;
+}
+
+.checkboxes.no-bg input:checked ~ .checkmark {
+  background-color: transparent;
+  content: "";
+  cursor: default;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
-.checkboxes.red-bg .checkmark:after {
+.checkboxes.red-checkmark .checkmark:after {
   content: "+";
   position: absolute;
   display: none;
@@ -223,7 +231,7 @@ a, a:hover {
   font-size: 28px;
 }
 
-.checkboxes.green-bg .checkmark:after {
+.checkboxes.green-checkmark .checkmark:after {
   content: "";
   position: absolute;
   display: none;
@@ -260,6 +268,12 @@ a, a:hover {
   border-radius: 20px;
   box-shadow: 0px 0px 8px white;
   color: white;
+}
+
+.green-bg {
+  background-color: #2fac54;
+  color: white;
+  border-radius: 4px;
 }
 
 .mw-500 {
