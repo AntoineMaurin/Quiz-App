@@ -390,3 +390,12 @@ a, a:hover {
   transform: scale(1.1);
   transition: all .1s ease-in-out;
 }
+
+.error_msg {
+  background-color: #b93f3f;
+  border-radius: 8px;
+}
+
+#msg_uncompleted_answers, #msg_no_right_answer {
+  display: none;
+}

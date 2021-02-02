@@ -31,11 +31,15 @@ def addquestion(request):
 
         fields_to_check = answers + [question_text]
 
-        fields_are_good = treat_fields(fields_to_check, right_answers)
+        fields_are_good = are_fields_filled(fields_to_check)
 
         if not fields_are_good:
             messages.error(request, 'The question and the answer fields '
             'have to be completed.')
+            return render(request, "quiz_question_form.html", {'quiz': quiz})
+
+        if len(right_answers) < 1:
+            messages.error(request, 'There must be at least one right answer.')
             return render(request, "quiz_question_form.html", {'quiz': quiz})
 
         question = Question.objects.create(title=question_text,
@@ -125,6 +129,26 @@ def ajaxgetanswers(request):
 
     return JsonResponse(data, safe=False)
 
+def ajaxcheckfields(request):
+    answers_titles = request.GET.getlist('answers_titles[]')
+    answers_types = request.GET.getlist('answers_types[]')
+
+    print(answers_titles, answers_types)
+
+    answers_are_filled = are_fields_filled(answers_titles)
+
+    result = {}
+
+    if not answers_are_filled:
+        result['error'] = 'answers not filled'
+        return JsonResponse(result, safe=False)
+
+    if 'true' in answers_types:
+        result['error'] = 'all good'
+    else:
+        result['error'] = 'no right answer'
+
+    return JsonResponse(result, safe=False)
 
 def deletequiz(request):
     quiz_id = request.session['quiz_id']
@@ -142,9 +166,7 @@ def bind_answers_to_question(answers_titles, right_answers, question):
 
 """Returns a boolean. Returns False if all the fields are not filled and if
 there is no right answer checked."""
-def treat_fields(fields_list, right_answers):
-    if len(right_answers) < 1:
-        return False
+def are_fields_filled(fields_list):
     for field in fields_list:
         if len(field) < 1:
             return False

@@ -27,37 +27,39 @@ def startquizpage(request):
 
     return render(request, "welcome_quiz.html", {'quiz': quiz})
 
+"""This view makes the quiz work while being played. It manages to render
+the different questions of the quiz, and generate the quiz results when 
+finished."""
 def nextquestionpage(request):
 
     quiz_id = request.session['quiz_id']
     quiz = Quiz.objects.get(id=quiz_id)
 
-    # Tests if there is still questions left
     try:
-        # Gets the first question of the list, gets the real Question object,
-        # and gets the list of answers checked.
+        # In this part we get the current question, which is referenced by its
+        # id in the session dictionnary. And then we get the answers that the
+        # user checked for this question.
         current_question_id = request.session['questions_left'][0]
         current_question = Question.objects.get(id=current_question_id)
         checked_answers = request.POST.getlist('is_answer_checked')
 
-        # Builds a dictionnary that will store the answers of each question
+        # Builds a list that will store the answers of each question
         if 'quiz_results' in request.session:
 
             request.session['question_number'] += 1
             # Each time this view is called, it renders the first question of
-            # the list, so here i delete the last question played
+            # the list, so here i delete the last question played to go to the
+            # next one.
             del(request.session['questions_left'][0])
             request.session.modified = True
 
             # Here i add the question as a key and the checked answers as value
             # in the 'quiz_resulst' dictionnary that i pass in the session dict
             request.session['quiz_results'].append([current_question_id, checked_answers])
-            print(request.session['quiz_results'])
-            # Updates the list of questions left for the next one
+
             current_question_id = request.session['questions_left'][0]
             current_question = Question.objects.get(id=current_question_id)
 
-        # If the dictionnary doesn't exist, create it (before the 1st question)
         else:
             request.session['quiz_results'] = []
 
@@ -69,11 +71,12 @@ def nextquestionpage(request):
     except(IndexError):
 
         quiz_results = request.session['quiz_results']
-
+        # Transforms every question ID into its related Question object.
         for elt in quiz_results:
             question = Question.objects.get(id=elt[0])
             elt[0] = question
-
+        # The quiz is now finished, so to replay it or play another, a reset is
+        # needed.
         del(request.session['quiz_results'])
         request.session.modified = True
 

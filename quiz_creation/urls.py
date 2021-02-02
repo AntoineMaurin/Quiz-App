@@ -11,4 +11,5 @@ urlpatterns = [
     path('editquestion/<int:index>', views.editquestion),
     path('deletequiz', views.deletequiz),
     path('ajaxgetanswers', views.ajaxgetanswers),
+    path('ajaxcheckfields', views.ajaxcheckfields),
 ]

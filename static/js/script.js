@@ -16,7 +16,6 @@ function duplicate(maximum_rows) {
       elt.checked = false;
     }
   }
-
 }
 
 function removeRow(minimum_rows) {
@@ -84,8 +83,46 @@ $(document).ready(function(){
   $('#DeleteQuestionForm').submit(function(event) {
     set_checkboxes_values_in_edition();
   });
-  $('#EditQuestionForm').submit(function(event) {
-    set_checkboxes_values_in_edition();
+  $('#EditQuestionForm').submit(function checkfieldsfunction(event) {
+
+    event.preventDefault();
+
+    var answers_titles = [];
+    var answers_types = [];
+
+    $("input[name=answer]").each(function() {
+      answers_titles.push($(this).val());
+    })
+
+    $('input[name=is_ans_right]:checked').each(function() {
+      answers_types.push("true");
+    });
+
+    $.ajax({
+      type: "GET",
+      url: "/ajaxcheckfields",
+      data: {'answers_titles': answers_titles,
+             'answers_types': answers_types},
+      dataType: "json",
+      success: function(result) {
+
+        if (result["error"] == "answers not filled"){
+          $("#msg_uncompleted_answers").css('display', 'block');
+        }
+        else if (result["error"] == "no right answer") {
+          $("#msg_no_right_answer").css('display', 'block');
+        }
+        else {
+          set_checkboxes_values_in_edition();
+          $('#EditQuestionForm').submit();
+          $("#EditQuestionForm").off('submit', checkfieldsfunction);
+          CloseEditQuestionForm();
+        }
+      },
+      error: function(rs, e) {
+         console.log(e);
+       }});
+
   });
   $('#quiz_question_form').submit(function(event) {
     set_checkboxes_values_in_creation();
@@ -167,6 +204,7 @@ $(document).ready(function(){
     $("#EditQuestionFormDiv").children('form').attr("action", "/editquestion/" + question_index);
     $('#question_number').text("Question " + question_number);
     $("#question_to_edit").val(question_title);
+
     $.ajax({
       type: "GET",
       url: "/ajaxgetanswers",
@@ -204,7 +242,6 @@ $(document).ready(function(){
       error: function(rs, e) {
          console.log(e);
        }});
-
   });
 
 });
