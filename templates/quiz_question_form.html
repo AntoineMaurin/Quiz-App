@@ -4,95 +4,96 @@
 {% block body_class %}custom-bg{% endblock body_class %}
 
 {% block body %}
+<div class="page-section-covered pt-5">
 
-<div class="row justify-content-center mt-5 mx-auto mb-3">
-  <div class="col-auto">
-    <div class="mx-auto"><h1 class="font-exo-medium text-white quiz-title">{{ quiz.title }}</h1></div>
+  <div class="row justify-content-center mt-5 mx-auto mb-3">
+    <div class="col-auto">
+      <div class="mx-auto"><h1 class="secondary-font text-white quiz-title">{{ quiz.title }}</h1></div>
+    </div>
   </div>
-</div>
 
-{% if messages %}
-<div class="row justify-content-center mt-5 mx-auto">
-  <div class="col-auto">
-    {% for message in messages %}
-      <div id="alert" class="alert alert-{{ message.tags }}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  </div>
-</div>
-{% endif %}
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-8 question_form_container">
-
-      <form id="quiz_question_form" class="text-center" action="/submitquiz" method="post">
-        {% csrf_token %}
-
-        <div class="mt-5">
-          <div class="text-white text-left mb-2">
-            <h5>Question {{ quiz.question_set.all|length|add:"1" }}</h5>
-          </div>
-          <div class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Question" name="question_text">
-          </div>
-
-          <div class="row justify-content-center">
-            <div class="col-11 p-0">
-              <div class="form-row justify-content-end mt-5 mb-3 answers-section">
-                <div class="col-5">
-                  <div class="row">
-                    <div class="col-1">
-                      <label class="checkboxes green-checkmark" title="Check the right answer">
-                        <input type="checkbox" name="is_ans_right">
-                        <span class="checkmark"></span>
-                      </label>
-                    </div>
-                    <div class="col-11">
-                      <input type="text" class="form-control" name="answer" >
-                    </div>
-                  </div>
-                </div>
-                <div class="col-5 ml-5">
-                  <div class="row">
-                    <div class="col-1">
-                      <label class="checkboxes green-checkmark" title="Check the right answer">
-                        <input type="checkbox" name="is_ans_right">
-                        <span class="checkmark"></span>
-                      </label>
-                    </div>
-                    <div class="col-11">
-                      <input type="text" class="form-control" name="answer" >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-1 p-0 mt-2">
-              <div class="col-12 p-0">
-                <button class="btn question-form-btn d-flex question-butttons mx-auto w-75" type="button" onclick="duplicate(3)"><h3 class="">+</h3></button>
-              </div>
-              <div class="col-12 p-0 mt-2">
-                <button class="btn question-form-btn d-flex question-butttons mx-auto px-3 w-75" type="button" onclick="removeRow(1)"><h3 class="">-</h3></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="row justify-content-around buttons-section mt-3 ml-auto">
-            <div class="col-5 mx-auto">
-              <button id="add-question-button" class="btn d-flex pr-3 question-butttons" formaction="/addquestion"><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i><h3 class="mt-2 font-exo-medium">Add question</h3></button>
-            </div>
-            <div class="col-5 mx-auto">
-              <button type="submit" class="btn d-flex pr-3 question-butttons"><i class="fas fa-check fa-2x my-auto mr-3 ml-2"></i><h3 class="mt-2 font-exo-medium">Finished</h3></button>
-            </div>
-          </div>
-
+  {% if messages %}
+  <div class="row justify-content-center mt-5 mx-auto">
+    <div class="col-auto">
+      {% for message in messages %}
+        <div id="alert" class="alert error_msg">
+          <h5 class="mb-0 text-white">{{ message }}</h5>
         </div>
-      </form>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-8 question_form_container">
+
+        <form id="quiz_question_form" class="text-center" action="/submitquiz" method="post">
+          {% csrf_token %}
+
+          <div class="mt-5">
+            <div class="text-white text-left mb-2">
+              <h5>Question {{ quiz.question_set.all|length|add:"1" }}</h5>
+            </div>
+            <div class="form-group">
+              <input class="form-control form-control-lg" type="text" placeholder="Question" name="question_text">
+            </div>
+
+            <div class="row justify-content-center">
+              <div class="col-11 p-0">
+                <div class="form-row justify-content-end mt-5 mb-3 answers-section">
+                  <div class="col-5">
+                    <div class="row">
+                      <div class="col-1">
+                        <label class="checkboxes green-checkmark" title="Check the right answer">
+                          <input type="checkbox" name="is_ans_right">
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                      <div class="col-11">
+                        <input type="text" class="form-control" name="answer" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5 ml-5">
+                    <div class="row">
+                      <div class="col-1">
+                        <label class="checkboxes green-checkmark" title="Check the right answer">
+                          <input type="checkbox" name="is_ans_right">
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                      <div class="col-11">
+                        <input type="text" class="form-control" name="answer" >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-1 p-0 mt-2">
+                <div class="col-12 p-0">
+                  <button class="btn question-form-btn d-flex question-butttons mx-auto w-75" type="button" onclick="duplicate(3)"><h3 class="">+</h3></button>
+                </div>
+                <div class="col-12 p-0 mt-2">
+                  <button class="btn question-form-btn d-flex question-butttons mx-auto px-3 w-75" type="button" onclick="removeRow(1)"><h3 class="">-</h3></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-around buttons-section mt-3 ml-auto">
+              <div class="col-5 mx-auto">
+                <button id="add-question-button" class="btn d-flex pr-3 question-butttons" formaction="/addquestion"><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i><h3 class="mt-2 secondary-font">Add question</h3></button>
+              </div>
+              <div class="col-5 mx-auto">
+                <button type="submit" class="btn d-flex pr-3 question-butttons"><i class="fas fa-check fa-2x my-auto mr-3 ml-2"></i><h3 class="mt-2 secondary-font">Finished</h3></button>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
-
 {% endblock body %}

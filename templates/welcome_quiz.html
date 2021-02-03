@@ -1,40 +1,43 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block body_class %}custom-bg{% endblock body_class %}
+{% block body_class %}playing-bg{% endblock body_class %}
 
 {% block body %}
 
-<div class="row justify-content-center mt-5 mx-auto">
-  <div class="col-auto">
-    <div class="mx-auto"><h1 class="font-exo-medium text-white">Welcome to the quiz "{{ quiz.title }}"</h1></div>
+<div class="page-section-covered pt-5">
+
+  <div class="row justify-content-center mt-5 mx-auto">
+    <div class="col-auto">
+      <div class="mx-auto"><h1 class="font-exo-medium text-white">Welcome to the quiz "{{ quiz.title }}"</h1></div>
+    </div>
   </div>
-</div>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-7">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-7">
 
-      <div class="row justify-content-center mt-5 mx-auto">
-        <div class="col-auto">
-          <div class="mx-auto"><h2 class="font-exo-medium text-white">This quiz has {{ quiz.question_set.all|length }} questions</h2></div>
-        </div>
-      </div>
-
-      <div class="row justify-content-center mt-5 mx-auto">
-        <div class="col-auto">
-          <div class="mx-auto"><h2 class="font-exo-medium text-white">Are you ready ?</h2></div>
-        </div>
-      </div>
-
-      <div class="container mt-5">
-        <div class="row justify-content-center pt-5">
+        <div class="row justify-content-center mt-5 mx-auto">
           <div class="col-auto">
-            <a href="/nextquestion"><button class="btn btn-dark d-flex"><h1 class="display-4">Let's go</h1></button></a>
+            <div class="mx-auto"><h2 class="font-exo-medium text-white">This quiz has {{ quiz.question_set.all|length }} questions</h2></div>
           </div>
         </div>
-      </div>
 
+        <div class="row justify-content-center mt-5 mx-auto">
+          <div class="col-auto">
+            <div class="mx-auto"><h2 class="font-exo-medium text-white">Are you ready ?</h2></div>
+          </div>
+        </div>
+
+        <div class="container mt-5">
+          <div class="row justify-content-center pt-5">
+            <div class="col-auto">
+              <a href="/nextquestion"><button class="mx-3 px-5 py-2 big-yellow-button growing"><h2 class="py-2 my-0 font-test font-weight-bold">Start</h2></button></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

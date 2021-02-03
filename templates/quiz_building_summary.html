@@ -9,8 +9,8 @@
   <div class="row justify-content-center mt-5 mx-auto">
     <div class="col-auto">
       <div class="mx-auto text-center">
-        <h1 class="font-exo-medium text-white quiz-title">{{ quiz.title }}</h1>
-        <h5 class="font-exo-medium text-white">Quiz code : {{ quiz.id }}</h5>
+        <h1 class="secondary-font text-white quiz-title">{{ quiz.title }}</h1>
+        <h5 class="secondary-font text-white">Quiz code : {{ quiz.id }}</h5>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
   <div class="container mt-5 text-white">
     {% for question in questions %}
       <div class="row justify-content-center font-exo-medium font-size-20 py-2 question-card mt-3">
-        <div id="{{ forloop.counter0 }}" class="col-7 question-title" value="{{ question.title }}">
+        <div id="{{ forloop.counter0 }}" class="col-7" value="{{ question.title }}">
           {{ forloop.counter }}. {{ question.title }}
         </div>
         <div class="col-4">
@@ -53,15 +53,15 @@
   </div>
 
   <div class="container mt-5">
-    <div class="row justify-content-center pt-5">
+    <div class="row justify-content-center py-5">
       <div class="col-auto mx-3">
         <form class="" action="/play" method="post">
           {% csrf_token %}
-          <button type="submit" class="btn font-exo-medium d-flex mx-auto question-butttons"><h1 class="text-white mt-2">Validate</h1></button>
+          <button type="submit" class="btn secondary-font d-flex mx-auto question-butttons"><h1 class="text-white mt-2">Validate</h1></button>
         </form>
       </div>
       <div class="col-auto mx-3">
-        <button class="btn font-exo-medium d-flex mx-auto question-butttons" onclick="OpenDeleteQuizForm()"><h1 class="text-white mt-2">Delete</h1></button>
+        <button class="btn secondary-font d-flex mx-auto question-butttons" onclick="OpenDeleteQuizForm()"><h1 class="text-white mt-2">Delete</h1></button>
       </div>
     </div>
   </div>

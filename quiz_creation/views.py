@@ -151,8 +151,9 @@ def ajaxcheckfields(request):
     return JsonResponse(result, safe=False)
 
 def deletequiz(request):
-    quiz_id = request.session['quiz_id']
-    Quiz.objects.get(id=quiz_id).delete()
+    if request.POST:
+        quiz_id = request.session['quiz_id']
+        Quiz.objects.get(id=quiz_id).delete()
     return render(request, "createquiz.html")
 
 

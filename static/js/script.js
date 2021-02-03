@@ -168,10 +168,6 @@ $(document).ready(function(){
      });
   }
 
-  $("#CreateQuizButton").click(function(){
-    $("#QuizNameFormDiv").fadeToggle();
-  });
-
   $(".del-question").click(function() {
 
     $("#DeleteQuestionFormDiv").css("display", "block");

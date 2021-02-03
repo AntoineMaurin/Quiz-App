@@ -14,8 +14,9 @@ def playpage(request):
                                   'your quiz code is {}'.format(quiz_id))
     return render(request, "play.html")
 
-def startquizpage(request):
-    id = request.GET['quiz_id']
+def startquizpage(request, id):
+    if id == 0:
+        id = request.GET['quiz_id']
     quiz = Quiz.objects.get(id=id)
     questions = Question.objects.filter(quiz=quiz)
     ids_list = []
@@ -28,7 +29,7 @@ def startquizpage(request):
     return render(request, "welcome_quiz.html", {'quiz': quiz})
 
 """This view makes the quiz work while being played. It manages to render
-the different questions of the quiz, and generate the quiz results when 
+the different questions of the quiz, and generate the quiz results when
 finished."""
 def nextquestionpage(request):
 
