@@ -26,7 +26,7 @@
   <div class="container mt-5 text-white">
     {% for question in questions %}
       <div class="row justify-content-center font-exo-medium font-size-20 py-2 question-card mt-3">
-        <div id="{{ forloop.counter0 }}" class="col-7" value="{{ question.title }}">
+        <div id="{{ forloop.counter0 }}" class="col-7 question-title" value="{{ question.title }}">
           {{ forloop.counter }}. {{ question.title }}
         </div>
         <div class="col-4">
@@ -57,11 +57,11 @@
       <div class="col-auto mx-3">
         <form class="" action="/play" method="post">
           {% csrf_token %}
-          <button type="submit" class="btn secondary-font d-flex mx-auto question-butttons"><h1 class="text-white mt-2">Validate</h1></button>
+          <button type="submit" class="secondary-font d-flex px-3 mx-auto question-butttons growing"><h1 class="font-size-3 my-2 py-1">Validate</h1></button>
         </form>
       </div>
       <div class="col-auto mx-3">
-        <button class="btn secondary-font d-flex mx-auto question-butttons" onclick="OpenDeleteQuizForm()"><h1 class="text-white mt-2">Delete</h1></button>
+        <button class="secondary-font d-flex px-3 mx-auto question-butttons growing" onclick="OpenDeleteQuizForm()"><h1 class="font-size-3 my-2 py-1">Delete</h1></button>
       </div>
     </div>
   </div>

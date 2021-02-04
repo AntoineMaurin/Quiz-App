@@ -26,7 +26,7 @@
   <div class="container my-5">
     {% for elt in quiz_results %}
       <div class="row justify-content-center font-exo-medium results-question-card my-5 py-3">
-        <div id="{{ forloop.counter0 }}" class="row justify-content-center w-75 text-center question-title" value="{{ question }}">
+        <div id="{{ forloop.counter0 }}" class="row justify-content-center w-75 text-center" value="{{ question }}">
           <h3>{{ forloop.counter }}. {{ elt.0 }}</h3>
         </div>
         <div class="row justify-content-center w-75 ">
@@ -49,12 +49,12 @@
     <div class="row justify-content-center py-5">
       <div class="col-7 mx-3">
         <form class="" action="/play" method="GET">
-          <div class="row justify-content-around">
-            <div class="col-4 mx-auto">
-              <button type="submit" class="secondary-font px-3 question-butttons growing"><h1 class="font-size-3 my-2 py-1">Back</h1></button>
+          <div class="row justify-content-around font-exo-medium">
+            <div class="col-4 mx-auto text-center">
+              <button type="submit" class="px-3 question-butttons growing"><h1 class="font-size-3 my-2 py-1">Back</h1></button>
             </div>
-            <div class="col-4 mx-auto">
-              <button type="submit" class="secondary-font px-3 question-butttons growing" formaction="/startquiz/{{ quiz.id }}"><h1 class="font-size-3 my-2 py-1">Retry</h1></button>
+            <div class="col-4 mx-auto text-center">
+              <button type="submit" class="px-3 question-butttons growing" formaction="/startquiz/{{ quiz.id }}"><h1 class="font-size-3 my-2 py-1">Retry</h1></button>
             </div>
           </div>
         </form>
