@@ -20,17 +20,20 @@
   </div>
 
   <div class="container mt-5">
-    <div class="row">
+    <div class="row justify-content-center">
       {% for quiz in quizzes %}
-        <div class="card border-secondary mb-3 mx-3" style="max-width: 18rem;">
-          <div class="card-header">{{ quiz.id }}</div>
-          <div class="card-body text-secondary">
-            <h5 class="card-title">{{ quiz.title }}</h5>
-            <p class="card-text">{{ quiz.question_set.all|length }} questions</p>
+        <a href="/startquiz/{{ quiz.id }}" class="col-3 px-3 m-3 border radius-10 dark-text white-bg growing">
+          <div class="row p-2 border-bottom difficulty-easy text-white">
+            <div class="col p-0">{{ quiz.id }}</div>
           </div>
-        </div>
+          <div class="mt-2">
+            <h5 class="">{{ quiz.title }}</h5>
+            <p class="">{{ quiz.question_set.all|length }} questions</p>
+          </div>
+        </a>
       {% endfor %}
     </div>
   </div>
+
 </section>
 {% endblock body %}

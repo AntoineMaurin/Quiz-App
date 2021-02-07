@@ -34,7 +34,7 @@
             <div class="col-5 ml-5">
               <div class="row mt-3">
                 <div class="col-auto pt-1 {% if answer.is_right %} green-bg {% endif %}">
-                  <label class="checkboxes {% if answer.is_right and answer.title in elt.1 %} green-checkmark {% elif not answer.is_right and answer.title in elt.1 or answer.is_right %} red-checkmark {% else %} no-bg {% endif %}" title="Check the right answer">
+                  <label class="checkboxes {% if answer.is_right and answer.title in elt.1 %} green-checkmark {% elif not answer.is_right and answer.title in elt.1 %} red-checkmark {% else %} no-bg {% endif %}" title="Check the right answer">
                     <input type="checkbox" name="is_answer_checked" checked="" disabled="disabled">
                     <span class="checkmark"></span>
                   </label>
@@ -48,7 +48,7 @@
     {% endfor %}
     <div class="row justify-content-center py-5">
       <div class="col-7 mx-3">
-        <form class="" action="/play" method="GET">
+        <form class="" action="/" method="GET">
           <div class="row justify-content-around font-exo-medium">
             <div class="col-4 mx-auto text-center">
               <button type="submit" class="px-3 question-butttons growing"><h1 class="font-size-3 my-2 py-1">Back</h1></button>

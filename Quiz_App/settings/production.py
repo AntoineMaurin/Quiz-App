@@ -15,16 +15,11 @@ ALLOWED_HOSTS = [".herokuapps.com"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'purbeurre',
+        'NAME': '',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
-
-        # 'USER': os.environ['DB_USER'],
-        # 'PASSWORD': os.environ['DB_PASSWORD'],
-        # 'HOST': os.environ['DB_HOST'],
-        # 'PORT': os.environ['DB_PORT'],
     }
 }
 

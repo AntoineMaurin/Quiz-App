@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Quiz(models.Model):
-    title = models.CharField(max_length=30, default='Quiz')
+    title = models.CharField(max_length=250, default='Quiz')
     is_public = models.BooleanField(default=False)
 
     def __str__(self):
@@ -16,7 +16,7 @@ class Question(models.Model):
         return self.title
 
 class Answer(models.Model):
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=250)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     is_right = models.BooleanField(default=False)
 

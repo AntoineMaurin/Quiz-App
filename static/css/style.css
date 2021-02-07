@@ -386,12 +386,12 @@ a, a:hover {
 }
 
 .growing {
-  transition: all .1s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 .growing:hover {
   transform: scale(1.1);
-  transition: all .1s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 .btn-tr{
@@ -416,4 +416,32 @@ a, a:hover {
 
 .font-size-3 {
   font-size: 3rem;
+}
+
+.radius-10 {
+  border-radius: 10px;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.dark-text {
+  color: #2d2d2d;
+}
+
+.difficulty-easy {
+  background-color: #46b536;
+}
+
+.difficulty-medium {
+  background-color: #e1c610;
+}
+
+.difficulty-hard {
+  background-color: #b33030;
+}
+
+.difficulty-easy, .difficulty-medium, .difficulty-hard {
+  border-radius: 10px 10px 0px 0px;
 }
