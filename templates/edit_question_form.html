@@ -4,11 +4,11 @@
   </div>
   <form id="EditQuestionForm" class="px-5 py-3" action="/create" method="post">
     {% csrf_token %}
-      <div id="msg_uncompleted_answers" class="text-center mb-3 py-2 error_msg">
+      <div id="msg_uncompleted_answers" class="text-center mb-3 py-2 error-msg">
         <h5 class="mb-0">All visible answers have to be completed.</h5>
       </div>
 
-    <div id="msg_no_right_answer" class="text-center mb-3 py-2 error_msg">
+    <div id="msg_no_right_answer" class="text-center mb-3 py-2 error-msg">
       <h5 class="mb-0">There must be at least one right answer.</h5>
     </div>
 

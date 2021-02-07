@@ -8,6 +8,8 @@ def createquizpage(request):
     return render(request, "createquiz.html")
 
 def questioncreationpage(request):
+    if 'quiz_id' in request.session:
+        quiz = Quiz.objects.get(id=request.session['quiz_id'])
     if request.method == 'POST':
         quiz_name = request.POST['quiz_name']
         is_public = request.POST['is_public']
@@ -31,11 +33,11 @@ def addquestion(request):
 
         fields_to_check = answers + [question_text]
 
-        fields_are_good = are_fields_filled(fields_to_check)
+        fields_are_good = are_fields_good(fields_to_check)
 
         if not fields_are_good:
-            messages.error(request, 'The question and the answer fields '
-            'have to be completed.')
+            messages.error(request, 'All visible fields must be completed, '
+            'and must not exceed 254 characters.')
             return render(request, "quiz_question_form.html", {'quiz': quiz})
 
         if len(right_answers) < 1:
@@ -133,9 +135,7 @@ def ajaxcheckfields(request):
     answers_titles = request.GET.getlist('answers_titles[]')
     answers_types = request.GET.getlist('answers_types[]')
 
-    print(answers_titles, answers_types)
-
-    answers_are_filled = are_fields_filled(answers_titles)
+    answers_are_filled = are_fields_good(answers_titles)
 
     result = {}
 
@@ -167,8 +167,10 @@ def bind_answers_to_question(answers_titles, right_answers, question):
 
 """Returns a boolean. Returns False if all the fields are not filled and if
 there is no right answer checked."""
-def are_fields_filled(fields_list):
+def are_fields_good(fields_list):
     for field in fields_list:
         if len(field) < 1:
+            return False
+        elif len(field) > 254:
             return False
     return True

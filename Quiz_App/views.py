@@ -12,12 +12,19 @@ def playpage(request):
         quiz_id = request.session['quiz_id']
         messages.success(request, 'Your quiz had been successfully created ! '
                                   'your quiz code is {}'.format(quiz_id))
+        del(request.session['quiz_id'])
+        request.session.modified = True
     return render(request, "play.html")
 
 def startquizpage(request, id):
     if id == 0:
         id = request.GET['quiz_id']
-    quiz = Quiz.objects.get(id=id)
+        try:
+            quiz = Quiz.objects.get(id=id)
+        except(Quiz.DoesNotExist):
+            messages.error(request, "This quiz code doesn't exist..")
+            return render(request, "play.html")
+
     questions = Question.objects.filter(quiz=quiz)
     ids_list = []
     for question in questions:
@@ -79,6 +86,7 @@ def nextquestionpage(request):
         # The quiz is now finished, so to replay it or play another, a reset is
         # needed.
         del(request.session['quiz_results'])
+        del(request.session['quiz_id'])
         request.session.modified = True
 
         return render(request, "quiz_results.html", {'quiz': quiz,

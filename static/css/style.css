@@ -23,6 +23,7 @@
 
 .bg-primary {
   background-image: url('../img/flat-design-background/47378842.jpg');
+  background-color: unset !important;
 }
 
 .custom-bg {
@@ -145,11 +146,7 @@
 
 a, a:hover {
   text-decoration: none;
-}
-
-.alert-error {
-  color: #590e3a;
-  background-color: #d0a147;
+  color: unset;
 }
 
 .checkboxes {
@@ -342,6 +339,10 @@ a, a:hover {
   font-size: 20px;
 }
 
+.font-size-40 {
+  font-size: 40px;
+}
+
 .summary-container {
   background-color: #0000009c;
   border: 1px solid white;
@@ -400,9 +401,17 @@ a, a:hover {
   border-radius: 20px;
 }
 
-.error_msg {
-  background-color: #b93f3f;
+.success-msg, .error-msg {
   border-radius: 8px;
+  color: white;
+}
+
+.success-msg {
+  background-color: #229722;
+}
+
+.error-msg {
+  background-color: #b93f3f;
 }
 
 #msg_uncompleted_answers, #msg_no_right_answer {
