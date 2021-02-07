@@ -19,11 +19,11 @@ def playpage(request):
 def startquizpage(request, id):
     if id == 0:
         id = request.GET['quiz_id']
-        try:
-            quiz = Quiz.objects.get(id=id)
-        except(Quiz.DoesNotExist):
-            messages.error(request, "This quiz code doesn't exist..")
-            return render(request, "play.html")
+    try:
+        quiz = Quiz.objects.get(id=id)
+    except(Quiz.DoesNotExist):
+        messages.error(request, "This quiz code doesn't exist..")
+        return render(request, "play.html")
 
     questions = Question.objects.filter(quiz=quiz)
     ids_list = []

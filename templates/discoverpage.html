@@ -26,7 +26,7 @@
     <div class="row justify-content-center">
       {% for quiz in quizzes %}
         <a href="/startquiz/{{ quiz.id }}" class="col-3 px-3 m-3 border radius-10 dark-text white-bg growing">
-          <div class="row p-2 border-bottom difficulty-easy text-white">
+          <div class="row p-2 border-bottom difficulty-{{ quiz.difficulty }} text-white">
             <div class="col p-0">{{ quiz.id }}</div>
           </div>
           <div class="mt-2">

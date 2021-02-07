@@ -4,6 +4,7 @@ from django.db import models
 class Quiz(models.Model):
     title = models.CharField(max_length=250, default='Quiz')
     is_public = models.BooleanField(default=False)
+    difficulty = models.CharField(max_length=30, default="easy")
 
     def __str__(self):
         return self.title
