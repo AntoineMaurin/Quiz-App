@@ -15,6 +15,18 @@
     </div>
   </div>
 
+  {% if messages %}
+  <div class="row justify-content-center mt-5 mx-auto">
+    <div class="col-auto">
+      {% for message in messages %}
+        <div class="text-center mb-3 p-2 {{ message.tags }}-msg">
+          <h5>{{ message }}</h5>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
   <div class="container">
     <div class="row justify-content-center mt-5 mx-auto">
       <div class="col-auto">
@@ -58,13 +70,13 @@
   <div class="container mt-5">
     <div class="row justify-content-center py-5">
       <div class="col-auto mx-3">
-        <form class="" action="/play" method="post">
+        <form class="" action="/validatequiz" method="post">
           {% csrf_token %}
           <button type="submit" class="secondary-font d-flex px-3 mx-auto question-butttons growing"><h1 class="font-size-3 my-2 py-1">Validate</h1></button>
         </form>
       </div>
       <div class="col-auto mx-3">
-        <button class="secondary-font d-flex px-3 mx-auto question-butttons growing" onclick="OpenDeleteQuizForm()"><h1 class="font-size-3 my-2 py-1">Delete</h1></button>
+        <button class="secondary-font d-flex px-3 mx-auto question-butttons growing" onclick="OpenDeleteQuizForm()"><h1 class="font-size-3 my-2 py-1">Cancel</h1></button>
       </div>
     </div>
   </div>

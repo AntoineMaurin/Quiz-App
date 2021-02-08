@@ -9,7 +9,12 @@ def createquizpage(request):
 
 def questioncreationpage(request):
     if 'quiz_id' in request.session:
-        quiz = Quiz.objects.get(id=request.session['quiz_id'])
+        try:
+            quiz = Quiz.objects.get(id=request.session['quiz_id'])
+        except(Quiz.DoesNotExist):
+            del(request.session['quiz_id'])
+            request.session.modified = True
+
     if request.method == 'POST':
         quiz_name = request.POST['quiz_name']
         is_public = request.POST['is_public']
@@ -61,6 +66,22 @@ def submitquiz(request):
         questions = Question.objects.filter(quiz=quiz)
         return render(request, "quiz_building_summary.html", {'quiz': quiz,
                                                               'questions': questions})
+
+def validate_quiz(request):
+    quiz_id = request.session['quiz_id']
+    quiz = Quiz.objects.get(id=quiz_id)
+    questions = Question.objects.filter(quiz=quiz)
+    if len(questions) < 1:
+        messages.error(request, 'Your quiz must have at least one question.')
+        return render(request, "quiz_building_summary.html", {'quiz': quiz,
+                                                              'questions': questions})
+    else:
+        del(request.session['quiz_id'])
+        request.session.modified = True
+        messages.success(request, 'Your quiz had been successfully created ! '
+                                  'your quiz code is {}'.format(quiz_id))
+        return render(request, "play.html")
+
 
 def deletequestion(request, index):
     if request.POST:
@@ -156,6 +177,8 @@ def deletequiz(request):
     if request.POST:
         quiz_id = request.session['quiz_id']
         Quiz.objects.get(id=quiz_id).delete()
+        del(request.session['quiz_id'])
+        request.session.modified = True
     return render(request, "createquiz.html")
 
 

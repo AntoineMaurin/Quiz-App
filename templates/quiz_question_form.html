@@ -5,7 +5,7 @@
 
 {% block body %}
 <div class="page-section-covered pt-5">
-
+  <a href="#" class="close" onclick="OpenDeleteQuizForm()"></a>
   <div class="row justify-content-center mt-5 mx-auto mb-3">
     <div class="col-auto">
       <div class="mx-auto"><h1 class="secondary-font text-white quiz-title">{{ quiz.title }}</h1></div>
@@ -96,4 +96,7 @@
     </div>
   </div>
 </div>
+
+{% include "delete_quiz_form.html" %}
+
 {% endblock body %}

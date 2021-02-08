@@ -22,6 +22,18 @@
     <h1 class="display-3 text-white">Public quizzes</h1>
   </div>
 
+  {% if messages %}
+  <div class="row justify-content-center mt-5 mx-auto">
+    <div class="col-auto">
+      {% for message in messages %}
+        <div class="text-center mb-3 p-2 {{ message.tags }}-msg">
+          <h5>{{ message }}</h5>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
   <div class="container mt-5">
     <div class="row justify-content-center">
       {% for quiz in quizzes %}

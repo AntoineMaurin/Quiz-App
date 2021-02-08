@@ -7,6 +7,7 @@ urlpatterns = [
     path('create', views.createquizpage),
     path('addquestion', views.addquestion),
     path('submitquiz', views.submitquiz),
+    path('validatequiz', views.validate_quiz),
     path('deletequestion/<int:index>', views.deletequestion),
     path('editquestion/<int:index>', views.editquestion),
     path('deletequiz', views.deletequiz),
