@@ -37,7 +37,6 @@ def startquizpage(request, id):
 the different questions of the quiz, and generate the quiz results when
 finished."""
 def nextquestionpage(request):
-    print(request.session['questions_left'])
 
     quiz_id = request.session['quiz_id']
     quiz = Quiz.objects.get(id=quiz_id)
@@ -78,26 +77,16 @@ def nextquestionpage(request):
     except(IndexError):
 
         quiz_results = request.session['quiz_results']
-        right_answers = 0
+
         # Transforms every question ID into its related Question object.
         for elt in quiz_results:
             question = Question.objects.get(id=elt[0])
             elt[0] = question
-            answers = Answer.objects.filter(question=question)
-            for answer in answers:
-                if answer.title in elt[1] and answer.is_right:
-                    right_answers += 1
+
+        success_rate = success_rate_calcul(quiz_results, quiz)
+
         # The quiz is now finished, so to replay it or play another, a reset is
         # needed.
-        total_right_answers = 0
-
-        all_answers_in_quiz = Answer.objects.filter(question__quiz=quiz)
-
-        for quiz_answer in all_answers_in_quiz:
-            if quiz_answer.is_right:
-                total_right_answers += 1
-
-        success_rate = (right_answers/total_right_answers) * 100
         del(request.session['quiz_results'])
         del(request.session['quiz_id'])
         request.session.modified = True
@@ -105,3 +94,23 @@ def nextquestionpage(request):
         return render(request, "quiz_results.html", {'quiz': quiz,
                                                      'success_rate': success_rate,
                                                      'quiz_results': quiz_results})
+
+def success_rate_calcul(quiz_results, quiz):
+    right_answers = 0
+    wrong_answers = 0
+
+    all_answers = Answer.objects.filter(question__quiz=quiz)
+
+    checked_answers = []
+    for question_and_answerslist in quiz_results:
+        for checked_answer in question_and_answerslist[1]:
+            checked_answers.append(checked_answer)
+
+    for answer in all_answers:
+        if answer.title in checked_answers and answer.is_right:
+            right_answers += 1
+        elif answer.title in checked_answers and not answer.is_right:
+            wrong_answers += 1
+
+    success_rate = (right_answers/(right_answers + wrong_answers)) * 100
+    return success_rate

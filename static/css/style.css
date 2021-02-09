@@ -482,3 +482,7 @@ a, a:hover {
 .close:after {
   transform: rotate(-45deg);
 }
+
+.answer-row {
+  cursor: pointer;
+}
