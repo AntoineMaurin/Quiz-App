@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row justify-content-end font-fredericka py-3 pr-5">
+    <div class="col-auto mx-3 px-3 text-center text-white {% if request.path == '/' %} border-bottom {% endif %}">
+      <a href="/" class="h3 text-white lh-1-5">Discover</a>
+    </div>
+    <div class="col-auto mx-3 px-3 text-center text-white {% if request.path == '/create' %} border-bottom {% endif %}">
+      <a href="/create" class="h3 text-white lh-1-5">Create</a>
+    </div>
+    <div class="col-auto mx-3 px-3 text-center text-white {% if request.path == '/play' %} border-bottom {% endif %}">
+      <a href="/play" class="h3 text-white lh-1-5">Play</a>
+    </div>
+  </div>
+</div>

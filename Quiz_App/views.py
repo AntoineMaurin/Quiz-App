@@ -112,5 +112,9 @@ def success_rate_calcul(quiz_results, quiz):
         elif answer.title in checked_answers and not answer.is_right:
             wrong_answers += 1
 
-    success_rate = (right_answers/(right_answers + wrong_answers)) * 100
+    try:
+        success_rate = (right_answers/(right_answers + wrong_answers)) * 100
+    except(ZeroDivisionError):
+        success_rate = 0
+        
     return success_rate

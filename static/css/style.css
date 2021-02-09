@@ -8,17 +8,26 @@
   src: url('../fonts/Free-Slaztone-Brush-Font/Slaztone.otf');
 }
 
+@font-face {
+  font-family: Fredericka the Great;
+  src: url('../fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf');
+}
+
+@font-face {
+  font-family: Kalam;
+  src: url('../fonts/Kalam/Kalam-Regular.ttf');
+}
+
 .font-exo-medium {
   font-family: Exo;
 }
 
-.font-test {
-  /* font-family: Slaztone; */
-  font-family: 'Fredericka the Great';
+.font-fredericka {
+  font-family: Fredericka the Great;
 }
 
-.secondary-font {
-  font-family: 'Kalam';
+.font-kalam {
+  font-family: Kalam;
 }
 
 .bg-primary {
@@ -56,7 +65,7 @@
 }
 
 .page-section-covered {
-  background-color: #00000073;
+  background-color: #0000003d;
   min-height: 100vh;
 }
 
@@ -88,10 +97,6 @@
   border: none;
 }
 
-#QuizNameForm {
-  display: none;
-}
-
 .big-yellow-button {
   background: #ffe54a;
   color: #242e37;
@@ -117,7 +122,7 @@
   border: none;
 }
 
-#inline-validate-button:focus, #inline-cancel-button:focus {
+#inline-cancel-button:focus {
   box-shadow: none;
 }
 
@@ -195,7 +200,7 @@ a, a:hover {
   border: 1px solid white;
 }
 
-/* When the checkbox is checked, add a red background */
+/* When the checkbox is checked, add a white border */
 .checkboxes input:checked ~ .checkmark {
   border: 1px solid white;
 }
@@ -283,17 +288,6 @@ a, a:hover {
   min-width: 500px;
 }
 
-#CreateQuizButton {
-  background-image: url('../img/flat-design-background/47378842.jpg');
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 20px;
-}
-
-#CreateQuizButton:focus {
-  box-shadow:none;
-}
-
 .input-container {
   border-bottom: 1px solid #ffffffa8;
   min-width: 300px;
@@ -345,12 +339,6 @@ a, a:hover {
   font-size: 40px;
 }
 
-.summary-container {
-  background-color: #0000009c;
-  border: 1px solid white;
-  border-radius: 20px;
-}
-
 .edit-question, .del-question {
   cursor: pointer;
 }
@@ -369,23 +357,16 @@ a, a:hover {
   box-shadow: 0px 0px 3px white;
 }
 
-.gradient-button{
-  background-color: #0d141f;
-  color: white;
-  border: 1px solid;
-  border: none;
-}
-
 .form-control {
   background-clip: unset;
 }
 
 .play-button {
-  background-color: #242e37;
+  background-color: transparent;
   color: #f4d413;
   font-size: 18px;
   border-radius: 8px;
-  border: 1px solid;
+  border: 1px solid #f4d419;
 }
 
 .growing {
@@ -442,7 +423,7 @@ a, a:hover {
 }
 
 .difficulty-easy {
-  background-color: #46b536;
+  background-color: #3ca22d;
 }
 
 .difficulty-medium {
@@ -463,7 +444,7 @@ a, a:hover {
   top: 32px;
   width: 32px;
   height: 32px;
-  opacity: .5;
+  opacity: .8;
 }
 .close:hover {
   opacity: 1;

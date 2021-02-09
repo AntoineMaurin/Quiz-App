@@ -3,18 +3,12 @@
 
 {% block title %}Play{% endblock title %}
 
+{% block body_class %}bg-primary{% endblock body_class %}
+
 {% block body %}
-<section class="page-section bg-primary">
-  <div class="container-fluid py-3">
-    <div class="row">
-      <div class="col-6 text-center text-white">
-        <a href="/create" class="h3 text-white lh-1-5">Create</a>
-      </div>
-      <div class="col-6 text-center text-white">
-        <a href="/" class="h3 text-white lh-1-5">Discover</a>
-      </div>
-    </div>
-  </div>
+<section class="page-section-covered">
+
+  {% include "header_tabs.html" %}
 
   {% if messages %}
   <div class="row justify-content-center mt-5 mx-auto">
@@ -29,7 +23,7 @@
   {% endif %}
 
   <div class="portal-title">
-    <h1 class="display-3 text-white">Quiz code</h1>
+    <h1 class="display-3 text-white font-fredericka">Quiz code</h1>
   </div>
   <div class="portal-form">
     <form class="" action="/startquiz/0" method="get">
