@@ -1,0 +1,19 @@
+<div id="ExitQuizFormDiv">
+  <div class="pl-3 py-2 border-bottom">
+    <h4 class="my-1">{{ quiz.title }}</h4>
+  </div>
+  <form class="py-3" action="/cancelquiz" method="post">
+    {% csrf_token %}
+    <div class="mb-3 mx-3">
+      <h5 class="mx-2 text-center">Your progression will be lost, are you sure you want to go ?</h5>
+    </div>
+    <div class="row justify-content-around text-center">
+      <div class="col">
+        <button type="submit" onclick="CloseExitQuizForm()" class="btn question-butttons px-3 font-size-20">Yes</button>
+      </div>
+      <div class="col">
+        <div onclick="CloseExitQuizForm()" class="btn question-butttons px-3 font-size-20">No, take me back</div>
+      </div>
+    </div>
+  </form>
+</div>

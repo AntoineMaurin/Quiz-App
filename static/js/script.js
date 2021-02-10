@@ -66,6 +66,14 @@ function CloseDeleteQuizForm() {
   document.getElementById('DeleteQuizFormDiv').style.display = 'none';
 }
 
+function OpenExitQuizForm() {
+  document.getElementById('ExitQuizFormDiv').style.display = 'block';
+}
+
+function CloseExitQuizForm() {
+  document.getElementById('ExitQuizFormDiv').style.display = 'none';
+}
+
 function getNumberAndTitle(number_and_title) {
   clean_text = $.trim(number_and_title);
   var question_number = clean_text.split(" ")[0];

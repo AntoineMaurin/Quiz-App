@@ -264,7 +264,7 @@ a, a:hover {
   display: block;
 }
 
-#DeleteQuestionFormDiv, #DeleteQuizFormDiv, #EditQuestionFormDiv {
+#DeleteQuestionFormDiv, #DeleteQuizFormDiv, #EditQuestionFormDiv, #ExitQuizFormDiv {
   display: none;
   position: absolute;
   top: 50%;
@@ -445,6 +445,7 @@ a, a:hover {
   width: 32px;
   height: 32px;
   opacity: .8;
+  cursor: pointer;
 }
 .close:hover {
   opacity: 1;

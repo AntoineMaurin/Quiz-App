@@ -6,7 +6,7 @@
 {% block body %}
 
 <div class="page-section-covered pt-5">
-  <a href="#" class="close" onclick="OpenDeleteQuizForm()"></a>
+  <div href="#" class="close" onclick="OpenExitQuizForm()"></div>
   <div class="row justify-content-center mt-5 mx-auto">
     <div class="col-auto">
       <div class="mx-auto"><h1 class="font-exo-medium text-white">{{ quiz.title }}</h1></div>
@@ -35,7 +35,7 @@
                 <label for="{{ answer.title }}" class="row mt-3 answer-row">
                   <div class="col-auto">
                     <label class="checkboxes green-checkmark" title="Check the right answer">
-                      <input type="checkbox" name="is_answer_checked" id="{{ answer.title }}">
+                      <input type="checkbox" name="checked_answer" id="{{ answer.title }}">
                       <span class="checkmark"></span>
                     </label>
                     <h3 class="text-white text-left">{{ answer.title }}</h3>
@@ -54,4 +54,7 @@
 
   <a class="text-white licence-image-link" href="https://www.vecteezy.com/free-vector/blue-burst">Blue Burst Vectors by Vecteezy</a>
 </div>
+
+{% include "forms/exit_quiz_form.html" %}
+
 {% endblock body %}
