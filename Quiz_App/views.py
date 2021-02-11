@@ -69,6 +69,7 @@ def nextquestionpage(request):
                    'question_number': request.session['question_number']}
         return render(request, "quiz_question_playing.html", context)
         
+    # No questions left, preparing the quiz results
     except(IndexError):
 
         quiz_results = request.session['quiz_results']
