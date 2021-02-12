@@ -34,7 +34,7 @@
             <div class="col-5 ml-5">
               <div class="row mt-3">
                 <div class="col-auto {% if answer.is_right %} green-bg {% endif %}">
-                  <label class="checkboxes {% if answer.is_right and answer.title in elt.1 %} green-checkmark {% elif not answer.is_right and answer.title in elt.1 %} red-checkmark {% else %} no-bg {% endif %}" title="Check the right answer">
+                  <label class="checkboxes {% if answer.is_right and answer.id in elt.1 %} green-checkmark {% elif not answer.is_right and answer.id in elt.1 %} red-checkmark {% else %} no-bg {% endif %}" title="Check the right answer">
                     <input type="checkbox" checked="" disabled="disabled">
                     <span class="checkmark"></span>
                   </label>

@@ -12,6 +12,7 @@ def playpage(request):
 
 
 def startquizpage(request, quiz_id):
+
     if quiz_id == 0:
         quiz_id = request.GET['quiz_id']
 
@@ -49,6 +50,15 @@ def nextquestionpage(request):
         current_question = Question.objects.get(id=current_question_id)
         checked_answers = request.POST.getlist('checked_answer')
 
+        checked_answers_ids = []
+
+        current_question_answers = Answer.objects.filter(
+            question=current_question
+            )
+        for answer in current_question_answers:
+            if answer.title in checked_answers:
+                checked_answers_ids.append(answer.id)
+
         if 'quiz_results' in request.session:
 
             request.session['question_number'] += 1
@@ -56,7 +66,8 @@ def nextquestionpage(request):
             del(request.session['questions_left'][0])
             request.session.modified = True
 
-            request.session['quiz_results'].append([current_question_id, checked_answers])
+            request.session['quiz_results'].append([current_question_id,
+                                                    checked_answers_ids])
 
             current_question_id = request.session['questions_left'][0]
             current_question = Question.objects.get(id=current_question_id)
@@ -68,22 +79,22 @@ def nextquestionpage(request):
                    'current_question': current_question,
                    'question_number': request.session['question_number']}
         return render(request, "quiz_question_playing.html", context)
-        
+
     # No questions left, preparing the quiz results
     except(IndexError):
 
         quiz_results = request.session['quiz_results']
 
-        for elt in quiz_results:
-            question = Question.objects.get(id=elt[0])
-            elt[0] = question
+        for question_data in quiz_results:
+            question = Question.objects.get(id=question_data[0])
+            question_data[0] = question
 
         success_rate = calcul_success_rate(quiz_results, quiz)
 
         del(request.session['quiz_results'])
         del(request.session['quiz_id'])
         request.session.modified = True
-
+        print(quiz_results)
         context = {'quiz': quiz,
                    'success_rate': success_rate,
                    'quiz_results': quiz_results}
@@ -102,17 +113,16 @@ def calcul_success_rate(quiz_results, quiz):
     right_answers = 0
     wrong_answers = 0
 
-    all_answers = Answer.objects.filter(question__quiz=quiz)
-
-    checked_answers = []
+    checked_answers_ids = []
     for question_and_answerslist in quiz_results:
         for checked_answer in question_and_answerslist[1]:
-            checked_answers.append(checked_answer)
+            checked_answers_ids.append(checked_answer)
 
-    for answer in all_answers:
-        if answer.title in checked_answers and answer.is_right:
+    for answer_id in checked_answers_ids:
+        related_answer_object = Answer.objects.get(id=answer_id)
+        if related_answer_object.is_right:
             right_answers += 1
-        elif answer.title in checked_answers and not answer.is_right:
+        else:
             wrong_answers += 1
 
     try:
