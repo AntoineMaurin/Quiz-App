@@ -49,7 +49,6 @@ def nextquestionpage(request):
         current_question_id = request.session['questions_left'][0]
         current_question = Question.objects.get(id=current_question_id)
         checked_answers = request.POST.getlist('checked_answer')
-
         checked_answers_ids = []
 
         current_question_answers = Answer.objects.filter(
@@ -60,6 +59,13 @@ def nextquestionpage(request):
                 checked_answers_ids.append(answer.id)
 
         if 'quiz_results' in request.session:
+
+            if len(checked_answers) < 1:
+                messages.error(request, "You haven't checked any answer :)")
+                context = {'quiz': quiz,
+                           'current_question': current_question,
+                           'question_number': request.session['question_number']}
+                return render(request, "quiz_question_playing.html", context)
 
             request.session['question_number'] += 1
 
@@ -94,7 +100,7 @@ def nextquestionpage(request):
         del(request.session['quiz_results'])
         del(request.session['quiz_id'])
         request.session.modified = True
-        print(quiz_results)
+
         context = {'quiz': quiz,
                    'success_rate': success_rate,
                    'quiz_results': quiz_results}

@@ -384,7 +384,7 @@ a, a:hover {
   border-radius: 20px;
 }
 
-.success-msg, .error-msg {
+.success-msg, .error-msg, .transparent-msg {
   border-radius: 8px;
   color: white;
 }
@@ -395,6 +395,11 @@ a, a:hover {
 
 .error-msg {
   background-color: #b93f3f;
+}
+
+.transparent-msg {
+  background-color: #00000030;
+  border: 1px solid white;
 }
 
 #msg_uncompleted_answers, #msg_no_right_answer {

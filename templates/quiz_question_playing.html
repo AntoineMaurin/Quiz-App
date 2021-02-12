@@ -13,11 +13,23 @@
     </div>
   </div>
 
+  {% if messages %}
+  <div class="row justify-content-center mt-5 mx-auto">
+    <div class="col-auto">
+      {% for message in messages %}
+        <div id="alert" class="alert transparent-msg">
+          <h5 class="mb-0 text-white">{{ message }}</h5>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-9">
         <div class="text-white text-left mb-2 mt-5">
-          <h5>Question {{ question_number }}</h5>
+          <h5>Question {{ question_number }} / {{ quiz.question_set.count }}</h5>
         </div>
 
         <div class="row justify-content-center my-5 mx-auto">
@@ -35,7 +47,7 @@
                 <label for="{{ answer.title }}" class="row mt-3 answer-row">
                   <div class="col-auto">
                     <label class="checkboxes green-checkmark" title="Check the right answer">
-                      <input type="checkbox" name="checked_answer" id="{{ answer.title }}">
+                      <input type="radio" name="checked_answer" id="{{ answer.title }}">
                       <span class="checkmark"></span>
                     </label>
                     <h3 class="text-white text-left">{{ answer.title }}</h3>

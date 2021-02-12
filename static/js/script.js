@@ -141,7 +141,7 @@ $(document).ready(function(){
 
 
   function set_checkboxes_values_in_edition() {
-    $("input[type=checkbox]").each(function() {
+    $("input[type=radio]").each(function() {
 
       if (this.checked) {
 
@@ -153,7 +153,7 @@ $(document).ready(function(){
   }
 
   function set_checkboxes_values_in_creation() {
-    $("input[type=checkbox]").each(function() {
+    $("input[type=radio]").each(function() {
 
       if (this.checked) {
 
@@ -165,7 +165,7 @@ $(document).ready(function(){
   }
 
   function set_checkboxes_values_in_playing() {
-    $("input[type=checkbox]").each(function() {
+    $("input[type=radio]").each(function() {
 
       if (this.checked) {
 
