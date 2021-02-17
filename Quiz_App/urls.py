@@ -24,5 +24,6 @@ urlpatterns = [
     path('startquiz/<int:quiz_id>', views.startquizpage),
     path('nextquestion', views.nextquestionpage),
     path('cancelquiz', views.cancelquiz),
+    path('search', views.search),
     path('', include('quiz_creation.urls')),
 ]

@@ -16,20 +16,39 @@ class Command(BaseCommand):
         response = requests.get(url)
         title = response.json()['thème']
 
-        quiz_dict = response.json()['quizz']['fr']
+        french_quiz_dict = response.json()['quizz']['fr']
+        try:
+            english_quiz_dict = response.json()['quizz']['en']
 
-        easy_quiz = self.create_quiz(title, "easy")
-        medium_quiz = self.create_quiz(title, "medium")
-        hard_quiz = self.create_quiz(title, "hard")
+            easy_en_quiz = self.create_quiz(title, "easy", "en")
+            medium_en_quiz = self.create_quiz(title, "medium", "en")
+            hard_en_quiz = self.create_quiz(title, "hard", "en")
 
-        for question_dict in quiz_dict['débutant']:
-            self.build_quiz(question_dict, easy_quiz)
+            for question_dict in english_quiz_dict['débutant']:
+                self.build_quiz(question_dict, easy_en_quiz)
 
-        for question_dict in quiz_dict['confirmé']:
-            self.build_quiz(question_dict, medium_quiz)
+            for question_dict in english_quiz_dict['confirmé']:
+                self.build_quiz(question_dict, medium_en_quiz)
 
-        for question_dict in quiz_dict['expert']:
-            self.build_quiz(question_dict, hard_quiz)
+            for question_dict in english_quiz_dict['expert']:
+                self.build_quiz(question_dict, hard_en_quiz)
+        except(KeyError):
+            print("The english version of this quizz is not available.")
+            pass
+
+        easy_fr_quiz = self.create_quiz(title, "easy", "fr")
+        medium_fr_quiz = self.create_quiz(title, "medium", "fr")
+        hard_fr_quiz = self.create_quiz(title, "hard", "fr")
+
+        for question_dict in french_quiz_dict['débutant']:
+            self.build_quiz(question_dict, easy_fr_quiz)
+
+        for question_dict in french_quiz_dict['confirmé']:
+            self.build_quiz(question_dict, medium_fr_quiz)
+
+        for question_dict in french_quiz_dict['expert']:
+            self.build_quiz(question_dict, hard_fr_quiz)
+
 
     def build_quiz(self, data, empty_quiz):
         question_text = data['question']
@@ -39,10 +58,11 @@ class Command(BaseCommand):
         question = self.add_questions(empty_quiz, question_text)
         self.add_answers(answers_list, right_answer, question)
 
-    def create_quiz(self, title, difficulty):
+    def create_quiz(self, title, difficulty, language):
         quiz = Quiz.objects.create(title=title,
                                    is_public=True,
-                                   difficulty=difficulty)
+                                   difficulty=difficulty,
+                                   language=language)
         return quiz
 
     def add_questions(self, quiz, question_text):

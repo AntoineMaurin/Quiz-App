@@ -151,3 +151,20 @@ def test_quiz_integrity(request, quiz_id):
                                  "questions.. try another one ?")
     else:
         return "all good", ""
+
+def search(request):
+    text = request.GET.get('search_text')
+    difficulty = request.GET.get('difficulty')
+    language = request.GET.get('language')
+
+    if difficulty == "all":
+        quizzes = Quiz.objects.filter(is_public=True,
+                                      title__contains=text,
+                                      language=language)
+    else:
+        quizzes = Quiz.objects.filter(is_public=True,
+                                      difficulty=difficulty,
+                                      title__contains=text,
+                                      language=language)
+    print(quizzes.count())
+    return render(request, "discoverpage.html", {'quizzes': quizzes})

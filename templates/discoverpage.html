@@ -27,31 +27,32 @@
   </div>
   {% endif %}
 
-  <!-- <div class="container mt-5">
-    <form class="row justify-content-center text-white" action="#" method="post">
+  <div class="container mt-5">
+    <form class="row justify-content-center text-white" action="/search" method="get">
       <div class="col-auto">
-        <input type="text" name="search_text" value="Name">
+        <input type="text" name="search_text" placeholder="Title">
       </div>
       <div class="col-auto">
-        <label for="cars">Difficulty:</label>
-        <select name="cars" id="cars">
-          <option value="volvo">Easy</option>
-          <option value="saab">Medium</option>
-          <option value="opel">Hard</option>
+        <label for="difficulty">Difficulty:</label>
+        <select name="difficulty" id="difficulty">
+          <option value="all">All</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
         </select>
       </div>
       <div class="col-auto">
-        <label for="cars">Language:</label>
-        <select name="cars" id="cars">
-          <option value="volvo">Fr</option>
-          <option value="saab">En</option>
+        <label for="language">Language:</label>
+        <select name="language" id="language">
+          <option value="fr" selected>Fr</option>
+          <option value="en">En</option>
         </select>
       </div>
       <div class="col-1 offset-1">
         <input type="submit" value="Submit">
       </div>
     </form>
-  </div> -->
+  </div>
 
   <div class="container mt-5">
     <div class="row justify-content-center">
@@ -59,6 +60,7 @@
         <a href="/startquiz/{{ quiz.id }}" class="col-3 px-3 m-3 border radius-10 dark-text white-bg growing">
           <div class="row p-2 border-bottom difficulty-{{ quiz.difficulty }} text-white">
             <div class="col p-0">{{ quiz.id }}</div>
+            <div class="col-1">{{ quiz.language|upper }}</div>
           </div>
           <div class="mt-2">
             <h5 class="">{{ quiz.title }}</h5>
