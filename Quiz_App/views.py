@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from Quiz_App.models import Quiz, Question, Answer
+from quiz_app.models import Quiz, Question, Answer
 from django.contrib import messages
 
 

@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from Quiz_App.settings.development import *
+from quiz_app.settings.development import *
 
 import django_heroku
 import os

@@ -83,6 +83,14 @@ function getNumberAndTitle(number_and_title) {
 
 $(document).ready(function(){
 
+  $(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+    } else {
+        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+    }
+  });
+
   var csrf = $("input[name=csrfmiddlewaretoken]").val();
 
   $('#quiz_question_form').submit(function(event) {

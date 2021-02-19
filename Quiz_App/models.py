@@ -5,7 +5,7 @@ class Quiz(models.Model):
     title = models.CharField(max_length=250, default='Quiz')
     is_public = models.BooleanField(default=False)
     difficulty = models.CharField(max_length=30, default="easy")
-    language = models.CharField(max_length=2)
+    language = models.CharField(max_length=2, default="fr")
 
     def __str__(self):
         return self.title

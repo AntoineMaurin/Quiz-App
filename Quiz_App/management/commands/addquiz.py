@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from Quiz_App.models import Quiz, Question, Answer
+from quiz_app.models import Quiz, Question, Answer
 import requests
 import json
 

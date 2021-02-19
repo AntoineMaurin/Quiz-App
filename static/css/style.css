@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: Exo;
   src: url('../fonts/Exo/static/Exo-Medium.ttf');
@@ -472,4 +476,21 @@ a, a:hover {
 
 .answer-row {
   cursor: pointer;
+}
+
+#return-to-top {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+#return-to-top:hover {
+  color: #fff;
+  bottom: 50px;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
