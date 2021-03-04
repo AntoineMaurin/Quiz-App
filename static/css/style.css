@@ -483,6 +483,7 @@ a, a:hover {
   bottom: 40px;
   right: 40px;
   color: rgba(0, 0, 0, 0.7);
+  display: none;
 }
 
 #return-to-top:hover {

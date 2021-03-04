@@ -157,14 +157,20 @@ def search(request):
     difficulty = request.GET.get('difficulty')
     language = request.GET.get('language')
 
-    if difficulty == "all":
+    if difficulty == "all" and language == "all":
         quizzes = Quiz.objects.filter(is_public=True,
-                                      title__contains=text,
+                                      title__unaccent__icontains=text)
+    elif difficulty == "all" and not language == "all":
+        quizzes = Quiz.objects.filter(is_public=True,
+                                      title__unaccent__icontains=text,
                                       language=language)
+    elif not difficulty == "all" and language == "all":
+        quizzes = Quiz.objects.filter(is_public=True,
+                                      title__unaccent__icontains=text,
+                                      difficulty=difficulty)
     else:
         quizzes = Quiz.objects.filter(is_public=True,
+                                      title__unaccent__icontains=text,
                                       difficulty=difficulty,
-                                      title__contains=text,
                                       language=language)
-    print(quizzes.count())
     return render(request, "discoverpage.html", {'quizzes': quizzes})
