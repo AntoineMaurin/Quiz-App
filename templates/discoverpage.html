@@ -30,27 +30,27 @@
   <div class="container mt-5">
     <form class="row justify-content-center text-white" action="/search" method="get">
       <div class="col-auto">
-        <input type="text" name="search_text" placeholder="Title">
+        <input class="search-input" type="text" name="search_text" placeholder="Search...">
       </div>
       <div class="col-auto">
-        <label for="difficulty">Difficulty:</label>
-        <select name="difficulty" id="difficulty">
-          <option value="all">All</option>
+        <label for="difficulty">Difficulty :</label>
+        <select class="search-input" name="difficulty" id="difficulty">
+        <option value="all">All</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
       </div>
       <div class="col-auto">
-        <label for="language">Language:</label>
-        <select name="language" id="language">
+        <label for="language">Language :</label>
+        <select class="search-input" name="language" id="language">
           <option value="all" selected>All</option>
           <option value="fr">Fr</option>
           <option value="en">En</option>
         </select>
       </div>
-      <div class="col-1 offset-1">
-        <input type="submit" value="Submit">
+      <div class="col-auto ml-3">
+        <input class="btn py-1 px-3 font-exo-medium play-button" type="submit" value="Search">
       </div>
     </form>
   </div>
