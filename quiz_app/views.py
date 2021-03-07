@@ -10,7 +10,6 @@ def discoverpage(request):
 def playpage(request):
     return render(request, "play.html")
 
-
 def startquizpage(request, quiz_id):
 
     if quiz_id == 0:

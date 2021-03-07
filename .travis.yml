@@ -1,0 +1,15 @@
+language: python
+python:
+  - '3.6'
+
+before_script:
+  - pip install -r requirements.txt
+
+env:
+  - DJANGO_SETTINGS_MODULE=quiz_app.settings.travis
+
+services:
+  - postgresql
+
+script:
+  - python manage.py test
