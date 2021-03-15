@@ -15,23 +15,31 @@ def startquizpage(request, quiz_id):
     if quiz_id == 0:
         quiz_id = request.GET['quiz_id']
 
-    state, message = test_quiz_integrity(request, quiz_id)
-
-    if state == "does not exist":
-        messages.error(request, message)
-        return render(request, "play.html")
-    elif state == "zero questions":
-        messages.error(request, message)
+    # Makes sure the quiz exists
+    try:
+        quiz = Quiz.objects.get(id=quiz_id)
+    except(Quiz.DoesNotExist):
+        messages.error(request, "This quiz code doesn't exist.. try another !")
         return discoverpage(request)
+    # Makes sure the quiz contains at least 1 question
+    if len(Question.objects.filter(quiz=quiz)) < 1:
+        messages.error(request, "Hmm, this quiz does not contain any "
+                                 "questions.. try another one ?")
+        return discoverpage(request)
+    # So we can start it, by putting questions ids in a list
+    # and set up the session dictionnary properly
     else:
         quiz = Quiz.objects.get(id=quiz_id)
         questions = Question.objects.filter(quiz=quiz)
 
-        ids_list = []
-        for question in questions:
-            ids_list.append(question.id)
+        # Transforms the queryset into a list of its ids
+        questions_ids_list = [question.id for question in questions]
+
+        # The question played is initialized to 1
+        # Then we put the questions ids into the session dict
+        # Finally, we make sure the quiz we're starting is in the session dict
         request.session['question_number'] = 1
-        request.session['questions_left'] = ids_list
+        request.session['questions_left'] = questions_ids_list
         request.session['quiz_id'] = quiz.id
 
         return render(request, "welcome_quiz.html", {'quiz': quiz})
@@ -137,19 +145,6 @@ def calcul_success_rate(quiz_results, quiz):
 
     return success_rate
 
-
-def test_quiz_integrity(request, quiz_id):
-    try:
-        quiz = Quiz.objects.get(id=quiz_id)
-    except(Quiz.DoesNotExist):
-        return "does not exist", "This quiz code doesn't exist.. try another !"
-
-    questions = Question.objects.filter(quiz=quiz)
-    if len(questions) < 1:
-        return "zero questions", ("Hmm, this quiz does not contain any "
-                                 "questions.. try another one ?")
-    else:
-        return "all good", ""
 
 def search(request):
     text = request.GET.get('search_text')
