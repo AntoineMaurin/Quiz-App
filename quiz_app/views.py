@@ -48,7 +48,6 @@ def startquizpage(request, quiz_id):
 different questions of the quiz, and generates the quiz results when
 finished."""
 def nextquestionpage(request):
-
     quiz_id = request.session['quiz_id']
     quiz = Quiz.objects.get(id=quiz_id)
 
@@ -68,7 +67,7 @@ def nextquestionpage(request):
         if 'quiz_results' in request.session:
 
             if len(checked_answers) < 1:
-                messages.error(request, "You haven't checked any answer :)")
+                messages.error(request, "You haven't checked any answer..")
                 context = {'quiz': quiz,
                            'current_question': current_question,
                            'question_number': request.session['question_number']}
@@ -115,10 +114,13 @@ def nextquestionpage(request):
 
 
 def cancelquiz(request):
-    if request.POST:
-        del(request.session['quiz_results'])
-        del(request.session['quiz_id'])
-        request.session.modified = True
+    if request.method == 'POST':
+        try:
+            del(request.session['quiz_id'])
+            del(request.session['quiz_results'])
+            request.session.modified = True
+        except(KeyError):
+            pass
     return discoverpage(request)
 
 
