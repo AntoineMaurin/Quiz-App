@@ -5,12 +5,11 @@
 
 {% block body %}
 <div class="py-5 h-100">
-
   <div class="row justify-content-center mt-5 mx-auto">
     <div class="col-auto results-question-card p-3">
       <div class="mx-auto text-center">
         <h1 class="font-exo-medium quiz-title px-2">{{ quiz.title }}</h1>
-        <h5 class="font-exo-medium">Quiz code : {{ quiz.id }}</h5>
+        <h5 class="font-exo-medium">Difficulty : {{ quiz.difficulty }}</h5>
       </div>
     </div>
   </div>
@@ -24,17 +23,17 @@
   </div>
 
   <div class="container my-5">
-    {% for elt in quiz_results %}
+    {% for question in quiz.question_set.all %}
       <div class="row justify-content-center font-exo-medium results-question-card my-5 py-3">
         <div id="{{ forloop.counter0 }}" class="row justify-content-center w-75 text-center" value="{{ question }}">
-          <h3>{{ forloop.counter }}. {{ elt.0 }}</h3>
+          <h3>{{ forloop.counter }}. {{ question.title }}</h3>
         </div>
         <div class="row justify-content-center w-75 ">
-          {% for answer in elt.0.answer_set.all %}
+          {% for answer in question.answer_set.all %}
             <div class="col-5 ml-5">
               <div class="row mt-3">
                 <div class="col-auto {% if answer.is_right %} green-bg {% endif %}">
-                  <label class="checkboxes {% if answer.is_right and answer.id in elt.1 %} green-checkmark {% elif not answer.is_right and answer.id in elt.1 %} red-checkmark {% else %} no-bg {% endif %}" title="Check the right answer">
+                  <label class="checkboxes {% if answer.is_right and answer.id in answered_questions_ids %} green-checkmark {% elif not answer.is_right and answer.id in answered_questions_ids %} red-checkmark {% else %} no-bg {% endif %}" title="Check the right answer">
                     <input type="checkbox" checked="" disabled="disabled">
                     <span class="checkmark"></span>
                   </label>
@@ -54,7 +53,7 @@
               <button type="submit" class="px-3 question-butttons growing"><h1 class="font-size-3 my-2 py-1">Back</h1></button>
             </div>
             <div class="col-4 mx-auto text-center">
-              <button type="submit" class="px-3 question-butttons growing" formaction="/startquiz/{{ quiz.id }}"><h1 class="font-size-3 my-2 py-1">Retry</h1></button>
+              <button type="submit" class="px-3 question-butttons growing" formaction="/pickdifficulty/{{ quiz.slug }}"><h1 class="font-size-3 my-2 py-1">Retry</h1></button>
             </div>
           </div>
         </form>

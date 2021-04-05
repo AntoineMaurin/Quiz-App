@@ -5,14 +5,32 @@
   <form class="py-3" action="/deletequiz" method="post">
     {% csrf_token %}
     <div class="mb-3 mx-3">
-      <h5 class="mx-2 text-center">This action will delete your entire quiz.<br>Are you sure you want to continue ?</h5>
+      <h5 class="mx-2 text-center">
+        {% if request.session.lang|default:"fr" == "fr" %}
+          Cette action va supprimer tout votre quizz.<br>Êtes-vous sûr de vouloir continuer ?
+        {% else %}
+          This action will delete your entire quiz.<br>Are you sure you want to continue ?
+        {% endif %}
+      </h5>
     </div>
     <div class="row justify-content-around text-center">
       <div class="col">
-        <button type="submit" onclick="CloseDeleteQuizForm()" class="btn question-butttons px-3 font-size-20">Yes</button>
+        <button type="submit" onclick="CloseDeleteQuizForm()" class="btn question-butttons px-3 font-size-20">
+          {% if request.session.lang|default:"fr" == "fr" %}
+            Oui
+          {% else %}
+            Yes
+          {% endif %}
+        </button>
       </div>
       <div class="col">
-        <div onclick="CloseDeleteQuizForm()" class="btn question-butttons px-3 font-size-20">Cancel</div>
+        <div onclick="CloseDeleteQuizForm()" class="btn question-butttons px-3 font-size-20">
+          {% if request.session.lang|default:"fr" == "fr" %}
+            Annuler
+          {% else %}
+            Cancel
+          {% endif %}
+        </div>
       </div>
     </div>
   </form>

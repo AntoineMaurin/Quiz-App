@@ -1,13 +1,40 @@
 <div class="container" id="tabs">
   <div class="row justify-content-end font-fredericka py-3 pr-5">
     <div class="col-auto mx-3 px-3 text-center text-white {% if request.path == '/' %} border-bottom {% endif %}">
-      <a href="/" class="h3 text-white lh-1-5">Discover</a>
+      <a href="/" class="h3 text-white lh-1-5">
+        {% if request.session.lang|default:"fr" == "fr" %}
+          Découvrir
+        {% else %}
+          Discover
+        {% endif %}
+      </a>
     </div>
     <div class="col-auto mx-3 px-3 text-center text-white {% if request.path == '/play' %} border-bottom {% endif %}">
-      <a href="/play" class="h3 text-white lh-1-5">Play</a>
+      <a href="/play" class="h3 text-white lh-1-5">
+        {% if request.session.lang|default:"fr" == "fr" %}
+          Jouer
+        {% else %}
+          Play
+        {% endif %}
+      </a>
     </div>
     <div class="col-auto mx-3 px-3 text-center text-white {% if request.path == '/create' %} border-bottom {% endif %}">
-      <a href="/create" class="h3 text-white lh-1-5">Create</a>
+      <a href="/create" class="h3 text-white lh-1-5">
+        {% if request.session.lang|default:"fr" == "fr" %}
+          Créer
+        {% else %}
+          Create
+        {% endif %}
+      </a>
     </div>
+    {% if request.session.lang|default:"fr" == "fr" %}
+      <a href="/lang/en" class="my-auto mx-3 text-center text-white english-button-container">
+        <div class="lang-button"></div>
+      </a>
+    {% else %}
+      <a href="/lang/fr" class="my-auto mx-3 text-center text-white french-button-container">
+        <div class="lang-button"></div>
+      </a>
+    {% endif %}
   </div>
 </div>

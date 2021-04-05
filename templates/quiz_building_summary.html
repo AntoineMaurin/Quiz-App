@@ -72,11 +72,27 @@
       <div class="col-auto mx-3">
         <form class="" action="/validatequiz" method="post">
           {% csrf_token %}
-          <button type="submit" class="font-kalam d-flex px-3 mx-auto question-butttons growing"><h1 class="font-size-3 my-2 py-1">Validate</h1></button>
+          <button type="submit" class="font-kalam d-flex px-3 mx-auto question-butttons growing">
+            <h1 class="font-size-3 my-2 py-1">
+              {% if request.session.lang|default:"fr" == "fr" %}
+                Valider
+              {% else %}
+                Validate
+              {% endif %}
+            </h1>
+          </button>
         </form>
       </div>
       <div class="col-auto mx-3">
-        <button class="font-kalam d-flex px-3 mx-auto question-butttons growing" onclick="OpenDeleteQuizForm()"><h1 class="font-size-3 my-2 py-1">Cancel</h1></button>
+        <button class="font-kalam d-flex px-3 mx-auto question-butttons growing" onclick="OpenDeleteQuizForm()">
+          <h1 class="font-size-3 my-2 py-1">
+            {% if request.session.lang|default:"fr" == "fr" %}
+              Annuler
+            {% else %}
+              Cancel
+            {% endif %}
+          </h1>
+        </button>
       </div>
     </div>
   </div>

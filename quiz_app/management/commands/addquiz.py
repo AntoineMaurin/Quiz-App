@@ -59,6 +59,8 @@ class Command(BaseCommand):
         self.add_answers(answers_list, right_answer, question)
 
     def create_quiz(self, title, difficulty, language):
+        if len(title) > 49:
+            title = title[:47] + "..."
         quiz = Quiz.objects.create(title=title,
                                    is_public=True,
                                    difficulty=difficulty,

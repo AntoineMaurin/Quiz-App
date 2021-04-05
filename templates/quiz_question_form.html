@@ -83,10 +83,28 @@
 
             <div class="row justify-content-around buttons-section mt-3 ml-auto">
               <div class="col-5 mx-auto">
-                <button id="add-question-button" class="btn d-flex pr-3 question-butttons" formaction="/addquestion"><i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i><h3 class="mt-2 font-kalam">Add question</h3></button>
+                <button id="add-question-button" class="btn d-flex pr-3 question-butttons" formaction="/addquestion">
+                  <i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i>
+                  <h3 class="mt-2 font-kalam">
+                    {% if request.session.lang|default:"fr" == "fr" %}
+                      Ajouter une question
+                    {% else %}
+                      Add question
+                    {% endif %}
+                  </h3>
+                </button>
               </div>
               <div class="col-5 mx-auto">
-                <button type="submit" class="btn d-flex pr-3 question-butttons"><i class="fas fa-check fa-2x my-auto mr-3 ml-2"></i><h3 class="mt-2 font-kalam">Finished</h3></button>
+                <button type="submit" class="btn d-flex pr-3 question-butttons">
+                  <i class="fas fa-check fa-2x my-auto mr-3 ml-2"></i>
+                  <h3 class="mt-2 font-kalam">
+                    {% if request.session.lang|default:"fr" == "fr" %}
+                      Terminé
+                    {% else %}
+                      Finished
+                    {% endif %}
+                  </h3>
+                </button>
               </div>
             </div>
 

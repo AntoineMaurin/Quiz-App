@@ -6,40 +6,51 @@
 {% block body %}
 
 <div class="page-section-covered pt-5">
+  <div>
+    <i class="fas fa-arrow-left fa-2x text-white go-back-arrow growing" onclick="goBack()"></i>
+  </div>
+  <div class="row justify-content-center mt-5 mx-auto">
+    <div class="col-auto">
+      <div class="mx-auto">
+        <h1 class="font-exo-medium text-white">{% with quizzes|first as quiz %}{{ quiz.title }}{% endwith %}</h1>
+      </div>
+    </div>
+  </div>
 
   <div class="row justify-content-center mt-5 mx-auto">
     <div class="col-auto">
-      <div class="mx-auto"><h1 class="font-exo-medium text-white">Welcome to the quiz "{{ quiz.title }}"</h1></div>
+      <div class="mx-auto">
+        <h1 class="font-exo-medium text-white">
+          {% if request.session.lang|default:"fr" == "fr" %}
+            Choisis une difficulté
+          {% else %}
+            Pick a difficulty
+          {% endif %}
+        </h1>
+      </div>
     </div>
   </div>
 
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-7">
-
-        <div class="row justify-content-center mt-5 mx-auto">
-          <div class="col-auto">
-            <div class="mx-auto"><h2 class="font-exo-medium text-white">This quiz has {{ quiz.question_set.all|length }} questions</h2></div>
-          </div>
-        </div>
-
-        <div class="row justify-content-center mt-5 mx-auto">
-          <div class="col-auto">
-            <div class="mx-auto"><h2 class="font-exo-medium text-white">Are you ready ?</h2></div>
-          </div>
-        </div>
 
         <div class="container mt-5">
-          <div class="row justify-content-center pt-5">
-            <div class="col-auto">
-              <a href="/nextquestion"><button class="mx-3 px-5 py-2 big-yellow-button growing"><h2 class="py-2 my-0 font-fredericka font-weight-bold">Start</h2></button></a>
-            </div>
+          <div class="row justify-content-center">
+            {% for quiz in quizzes %}
+              <a href="/play/{{ quiz.difficulty }}/{{ quiz.slug }}" class="col-3 px-3 m-3 border radius-10 dark-text white-bg growing">
+                <div class="row p-2 border-bottom difficulty-{{ quiz.difficulty }} text-white">
+                  <div class="col text-center font-exo-medium">{{ quiz.difficulty|upper }}</div>
+                </div>
+                <div class="mt-2">
+                  <h5 class="">{{ quiz.title }}</h5>
+                  <p class="">{{ quiz.question_set.all|length }} questions</p>
+                </div>
+              </a>
+            {% endfor %}
           </div>
         </div>
 
-      </div>
     </div>
   </div>
 </div>
-
 {% endblock body %}

@@ -12,7 +12,13 @@
   {% include "header_tabs.html" %}
 
   <div class="container mt-5 text-center">
-    <h1 class="display-3 text-white font-fredericka">Public quizzes</h1>
+    <h1 class="display-3 text-white font-fredericka">
+      {% if request.session.lang|default:"fr" == "fr" %}
+        Quizz publiques
+      {% else %}
+        Public quizzes
+      {% endif %}
+    </h1>
   </div>
 
   {% if messages %}
@@ -58,14 +64,12 @@
   <div class="container mt-5">
     <div class="row justify-content-center">
       {% for quiz in quizzes %}
-        <a href="/startquiz/{{ quiz.id }}" class="col-3 px-3 m-3 border radius-10 dark-text white-bg growing">
-          <div class="row p-2 border-bottom difficulty-{{ quiz.difficulty }} text-white">
-            <div class="col p-0">{{ quiz.id }}</div>
-            <div class="col-1">{{ quiz.language|upper }}</div>
-          </div>
-          <div class="mt-2">
+        <a href="/pickdifficulty/{{ quiz.slug }}" class="col-3 px-3 m-3 border radius-10 dark-text white-bg growing h-min">
+          <div class="row border-bottom placeholder-image"></div>
+          <div class="mt-1">
             <h5 class="">{{ quiz.title }}</h5>
             <p class="">{{ quiz.question_set.all|length }} questions</p>
+            <p class="">Code : {{ quiz.id }}</p>
           </div>
         </a>
       {% endfor %}

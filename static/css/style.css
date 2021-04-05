@@ -502,3 +502,40 @@ a, a:hover {
   border: none;
   padding: 5px;
 }
+
+.placeholder-image {
+  background-image: url("https://picsum.photos/300/200");
+  height: 200px;
+  border-radius: 10px;
+}
+
+.go-back-arrow {
+  position: absolute;
+  left: 32px;
+  top: 32px;
+  cursor: pointer;
+}
+
+.h-min {
+  height: min-content;
+}
+
+.english-button-container, .french-button-container {
+  background-position: center;
+  border: 2px solid white;
+  height: 30px;
+  width: 39px;
+  background-repeat: no-repeat;
+}
+
+.english-button-container {
+  background: url("https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg");
+}
+
+.french-button-container {
+  background: url("https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg");
+}
+
+.lang-button {
+  padding: 18px 30px;
+}

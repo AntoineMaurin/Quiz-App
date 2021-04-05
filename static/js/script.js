@@ -1,3 +1,7 @@
+function goBack() {
+  window.history.back()
+}
+
 function duplicate(maximum_rows) {
 
   var displayed_rows = getDisplayedRows();

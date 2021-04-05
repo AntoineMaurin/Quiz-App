@@ -21,13 +21,13 @@ class QuizAppViewsTest(TestCase):
                                        {'checked_answer': ['a wrong answer']})
             self.assertTemplateUsed(response, 'quiz_question_playing.html')
 
-    def test_nextquestionpage_redirects_correctly_whith_no_more_question(self):
+    def test_nextquestionpage_redirects_correctly_whith_questions_left(self):
         self.client.get('/startquiz/' + str(self.quiz.id))
         self.client.get('/nextquestion')
         # Emptying the list at self.client.session['questions_left']
         for _ in self.client.session['questions_left']:
             response = self.client.post('/nextquestion',
-                                       {'checked_answer': ['a wrong answer']})
+                                       {'checked_answer': 'a wrong answer'})
         self.assertTemplateUsed(response, 'quiz_results.html')
 
     def test_cancel_quiz_deletes_keys(self):

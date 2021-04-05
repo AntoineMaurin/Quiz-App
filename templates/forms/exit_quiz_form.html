@@ -5,14 +5,32 @@
   <form class="py-3" action="/cancelquiz" method="post">
     {% csrf_token %}
     <div class="mb-3 mx-3">
-      <h5 class="mx-2 text-center">Your progression will be lost, are you sure you want to go ?</h5>
+      <h5 class="mx-2 text-center">
+        {% if request.session.lang|default:"fr" == "fr" %}
+          Votre progression sera perdue, êtes-vous sûr de vouloir quitter ?
+        {% else %}
+          Your progression will be lost, are you sure you want to go ?
+        {% endif %}
+      </h5>
     </div>
     <div class="row justify-content-around text-center">
       <div class="col">
-        <button type="submit" onclick="CloseExitQuizForm()" class="btn question-butttons px-3 font-size-20">Yes</button>
+        <button type="submit" onclick="CloseExitQuizForm()" class="btn question-butttons px-3 font-size-20">
+          {% if request.session.lang|default:"fr" == "fr" %}
+            Oui
+          {% else %}
+            Yes
+          {% endif %}
+        </button>
       </div>
       <div class="col">
-        <div onclick="CloseExitQuizForm()" class="btn question-butttons px-3 font-size-20">No, take me back</div>
+        <div onclick="CloseExitQuizForm()" class="btn question-butttons px-3 font-size-20">
+          {% if request.session.lang|default:"fr" == "fr" %}
+            Non, je continue
+          {% else %}
+            No, take me back
+          {% endif %}
+        </div>
       </div>
     </div>
   </form>

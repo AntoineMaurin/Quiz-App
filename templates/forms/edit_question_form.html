@@ -5,11 +5,23 @@
   <form id="EditQuestionForm" class="px-5 py-3" action="/create" method="post">
     {% csrf_token %}
       <div id="msg_uncompleted_answers" class="text-center mb-3 py-2 error-msg">
-        <h5 class="mb-0">All visible answers have to be completed.</h5>
+        <h5 class="mb-0">
+          {% if request.session.lang|default:"fr" == "fr" %}
+            Toutes les réponses visibles doivent être complétées.
+          {% else %}
+            All visible answers have to be completed.
+          {% endif %}
+        </h5>
       </div>
 
     <div id="msg_no_right_answer" class="text-center mb-3 py-2 error-msg">
-      <h5 class="mb-0">There must be at least one right answer.</h5>
+      <h5 class="mb-0">
+        {% if request.session.lang|default:"fr" == "fr" %}
+          Il doit y avoir au moins une bonne réponse !
+        {% else %}
+          There must be at least one right answer !
+        {% endif %}
+      </h5>
     </div>
 
     <div class="form-group pb-3 mw-500">
@@ -40,10 +52,22 @@
 
     <div class="row justify-content-center text-center mt-3 pt-3 buttons-section">
       <div class="col">
-        <button type="submit" class="btn question-butttons px-3 font-size-20">Edit</button>
+        <button type="submit" class="btn question-butttons px-3 font-size-20">
+          {% if request.session.lang|default:"fr" == "fr" %}
+            Éditer
+          {% else %}
+            Edit
+          {% endif %}
+        </button>
       </div>
       <div class="col">
-        <div onclick="CloseEditQuestionForm()" class="btn question-butttons px-3 font-size-20">Cancel</div>
+        <div onclick="CloseEditQuestionForm()" class="btn question-butttons px-3 font-size-20">
+          {% if request.session.lang|default:"fr" == "fr" %}
+            Annuler
+          {% else %}
+            Cancel
+          {% endif %}
+        </div>
       </div>
     </div>
 

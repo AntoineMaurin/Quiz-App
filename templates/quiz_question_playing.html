@@ -34,15 +34,15 @@
 
         <div class="row justify-content-center my-5 mx-auto">
           <div class="col-auto">
-            <div class="mx-auto"><h2 class="font-exo-medium text-white">{{ current_question }}</h2></div>
+            <div class="mx-auto"><h2 class="font-exo-medium text-white">{{ question }}</h2></div>
           </div>
         </div>
 
-        <form id="quiz_form" class="text-center" action="/nextquestion" method="post">
+        <form id="quiz_form" class="text-center" action="{{ request.get_full_path }}" method="post">
           {% csrf_token %}
 
           <div class="row mt-3 ml-3 px-5 justify-content-center">
-            {% for answer in current_question.answer_set.all %}
+            {% for answer in question.answer_set.all %}
               <div class="col-5 ml-5">
                 <label for="{{ answer.title }}" class="row mt-3 answer-row">
                   <div class="col-auto">
@@ -57,7 +57,15 @@
             {% endfor %}
           </div>
           <div class="row mt-5 justify-content-center">
-            <button type="submit" class="px-3 py-2 btn-tr growing"><h2 class="mt-2 font-exo-medium text-white">Next</h2></button>
+            <button type="submit" class="px-3 py-2 btn-tr growing">
+              <h2 class="mt-2 font-exo-medium text-white">
+                {% if request.session.lang|default:"fr" == "fr" %}
+                  Suivant
+                {% else %}
+                  Next
+                {% endif %}
+              </h2>
+            </button>
           </div>
         </form>
       </div>

@@ -23,12 +23,24 @@
   {% endif %}
 
   <div class="portal-title">
-    <h1 class="display-3 text-white font-fredericka">Quiz code</h1>
+    <h1 class="display-3 text-white font-fredericka">
+      {% if request.session.lang|default:"fr" == "fr" %}
+        Code de quizz
+      {% else %}
+        Quiz code
+      {% endif %}
+    </h1>
   </div>
   <div class="portal-form">
-    <form class="" action="/startquiz/0" method="get">
+    <form class="" action="/pickdifficulty" method="get">
       <input class="text-secondary clean-input-text py-1 px-2" name="quiz_id"></input>
-      <button class="btn d-block mt-2 py-1 w-100 font-exo-medium play-button" type="submit">Play</button>
+      <button class="btn d-block mt-2 py-1 w-100 font-exo-medium play-button" type="submit">
+        {% if request.session.lang|default:"fr" == "fr" %}
+          Jouer
+        {% else %}
+          Play
+        {% endif %}
+      </button>
     </form>
   </div>
 </section>
