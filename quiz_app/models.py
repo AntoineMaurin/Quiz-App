@@ -16,7 +16,6 @@ class Quiz(models.Model):
     def __str__(self):
         return str(self.title)
 
-#Lorem ipsum dolor sit amet, consectetur adipisicing elit
 class Question(models.Model):
     title = models.TextField()
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)

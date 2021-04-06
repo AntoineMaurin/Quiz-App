@@ -35,8 +35,18 @@ html {
 }
 
 .bg-primary {
-  background-image: url('../img/flat-design-background/47378842.jpg');
-  background-color: unset !important;
+  background-color: white !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' \
+  width='100%25' height='100%25' viewBox='0 0 100 60'%3E%3Cg %3E%3Crect fill='%23cc5577' width='11' height='11'/%3E%3Crect fill='%23cf5776' x='10' width='11' height='11'/%3E%3Crect fill='%23d15875' y='10' width='11' height='11'/%3E%3Crect fill='%23d35a74' x='20' width='11' height='11'/%3E%3Crect fill='%23d65c74' x='10' y='10' width='11' height='11'/%3E%3Crect fill='%23d85e73' y='20' width='11' \
+  height='11'/%3E%3Crect fill='%23da5f72' x='30' width='11' height='11'/%3E%3Crect fill='%23dc6171' x='20' y='10' width='11' height='11'/%3E%3Crect fill='%23de6370' x='10' y='20' width='11' height='11'/%3E%3Crect fill='%23e0656f' y='30' width='11' height='11'/%3E%3Crect fill='%23e2676e' x='40' width='11' height='11'/%3E%3Crect fill='%23e46a6d' x='30' y='10' width='11' height='11'/%3E%3Crect fill='%23e66c6c'\
+  x='20' y='20' width='11' height='11'/%3E%3Crect fill='%23e86e6b' x='10' y='30' width='11' height='11'/%3E%3Crect fill='%23e9706a' y='40' width='11' height='11'/%3E%3Crect fill='%23eb7369' x='50' width='11' height='11'/%3E%3Crect fill='%23ed7568' x='40' y='10' width='11' height='11'/%3E%3Crect fill='%23ee7768' x='30' y='20' width='11' height='11'/%3E%3Crect fill='%23ef7a67' x='20' y='30' width='11' \
+  height='11'/%3E%3Crect fill='%23f17c66' x='10' y='40' width='11' height='11'/%3E%3Crect fill='%23f27f65' y='50' width='11' height='11'/%3E%3Crect fill='%23f38164' x='60' width='11' height='11'/%3E%3Crect fill='%23f48463' x='50' y='10' width='11' height='11'/%3E%3Crect fill='%23f58662' x='40' y='20' width='11' height='11'/%3E%3Crect fill='%23f68962' x='30' y='30' width='11' height='11'/%3E%3Crect fill='%23f78b61'\
+  x='20' y='40' width='11' height='11'/%3E%3Crect fill='%23f88e60' x='10' y='50' width='11' height='11'/%3E%3Crect fill='%23f9915f' x='70' width='11' height='11'/%3E%3Crect fill='%23fa935f' x='60' y='10' width='11' height='11'/%3E%3Crect fill='%23fa965e' x='50' y='20' width='11' height='11'/%3E%3Crect fill='%23fb995e' x='40' y='30' width='11' height='11'/%3E%3Crect fill='%23fb9b5d' x='30' y='40' width='11'\
+  height='11'/%3E%3Crect fill='%23fc9e5d' x='20' y='50' width='11' height='11'/%3E%3Crect fill='%23fca15c' x='80' width='11' height='11'/%3E%3Crect fill='%23fca45c' x='70' y='10' width='11' height='11'/%3E%3Crect fill='%23fca65c' x='60' y='20' width='11' height='11'/%3E%3Crect fill='%23fda95b' x='50' y='30' width='11' height='11'/%3E%3Crect fill='%23fdac5b' x='40' y='40' width='11' height='11'/%3E%3Crect \
+  fill='%23fdaf5b' x='30' y='50' width='11' height='11'/%3E%3Crect fill='%23fdb25b' x='90' width='11' height='11'/%3E%3Crect fill='%23fcb55b' x='80' y='10' width='11' height='11'/%3E%3Crect fill='%23fcb75b' x='70' y='20' width='11' height='11'/%3E%3Crect fill='%23fcba5c' x='60' y='30' width='11' height='11'/%3E%3Crect fill='%23fcbd5c' x='50' y='40' width='11' height='11'/%3E%3Crect fill='%23fbc05c' x='40'\
+  y='50' width='11' height='11'/%3E%3Crect fill='%23fbc35d' x='90' y='10' width='11' height='11'/%3E%3Crect fill='%23fac65d' x='80' y='20' width='11' height='11'/%3E%3Crect fill='%23fac95e' x='70' y='30' width='11' height='11'/%3E%3Crect fill='%23f9cc5f' x='60' y='40' width='11' height='11'/%3E%3Crect fill='%23f8ce60' x='50' y='50' width='11' height='11'/%3E%3Crect fill='%23f8d161' x='90' y='20' width='11' \
+  height='11'/%3E%3Crect fill='%23f7d462' x='80' y='30' width='11' height='11'/%3E%3Crect fill='%23f6d764' x='70' y='40' width='11' height='11'/%3E%3Crect fill='%23f5da65' x='60' y='50' width='11' height='11'/%3E%3Crect fill='%23f4dd67' x='90' y='30' width='11' height='11'/%3E%3Crect fill='%23f3e068' x='80' y='40' width='11' height='11'/%3E%3Crect fill='%23f2e26a' x='70' y='50' width='11' height='11'/%3E%3Crect \
+  fill='%23f1e56c' x='90' y='40' width='11' height='11'/%3E%3Crect fill='%23efe86e' x='80' y='50' width='11' height='11'/%3E%3Crect fill='%23eeeb70' x='90' y='50' width='11' height='11'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .custom-bg {
@@ -88,7 +98,7 @@ html {
   transform: translate(-50%, -120%);
 }
 
-.portal-form {
+.quiz-code-form {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -101,24 +111,15 @@ html {
   border: none;
 }
 
-.big-yellow-button {
-  background: #ffe54a;
-  color: #242e37;
-  font-size: 20px;
-  border-radius: 50px;
+.play-button:hover {
+  background: #fff;
   border: none;
+  color: #b5b5b5;
   transition: all .2s ease-in-out;
-}
-
-.big-yellow-button:hover, .play-button:hover {
-  background: #f4d413;
-  border: none;
-  color: #fff;
-  transition: all .2s ease-in-out;
-  box-shadow: 0 0 4px #f4d413,
-              0 0 16px #f4d413,
-              0 0 32px #f4d413,
-              0 0 64px #f4d413;
+  box-shadow: 0 0 4px #fff,
+              0 0 16px #fff,
+              0 0 32px #fff,
+              0 0 64px #fff;
 }
 
 #inline-cancel-button {
@@ -297,6 +298,10 @@ a, a:hover {
   min-width: 300px;
 }
 
+.border-bottom {
+  border-bottom: 3px solid #ffffffad !important;
+}
+
 .form-box {
   background: transparent;
   padding: 15px;
@@ -366,20 +371,20 @@ a, a:hover {
 }
 
 .play-button {
-  background-color: transparent;
-  color: #f4d413;
+  background-color: #ffffff75;
+  color: #fff;
   font-size: 18px;
   border-radius: 8px;
-  border: 1px solid #f4d419;
+  border: none;
 }
 
 .growing {
-  transition: all .3s ease-in-out;
+  transition: all .25s ease-in-out;
 }
 
 .growing:hover {
   transform: scale(1.1);
-  transition: all .3s ease-in-out;
+  transition: all .25s ease-in-out;
 }
 
 .btn-tr{
@@ -423,12 +428,20 @@ a, a:hover {
   border-radius: 10px;
 }
 
+.radius-50 {
+  border-radius: 50px;
+}
+
 .white-bg {
   background-color: #fff;
 }
 
 .dark-text {
-  color: #2d2d2d;
+  color: #6c615c;
+}
+
+.dark-text:hover {
+  color: #6c615c;
 }
 
 .difficulty-easy {
@@ -497,10 +510,13 @@ a, a:hover {
 }
 
 .search-input {
-  height: 2rem;
-  border-radius: 8px;
+  height: 2.3rem;
+  width: 60%;
+  border-radius: 8px 0px 0px 8px;
   border: none;
   padding: 5px;
+  float: left;
+  font-size: 18px;
 }
 
 .placeholder-image {
@@ -538,4 +554,30 @@ a, a:hover {
 
 .lang-button {
   padding: 18px 30px;
+}
+
+.card-border {
+  border: 6px solid #e19a5b82;
+}
+
+.search-button {
+  width: 31px;
+  padding: 3px;
+  background: white;
+  color: #373636;
+  font-size: 15px;
+  border: None;
+  height: 100%;
+  border-radius: 0px 8px 8px 0px;
+}
+
+.reset-search-button {
+  width: 31px;
+  padding: 3px;
+  background: white;
+  color: #373636;
+  font-size: 15px;
+  border: None;
+  height: 100%;
+  border-radius: 8px;
 }

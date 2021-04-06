@@ -7,12 +7,12 @@
 
 {% block body %}
 
-<section class="page-section-covered pb-5">
+<section class="page-section">
 
   {% include "header_tabs.html" %}
 
-  <div class="container mt-5 text-center">
-    <h1 class="display-3 text-white font-fredericka">
+  <div class="container my-5 text-center">
+    <h1 class="display-2 text-white font-fredericka">
       {% if request.session.lang|default:"fr" == "fr" %}
         Quizz publiques
       {% else %}
@@ -33,42 +33,23 @@
   </div>
   {% endif %}
 
-  <div class="container mt-5">
-    <form class="row justify-content-center text-white" action="/search" method="get">
-      <div class="col-auto">
-        <input class="search-input" type="text" name="search_text" placeholder="Search...">
+  <div class="container mt-5 font-kalam">
+    <form class="row justify-content-center" action="/search">
+      <div class="col-4">
+        <input class="search-input ml-2 dark-text" type="text" placeholder="Search.." name="search_text">
+        <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+        <button class="reset-search-button ml-1" formaction="/"><i class="fas fa-undo"></i></button>
       </div>
-      <div class="col-auto">
-        <label for="difficulty">Difficulty :</label>
-        <select class="search-input" name="difficulty" id="difficulty">
-        <option value="all">All</option>
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-      </div>
-      <div class="col-auto">
-        <label for="language">Language :</label>
-        <select class="search-input" name="language" id="language">
-          <option value="all" selected>All</option>
-          <option value="fr">Fr</option>
-          <option value="en">En</option>
-        </select>
-      </div>
-      <div class="col-auto ml-3">
-        <input class="btn py-1 px-3 font-exo-medium play-button" type="submit" value="Search">
-      </div>
+      <div class="col-3"></div>
+      <div class="col-3"></div>
     </form>
-  </div>
 
-  <div class="container mt-5">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-2">
       {% for quiz in quizzes %}
-        <a href="/pickdifficulty/{{ quiz.slug }}" class="col-3 px-3 m-3 border radius-10 dark-text white-bg growing h-min">
-          <div class="row border-bottom placeholder-image"></div>
-          <div class="mt-1">
-            <h5 class="">{{ quiz.title }}</h5>
-            <p class="">{{ quiz.question_set.all|length }} questions</p>
+        <a href="/pickdifficulty/{{ quiz.slug }}" class="col-3 px-3 m-3 card-border radius-10 dark-text white-bg growing h-min">
+          <div class="mt-3">
+            <h4 class="mb-3">{{ quiz.title }}</h4>
+            <p class="mb-1">{{ quiz.question_set.all|length }} questions</p>
             <p class="">Code : {{ quiz.id }}</p>
           </div>
         </a>

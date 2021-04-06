@@ -7,7 +7,7 @@
 
 {% block body %}
 
-  <section class="page-section-covered">
+  <section class="page-section">
 
     {% include "header_tabs.html" %}
 
@@ -107,7 +107,7 @@
             </div>
 
             <div class="form-row justify-content-center mt-3 pt-3">
-              <button type="submit" class="mx-3 px-5 py-2 big-yellow-button">
+              <button type="submit" class="mx-3 px-5 py-2 play-button radius-50">
                 <h2 class="py-2 my-0 font-fredericka font-weight-bold">
                   {% if request.session.lang|default:"fr" == "fr" %}
                     Créer

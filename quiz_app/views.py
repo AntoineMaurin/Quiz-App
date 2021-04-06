@@ -131,25 +131,12 @@ def calcul_success_rate(quiz_results):
 
 def search(request):
     text = request.GET.get('search_text')
-    difficulty = request.GET.get('difficulty')
-    language = request.GET.get('language')
+    language=get_language(request)
 
-    if difficulty == "all" and language == "all":
-        quizzes = Quiz.objects.filter(is_public=True,
-                                      title__unaccent__icontains=text)
-    elif difficulty == "all" and not language == "all":
-        quizzes = Quiz.objects.filter(is_public=True,
-                                      title__unaccent__icontains=text,
-                                      language=language)
-    elif not difficulty == "all" and language == "all":
-        quizzes = Quiz.objects.filter(is_public=True,
-                                      title__unaccent__icontains=text,
-                                      difficulty=difficulty)
-    else:
-        quizzes = Quiz.objects.filter(is_public=True,
-                                      title__unaccent__icontains=text,
-                                      difficulty=difficulty,
-                                      language=language)
+    quizzes = Quiz.objects.filter(is_public=True,
+                                  title__unaccent__icontains=text,
+                                  language=language).distinct("title")
+
     return render(request, "discoverpage.html", {'quizzes': quizzes})
 
 def get_language(request):

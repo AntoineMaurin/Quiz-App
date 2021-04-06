@@ -6,7 +6,7 @@
 {% block body_class %}bg-primary{% endblock body_class %}
 
 {% block body %}
-<section class="page-section-covered">
+<section class="page-section">
 
   {% include "header_tabs.html" %}
 
@@ -31,9 +31,9 @@
       {% endif %}
     </h1>
   </div>
-  <div class="portal-form">
+  <div class="font-kalam quiz-code-form">
     <form class="" action="/pickdifficulty" method="get">
-      <input class="text-secondary clean-input-text py-1 px-2" name="quiz_id"></input>
+      <input class="dark-text clean-input-text py-1 px-2" placeholder="Ex. 441" name="quiz_id"></input>
       <button class="btn d-block mt-2 py-1 w-100 font-exo-medium play-button" type="submit">
         {% if request.session.lang|default:"fr" == "fr" %}
           Jouer
