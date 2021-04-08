@@ -33,10 +33,10 @@
   </div>
   {% endif %}
 
-  <div class="container mt-5 font-kalam">
+  <div class="container mt-5 font-kalam darker-text">
     <form class="row justify-content-center" action="/search">
       <div class="col-4">
-        <input class="search-input ml-2 dark-text" type="text" placeholder="Search.." name="search_text">
+        <input class="search-input ml-2" type="text" placeholder="Search.." name="search_text">
         <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
         <button class="reset-search-button ml-1" formaction="/"><i class="fas fa-undo"></i></button>
       </div>
@@ -46,7 +46,7 @@
 
     <div class="row justify-content-center mt-2">
       {% for quiz in quizzes %}
-        <a href="/pickdifficulty/{{ quiz.slug }}" class="col-3 px-3 m-3 card-border radius-10 dark-text white-bg growing h-min">
+        <a href="/pickdifficulty/{{ quiz.slug }}" class="col-3 px-3 m-3 card-border radius-10 white-bg growing h-min">
           <div class="mt-3">
             <h4 class="mb-3">{{ quiz.title }}</h4>
             <p class="mb-1">{{ quiz.question_set.all|length }} questions</p>

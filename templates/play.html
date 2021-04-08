@@ -34,7 +34,7 @@
   <div class="font-kalam quiz-code-form">
     <form class="" action="/pickdifficulty" method="get">
       <input class="dark-text clean-input-text py-1 px-2" placeholder="Ex. 441" name="quiz_id"></input>
-      <button class="btn d-block mt-2 py-1 w-100 font-exo-medium play-button" type="submit">
+      <button class="btn d-block mt-2 py-1 w-100 font-exo-medium play-button text-white-hover-dark" type="submit">
         {% if request.session.lang|default:"fr" == "fr" %}
           Jouer
         {% else %}

@@ -72,10 +72,12 @@ function CloseDeleteQuizForm() {
 
 function OpenExitQuizForm() {
   document.getElementById('ExitQuizFormDiv').style.display = 'block';
+  document.getElementsByClassName('page-section-covered ')[0].style.backgroundColor = '#000000a3';
 }
 
 function CloseExitQuizForm() {
   document.getElementById('ExitQuizFormDiv').style.display = 'none';
+  document.getElementsByClassName('page-section-covered ')[0].style.backgroundColor = '#00000029';
 }
 
 function getNumberAndTitle(number_and_title) {

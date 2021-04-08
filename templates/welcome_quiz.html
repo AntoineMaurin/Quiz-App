@@ -35,15 +35,12 @@
     <div class="row justify-content-center">
 
         <div class="container mt-5">
-          <div class="row justify-content-center">
+          <div class="row justify-content-center font-exo-medium darker-text">
             {% for quiz in quizzes %}
-              <a href="/play/{{ quiz.difficulty }}/{{ quiz.slug }}" class="col-3 px-3 m-3 border radius-10 dark-text white-bg growing">
-                <div class="row p-2 border-bottom difficulty-{{ quiz.difficulty }} text-white">
-                  <div class="col text-center font-exo-medium">{{ quiz.difficulty|upper }}</div>
-                </div>
-                <div class="mt-2">
-                  <h5 class="">{{ quiz.title }}</h5>
-                  <p class="">{{ quiz.question_set.all|length }} questions</p>
+              <a href="/play/{{ quiz.difficulty }}/{{ quiz.slug }}" class="col-3 px-3 m-3 difficulty-{{ quiz.difficulty }} play-button radius-10 growing">
+                <div class="row py-5">
+                  <div class="col-12 text-center">{{ quiz.difficulty|upper }}</div>
+                  <div class="col-12 text-center">{{ quiz.question_set.all|length }} questions</div>
                 </div>
               </a>
             {% endfor %}
