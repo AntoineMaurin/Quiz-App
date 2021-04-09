@@ -141,7 +141,7 @@ html {
 #QuizName {
   border: none;
   background-color: transparent;
-  color: white;
+  color: inherit;
   font-size: 24px;
 }
 
@@ -167,6 +167,10 @@ html {
   border: 2px solid white;
   border-radius: 15px;
   color: inherit;
+}
+
+.form-buttons:hover {
+  background-color: #0d1d26;
 }
 
 a, a:hover {
@@ -239,7 +243,7 @@ a, a:hover {
   cursor: default;
 }
 
-.checkboxes.lightblue-checkmark input:checked ~ .checkmark {
+.checkboxes.lightblue-checkmark input:checked ~ .checkmark{
   background-color: #3a9;
   content: "";
   cursor: default;
@@ -263,7 +267,7 @@ a, a:hover {
   font-size: 28px;
 }
 
-.checkboxes.peach-checkmark, .checkboxes.lightblue-checkmark .checkmark:after {
+.checkboxes.peach-checkmark .checkmark:after, .checkboxes.lightblue-checkmark .checkmark:after {
   content: "";
   position: absolute;
   display: none;
@@ -314,8 +318,17 @@ a, a:hover {
 }
 
 .input-container {
-  border-bottom: 1px solid #ffffffa8;
+  border-bottom: 1px solid #6a5a54;
   min-width: 300px;
+}
+
+#CreateQuizButton {
+  color: inherit;
+}
+
+#CreateQuizButton:hover {
+  background-color: #fff;
+  border: 2px solid;
 }
 
 .border-bottom {
@@ -331,17 +344,17 @@ a, a:hover {
 }
 
 ::-webkit-input-placeholder { /* Edge */
-  color: white !important;
+  color: inherit !important;
   opacity: .8 !important;
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: white !important;
+  color: inherit !important;
   opacity: .8 !important;
 }
 
 #QuizName::placeholder {
-  color: white !important;
+  color: inherit !important;
   opacity: .8 !important;
 }
 
@@ -445,6 +458,10 @@ a, a:hover {
 
 .radius-10 {
   border-radius: 10px;
+}
+
+.radius-30 {
+  border-radius: 30px;
 }
 
 .radius-50 {
@@ -609,4 +626,8 @@ a, a:hover {
   border: None;
   height: 100%;
   border-radius: 8px;
+}
+
+.createquiz-form {
+  background-color: #ffffff96;
 }

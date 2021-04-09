@@ -23,7 +23,7 @@
     </div>
     {% endif %}
 
-    <div class="container mt-5 pt-5">
+    <div class="container mt-5 py-3">
       <div class="row justify-content-center pt-3">
         <div class="col-auto">
           <h1 class="big-title font-fredericka text-white">
@@ -37,21 +37,21 @@
       </div>
     </div>
 
-    <div id="QuizNameFormDiv" class="container">
+    <div id="QuizNameFormDiv" class="container mt-3">
       <div class="row justify-content-center">
-        <div class="col-auto form_box">
-          <form class="mt-3" action="/questioncreation" method="post">
+        <div class="col-auto createquiz-form card-border darker-text radius-30">
+          <form class="my-3 font-kalam" action="/questioncreation" method="post">
             {% csrf_token %}
             <div class="d-flex input-container">
-              <input class="form-control pt-2 font-fredericka" id="QuizName" type="text" name="quiz_name" required="true" maxlength="50"
+              <input class="form-control pt-2" id="QuizName" type="text" name="quiz_name" required="true" maxlength="50"
               {% if request.session.lang|default:"fr" == "fr" %}
                 placeholder="Nom du quizz"
               {% else %}
                 placeholder="Quiz name"
               {% endif %}>
-              <button type="button" class="btn text-white" id="inline-cancel-button" onclick="document.getElementById('QuizName').value = ''"><i class="fas fa-times"></i></button>
+              <button type="button" class="btn" id="inline-cancel-button" onclick="document.getElementById('QuizName').value = ''"><i class="fas fa-times"></i></button>
             </div>
-            <div class="form-row justify-content-center font-fredericka text-white mt-3 pt-3">
+            <div class="form-row justify-content-center mt-3 pt-3">
               <div class="form-check ">
                 <input class="form-check-input" type="radio" name="is_public" id="inlineRadio1" value="True">
                 <label class="form-check-label" for="inlineRadio1">
@@ -73,7 +73,7 @@
                 </label>
               </div>
             </div>
-            <div class="form-row justify-content-center font-fredericka text-white mt-3 pt-3">
+            <div class="form-row justify-content-center mt-3 pt-3">
               <div class="form-check ">
                 <input class="form-check-input" type="radio" name="quiz_difficulty" id="easy" value="easy" checked>
                 <label class="form-check-label" for="easy">
@@ -107,7 +107,7 @@
             </div>
 
             <div class="form-row justify-content-center mt-3 pt-3">
-              <button type="submit" class="mx-3 px-5 py-2 play-button radius-50 text-white-hover-dark">
+              <button id="CreateQuizButton" type="submit" class="mx-3 px-5 py-2 radius-50 growing">
                 <h2 class="py-2 my-0 font-fredericka font-weight-bold">
                   {% if request.session.lang|default:"fr" == "fr" %}
                     Créer
