@@ -163,11 +163,16 @@ html {
   cursor: pointer;
 }
 
-.question-butttons, .question-butttons:hover {
+.question-butttons {
   border-radius: 15px;
   width: 230px;
   border: 2px solid white;
   color: inherit;
+}
+
+.question-butttons:hover {
+  background-color: #0d1d26;
+  color: white;
 }
 
 .form-buttons, .form-buttons:hover {

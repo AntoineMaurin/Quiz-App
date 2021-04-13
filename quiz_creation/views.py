@@ -19,13 +19,15 @@ def questioncreationpage(request):
         quiz_name = request.POST['quiz_name']
         is_public = request.POST['is_public']
         difficulty = request.POST['quiz_difficulty']
+        language = request.session.get('lang', 'fr')
         if is_public == 'True':
             is_public = True
         else:
             is_public = False
         quiz = Quiz.objects.create(title=quiz_name,
                                    is_public=is_public,
-                                   difficulty=difficulty)
+                                   difficulty=difficulty,
+                                   language=language)
         request.session['quiz_id'] = quiz.id
     return render(request, "quiz_question_form.html", {'quiz': quiz})
 
