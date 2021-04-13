@@ -45,7 +45,7 @@
                   <div class="col-5">
                     <div class="row">
                       <div class="col-1">
-                        <label class="checkboxes green-checkmark" title="Check the right answer">
+                        <label class="checkboxes lightblue-checkmark" title="Check the right answer">
                           <input type="radio" name="is_ans_right">
                           <span class="checkmark"></span>
                         </label>
@@ -58,7 +58,7 @@
                   <div class="col-5 ml-5">
                     <div class="row">
                       <div class="col-1">
-                        <label class="checkboxes green-checkmark" title="Check the right answer">
+                        <label class="checkboxes lightblue-checkmark" title="Check the right answer">
                           <input type="radio" name="is_ans_right">
                           <span class="checkmark"></span>
                         </label>
@@ -71,19 +71,19 @@
                 </div>
               </div>
 
-              <div class="col-1 p-0 mt-2">
+              <div class="col-1 p-0 mt-2 text-white">
                 <div class="col-12 p-0">
-                  <button class="btn question-form-btn d-flex question-butttons mx-auto w-75" type="button" onclick="duplicate(3)"><h3 class="">+</h3></button>
+                  <button class="btn question-form-btn d-flex white-thin-buttons mx-auto w-75" type="button" onclick="duplicate(3)"><h3 class="">+</h3></button>
                 </div>
                 <div class="col-12 p-0 mt-2">
-                  <button class="btn question-form-btn d-flex question-butttons mx-auto px-3 w-75" type="button" onclick="removeRow(1)"><h3 class="">-</h3></button>
+                  <button class="btn question-form-btn d-flex white-thin-buttons mx-auto px-3 w-75" type="button" onclick="removeRow(1)"><h3 class="">-</h3></button>
                 </div>
               </div>
             </div>
 
-            <div class="row justify-content-around buttons-section mt-3 ml-auto">
+            <div class="row justify-content-around buttons-section mt-3 ml-auto text-white">
               <div class="col-5 mx-auto">
-                <button id="add-question-button" class="btn d-flex pr-3 question-butttons" formaction="/addquestion">
+                <button id="add-question-button" class="btn d-flex pr-3 white-thin-buttons" formaction="/addquestion">
                   <i class="fas fa-plus-circle fa-2x my-auto ml-2 mr-3"></i>
                   <h3 class="mt-2 font-kalam">
                     {% if request.session.lang|default:"fr" == "fr" %}
@@ -95,7 +95,7 @@
                 </button>
               </div>
               <div class="col-5 mx-auto">
-                <button type="submit" class="btn d-flex pr-3 question-butttons">
+                <button type="submit" class="btn d-flex pr-3 white-thin-buttons">
                   <i class="fas fa-check fa-2x my-auto mr-3 ml-2"></i>
                   <h3 class="mt-2 font-kalam">
                     {% if request.session.lang|default:"fr" == "fr" %}

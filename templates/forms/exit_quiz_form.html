@@ -1,8 +1,8 @@
 <div id="ExitQuizFormDiv" class="pb-1">
-  <div class="pl-3 py-2 border-bottom">
+  <div class="pl-3 py-2 border-bottom text-white">
     <h4 class="my-1">{{ quiz.title }}</h4>
   </div>
-  <form class="py-3" action="/cancelquiz" method="post">
+  <form class="py-3 text-white" action="/cancelquiz" method="post">
     {% csrf_token %}
     <div class="mb-3 mx-3">
       <h5 class="mx-2 text-center">

@@ -72,8 +72,8 @@
       <div class="col-auto mx-3">
         <form class="" action="/validatequiz" method="post">
           {% csrf_token %}
-          <button type="submit" class="font-kalam d-flex px-3 mx-auto question-butttons growing">
-            <h1 class="font-size-3 my-2 py-1">
+          <button type="submit" class="font-kalam d-flex px-3 question-butttons growing">
+            <h1 class="font-size-3 mx-auto my-2 py-1">
               {% if request.session.lang|default:"fr" == "fr" %}
                 Valider
               {% else %}
@@ -84,8 +84,8 @@
         </form>
       </div>
       <div class="col-auto mx-3">
-        <button class="font-kalam d-flex px-3 mx-auto question-butttons growing" onclick="OpenDeleteQuizForm()">
-          <h1 class="font-size-3 my-2 py-1">
+        <button class="font-kalam d-flex px-3 question-butttons growing" onclick="OpenDeleteQuizForm()">
+          <h1 class="font-size-3 mx-auto my-2 py-1">
             {% if request.session.lang|default:"fr" == "fr" %}
               Annuler
             {% else %}

@@ -1,11 +1,11 @@
 <div id="DeleteQuestionFormDiv">
   <div class="pl-3 py-2 border-bottom">
-    <h4 class="my-1" id="delete_question_title"></h4>
+    <h4 class="my-1 text-white" id="delete_question_title"></h4>
   </div>
   <form id="DeleteQuestionForm" class="py-3" action="" method="post">
     {% csrf_token %}
     <div class="mb-2 px-3">
-      <h5 class="mb-3">
+      <h5 class="mb-3 text-white">
         {% if request.session.lang|default:"fr" == "fr" %}
           Êtes-vous sûr de vouloir supprimer cette question ?
         {% else %}
@@ -14,9 +14,9 @@
       </h5>
     </div>
     <div class="mb-2 px-3">
-      <h5 class="mb-3 text-center font-weight-bold" id="delete_question_message"></h5>
+      <h5 class="mb-3 text-center font-weight-bold text-white" id="delete_question_message"></h5>
     </div>
-    <div class="row justify-content-around text-center">
+    <div class="row justify-content-around text-center text-white">
       <div class="col">
         <button type="submit" onclick="CloseDeleteQuestionForm()" class="btn question-butttons px-3 font-size-20">
           {% if request.session.lang|default:"fr" == "fr" %}

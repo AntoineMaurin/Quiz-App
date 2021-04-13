@@ -155,10 +155,18 @@ html {
   box-shadow:none;
 }
 
+.white-thin-buttons {
+  border-radius: 15px;
+  border: 3px solid white;
+  color: inherit !important;
+  background-color: inherit;
+  cursor: pointer;
+}
+
 .question-butttons, .question-butttons:hover {
   border-radius: 15px;
   width: 230px;
-  border: 6px solid #e19a5b82;
+  border: 2px solid white;
   color: inherit;
 }
 
@@ -166,7 +174,9 @@ html {
   width: 200px;
   border: 2px solid white;
   border-radius: 15px;
+  cursor: pointer;
   color: inherit;
+  background-color: inherit;
 }
 
 .form-buttons:hover {
@@ -216,7 +226,6 @@ a, a:hover {
   background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a green background */
 .checkboxes input:checked ~ .checkmark {
   background-color: transparent;
   border: 1px solid white;
@@ -300,10 +309,9 @@ a, a:hover {
   transform: translate(50%, -50%);
   z-index: 9;
   background-color: #152732;
-  padding: 0 30px 20px 20px;
+  padding: 0 30px 5px 20px;
   border-radius: 20px;
   box-shadow: 0px 0px 4px #152732cf;
-  color: white;
   border: 2px solid white;
 }
 
