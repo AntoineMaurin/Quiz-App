@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block js %}
+  <script src="{% static 'js/script.js' %}"></script>
+{% endblock js %}
+
 {% block body_class %}playing-bg{% endblock body_class %}
 
 {% block body %}
@@ -43,16 +47,22 @@
 
           <div class="row mt-3 ml-3 px-5 justify-content-center">
             {% for answer in question.answer_set.all %}
-              <div class="col-5 ml-5">
-                <label for="{{ answer.title }}" class="row mt-3 answer-row">
-                  <div class="col-auto">
+              <div class="col-12 col-lg-6">
+                <div class="row justify-content-center py-3">
+                  <div class="col-1">
                     <label class="checkboxes lightblue-checkmark" title="Check the right answer">
                       <input type="radio" name="checked_answer" id="{{ answer.title }}">
                       <span class="checkmark"></span>
                     </label>
-                    <h3 class="text-white text-left">{{ answer.title }}</h3>
                   </div>
-                </label>
+                  <div class="col-10">
+                    <label for="{{ answer.title }}" class="row answer-row">
+                      <div class="col-auto">
+                        <h3 class="text-white text-left">{{ answer.title }}</h3>
+                      </div>
+                    </label>
+                  </div>
+                </div>
               </div>
             {% endfor %}
           </div>

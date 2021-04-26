@@ -2,58 +2,6 @@ function goBack() {
   window.history.back()
 }
 
-function duplicate(maximum_rows) {
-
-  var displayed_rows = getDisplayedRows();
-
-  if (displayed_rows.length < maximum_rows) {
-    var i = 0;
-    var original = document.getElementsByClassName('answers-section')[0];
-    var clone = original.cloneNode(true); // "deep" clone
-
-    original.parentNode.appendChild(clone);
-
-    var displayed_rows = getDisplayedRows();
-    var last_element = displayed_rows[displayed_rows.length - 1];
-    for (elt of last_element.getElementsByTagName("input")) {
-      elt.value = '';
-      elt.checked = false;
-    }
-  }
-}
-
-function removeRow(minimum_rows) {
-
-  var displayed_rows = getDisplayedRows();
-
-  if (displayed_rows.length > minimum_rows) {
-    var last_element = displayed_rows[displayed_rows.length - 1];
-    for (elt of last_element.getElementsByTagName("input")) {
-      elt.required = false;
-      elt.value = '';
-      elt.name = '';
-    }
-    last_element.style.display = 'none';
-  }
-}
-
-function getDisplayedRows() {
-  var all_answer_rows = document.getElementsByClassName('answers-section');
-
-  var displayed_rows = [];
-
-  for (row of all_answer_rows) {
-    if (row.style.display !== 'none')
-
-      displayed_rows.push(row);
-  }
-  return displayed_rows;
-}
-
-function showQuizNameForm() {
-  document.getElementById('QuizNameFormDiv').style.display = 'block';
-}
-
 function CloseDeleteQuestionForm() {
   document.getElementById('DeleteQuestionFormDiv').style.display = 'none';
 }
@@ -62,22 +10,14 @@ function CloseEditQuestionForm() {
   document.getElementById('EditQuestionFormDiv').style.display = 'none';
 }
 
-function OpenDeleteQuizForm(){
-  document.getElementById('DeleteQuizFormDiv').style.display = 'block';
-}
-
-function CloseDeleteQuizForm() {
-  document.getElementById('DeleteQuizFormDiv').style.display = 'none';
-}
-
 function OpenExitQuizForm() {
   document.getElementById('ExitQuizFormDiv').style.display = 'block';
-  document.getElementsByClassName('page-section-covered ')[0].style.backgroundColor = '#000000a3';
+  document.getElementsByClassName('page-section-covered')[0].style.backgroundColor = '#000000a3';
 }
 
 function CloseExitQuizForm() {
   document.getElementById('ExitQuizFormDiv').style.display = 'none';
-  document.getElementsByClassName('page-section-covered ')[0].style.backgroundColor = '#00000029';
+  document.getElementsByClassName('page-section-covered')[0].style.backgroundColor = '#00000029';
 }
 
 function getNumberAndTitle(number_and_title) {
@@ -183,7 +123,7 @@ $(document).ready(function(){
 
       if (this.checked) {
 
-        let answer_text = $(this).parent().siblings('h3').text();
+        let answer_text = $(this).parent().parent().siblings('div').children().children().children("h3").text();
         $(this).attr("value", answer_text);
 
        }

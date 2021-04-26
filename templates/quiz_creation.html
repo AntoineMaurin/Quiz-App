@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block js %}
+  <script src="{% static 'js/quiz_creation.js' %}"></script>
+{% endblock js %}
+
+{% block body_class %}secondary-bg{% endblock body_class %}
+
+{% block body %}
+
+  <a href="#" class="close" onclick="OpenDeleteQuizForm()"></a>
+  <div class="row justify-content-center pt-5 mx-auto mb-3 pb-3">
+    <div class="col-auto">
+      <div class="mx-auto"><h1 class="text-white font-kalam quiz-title">{{ quiz.title }}</h1></div>
+    </div>
+  </div>
+
+  <div id="QuestionForm" class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-11 col-sm-8 col-md-6 quiz-creation-container primary-bg h-min-c mb-5 text-center">
+
+        {% include 'components/message_questions_list.html' %}
+
+        <form id="quiz_question_form" class="text-center" action="/addquestion" method="get">
+
+          <div class="mt-2 pt-2">
+            <div id="quiz-creation-question-number" class="text-white text-left mb-2">
+              <h5></h5>
+            </div>
+            <div class="form-group">
+              <input class="form-control form-control-lg" type="text" placeholder="Question" name="question_text">
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-lg-6">
+                <div class="row justify-content-center py-3">
+                  <div class="col-1">
+                    <label class="checkboxes green-checkmark" title="Check the right answer">
+                      <input type="radio" name="right-answer">
+                      <div class="checkmark"></div>
+                    </label>
+                  </div>
+                  <div class="col-10">
+                    <input type="text" class="form-control" name="answer">
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="row justify-content-center py-3">
+                  <div class="col-1">
+                    <label class="checkboxes green-checkmark" title="Check the right answer">
+                      <input type="radio" name="right-answer">
+                      <div class="checkmark"></div>
+                    </label>
+                  </div>
+                  <div class="col-10">
+                    <input type="text" class="form-control" name="answer">
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="row justify-content-center py-3">
+                  <div class="col-1">
+                    <label class="checkboxes green-checkmark" title="Check the right answer">
+                      <input type="radio" name="right-answer">
+                      <div class="checkmark"></div>
+                    </label>
+                  </div>
+                  <div class="col-10">
+                    <input type="text" class="form-control" name="answer">
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="row justify-content-center py-3">
+                  <div class="col-1">
+                    <label class="checkboxes green-checkmark" title="Check the right answer">
+                      <input type="radio" name="right-answer">
+                      <div class="checkmark"></div>
+                    </label>
+                  </div>
+                  <div class="col-10">
+                    <input type="text" class="form-control" name="answer">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-around justify-content-md-around py-md-3 text-white">
+              <div class="col-auto my-2">
+                <div id="toggle-questions-list" class="row white-thin-buttons py-1">
+                  <div class="col-auto col-md-3">
+                    <i class="fas fa-bars fa-2x m-2"></i>
+                  </div>
+                  <div class="col-9 pl-2 d-none d-md-block">
+                    <h3 class="mt-2 font-kalam">
+                      {% if request.session.lang|default:"fr" == "fr" %}
+                        Liste
+                      {% else %}
+                        List
+                      {% endif %}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto my-2">
+                <div id="add-question-button" class="row white-thin-buttons py-1" type="submit" formaction="/addquestion">
+                  <div class="col-auto col-md-3">
+                    <i class="fas fa-check fa-2x m-2"></i>
+                  </div>
+                  <div class="col-9 pl-2 d-none d-md-block">
+                    <h3 class="mt-2 font-kalam">
+                      {% if request.session.lang|default:"fr" == "fr" %}
+                        Ajouter
+                      {% else %}
+                        Add
+                      {% endif %}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="QuestionsList" class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-11 col-sm-8 col-md-6 quiz-creation-container primary-bg h-min-c mb-5 text-center">
+
+        {% include 'components/message_quiz_list.html' %}
+
+        <div class="mt-2 pt-2 text-white text-md-left">
+
+          {% include 'components/question_creation_card.html' %}
+
+        </div>
+        <div class="row justify-content-around justify-content-md-around py-md-3 text-white">
+          <div class="col-auto my-2">
+            <div id="toggle-quiz-summary" class="row white-thin-buttons py-1">
+              <div class="col-auto col-md-3">
+                <i class="fas fa-plus-circle fa-2x m-2"></i>
+              </div>
+              <div class="col-9 pl-2 d-none d-md-block">
+                <h3 class="mt-2 font-kalam">
+                  {% if request.session.lang|default:"fr" == "fr" %}
+                    Ajouter
+                  {% else %}
+                    Add
+                  {% endif %}
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto my-2">
+            <form id="quiz-creation-form" action="/submitquiz" method="get">
+              <div id="submit-quiz-button" class="row white-thin-buttons py-1">
+                <div class="col-auto col-md-3">
+                  <i class="fas fa-check fa-2x m-2"></i>
+                </div>
+                <div class="col-9 pl-2 d-none d-md-block">
+                  <h3 class="mt-2 font-kalam">
+                    {% if request.session.lang|default:"fr" == "fr" %}
+                      Terminé
+                    {% else %}
+                      Finished
+                    {% endif %}
+                  </h3>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% include "forms/delete_quiz_form.html" %}
+
+{% endblock body %}

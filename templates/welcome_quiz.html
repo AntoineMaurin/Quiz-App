@@ -37,7 +37,7 @@
         <div class="container mt-5">
           <div class="row justify-content-center font-exo-medium darker-text">
             {% for quiz in quizzes %}
-              <a href="/play/{{ quiz.difficulty }}/{{ quiz.slug }}" class="col-3 px-3 m-3 difficulty-{{ quiz.difficulty }} play-button radius-10 growing">
+              <a href="/{{ quiz.difficulty }}/{{ quiz.slug }}" class="col-3 px-3 m-3 difficulty-{{ quiz.difficulty }} play-button radius-10 growing">
                 <div class="row py-5">
                   <div class="col-12 text-center">{{ quiz.difficulty|upper }}</div>
                   <div class="col-12 text-center">{{ quiz.question_set.all|length }} questions</div>

@@ -37,10 +37,10 @@
       </div>
     </div>
 
-    <div id="QuizNameFormDiv" class="container mt-3">
+    <div class="container mt-3">
       <div class="row justify-content-center">
         <div class="col-auto createquiz-form card-border darker-text radius-30">
-          <form class="my-3 font-kalam" action="/questioncreation" method="post">
+          <form class="my-3 font-kalam" action="/createquiz" method="post">
             {% csrf_token %}
             <div class="d-flex input-container">
               <input class="form-control pt-2" id="QuizName" type="text" name="quiz_name" required="true" maxlength="50"

@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from quiz_app.models import Quiz, Question, Answer
 from django.contrib import messages
-import random
 
 
 def discoverpage(request):
@@ -10,8 +9,10 @@ def discoverpage(request):
                                   language=language).distinct("title")
     return render(request, "discoverpage.html", {'quizzes': quizzes})
 
+
 def playpage(request):
     return render(request, "play.html")
+
 
 def pick_a_difficulty(request, quiz_slug=""):
 
@@ -25,6 +26,7 @@ def pick_a_difficulty(request, quiz_slug=""):
     request.session['question_number'] = 0
 
     return render(request, "welcome_quiz.html", {'quizzes': quizzes})
+
 
 def playquiz(request, difficulty, quiz_slug):
 
@@ -74,6 +76,7 @@ def playquiz(request, difficulty, quiz_slug):
 
     return render(request, "quiz_question_playing.html", context)
 
+
 def clean_session_dict(request):
     try:
         del(request.session['quiz_id'])
@@ -81,8 +84,9 @@ def clean_session_dict(request):
         del(request.session['question_number'])
         del(request.session['answered_questions_ids'])
         request.session.modified = True
-    except(KeyError):
+    except KeyError:
         pass
+
 
 def setup_quiz(request, difficulty, quiz_slug):
     quiz = Quiz.objects.get(slug=quiz_slug,
@@ -91,6 +95,7 @@ def setup_quiz(request, difficulty, quiz_slug):
     request.session['quiz_id'] = quiz.id
     request.session['questions_ids'] = get_questions_ids(quiz)
 
+
 def get_current_question(request):
     try:
         question_id = request.session['questions_ids'][
@@ -98,22 +103,26 @@ def get_current_question(request):
             ]
         current_question = Question.objects.get(id=question_id)
         return current_question
-    except(IndexError):
+    except IndexError:
         return None
+
 
 def get_questions_ids(quiz):
     quiz_questions = Question.objects.filter(quiz=quiz)
     questions_ids = [question.id for question in quiz_questions]
     return questions_ids
 
+
 def append_quiz_results(request, question_id, answer_title):
     for answer in Answer.objects.filter(question__id=question_id):
         if answer.title == answer_title:
             request.session['answered_questions_ids'].append(answer.id)
 
+
 def cancelquiz(request):
     clean_session_dict(request)
-    return discoverpage(request)
+    return redirect("/")
+
 
 def calcul_success_rate(quiz_results):
     right_answers = 0
@@ -124,20 +133,22 @@ def calcul_success_rate(quiz_results):
 
     try:
         success_rate = (right_answers/len(quiz_results)) * 100
-    except(ZeroDivisionError):
+    except ZeroDivisionError:
         success_rate = 0
 
     return success_rate
 
+
 def search(request):
     text = request.GET.get('search_text')
-    language=get_language(request)
+    language = get_language(request)
 
     quizzes = Quiz.objects.filter(is_public=True,
                                   title__unaccent__icontains=text,
                                   language=language).distinct("title")
 
     return render(request, "discoverpage.html", {'quizzes': quizzes})
+
 
 def get_language(request):
     return request.session.get('lang', 'fr')

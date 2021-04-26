@@ -1,7 +1,7 @@
 <div class="container" id="tabs">
-  <div class="row justify-content-end font-kalam text-white py-3 pr-5">
-    <div class="col-auto mx-3 px-3 text-center {% if request.path == '/' %} border-bottom {% endif %}">
-      <a href="/" class="h3 lh-1-5">
+  <div class="row font-kalam text-white py-3 pr-5">
+    <div class="offset-1 offset-md-5 col-2 px-3 text-center">
+      <a href="/" class="h3 lh-1-5 px-3 {% if request.path == '/' %} border-bottom {% endif %}">
         {% if request.session.lang|default:"fr" == "fr" %}
           Découvrir
         {% else %}
@@ -9,8 +9,8 @@
         {% endif %}
       </a>
     </div>
-    <div class="col-auto mx-3 px-3 text-center {% if request.path == '/play' %} border-bottom {% endif %}">
-      <a href="/play" class="h3 lh-1-5">
+    <div class="col-2 px-3 text-center">
+      <a href="/play" class="h3 lh-1-5 px-3 {% if request.path == '/play' %} border-bottom {% endif %}">
         {% if request.session.lang|default:"fr" == "fr" %}
           Jouer
         {% else %}
@@ -18,8 +18,8 @@
         {% endif %}
       </a>
     </div>
-    <div class="col-auto mx-3 px-3 text-center {% if request.path == '/create' %} border-bottom {% endif %}">
-      <a href="/create" class="h3 lh-1-5">
+    <div class="col-2 px-3 text-center">
+      <a href="/create" class="h3 lh-1-5 px-3 {% if request.path == '/create' %} border-bottom {% endif %}">
         {% if request.session.lang|default:"fr" == "fr" %}
           Créer
         {% else %}
@@ -27,14 +27,14 @@
         {% endif %}
       </a>
     </div>
-    {% if request.session.lang|default:"fr" == "fr" %}
-      <a href="/lang/en" class="my-auto mx-3 text-center english-button-container">
-        <div class="lang-button"></div>
-      </a>
-    {% else %}
-      <a href="/lang/fr" class="my-auto mx-3 text-center french-button-container">
-        <div class="lang-button"></div>
-      </a>
-    {% endif %}
+    <div class="col-1 px-3 text-center">
+      {% if request.session.lang|default:"fr" == "fr" %}
+        <a href="/lang/en" class="my-2 text-center english-button-container d-inline-block">
+          <div class="lang-button"></div>
+        </a>
+      {% else %}
+        <a href="/lang/fr" class="my-2 text-center french-button-container d-inline-block"></a>
+      {% endif %}
+    </div>
   </div>
 </div>

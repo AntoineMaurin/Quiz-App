@@ -23,9 +23,9 @@ urlpatterns = [
     path('play', views.playpage),
     path('pickdifficulty', views.pick_a_difficulty),
     path('pickdifficulty/<slug:quiz_slug>', views.pick_a_difficulty),
-    path('play/<str:difficulty>/<str:quiz_slug>', views.playquiz),
     path('cancelquiz', views.cancelquiz),
     path('search', views.search),
     path('lang/<str:language>', views.set_language),
     path('', include('quiz_creation.urls')),
+    path('<str:difficulty>/<slug:quiz_slug>', views.playquiz),
 ]

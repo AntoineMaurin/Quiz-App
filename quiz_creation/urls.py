@@ -3,14 +3,17 @@ from django.urls import path, include
 from quiz_creation import views
 
 urlpatterns = [
-    path('questioncreation', views.questioncreationpage),
+    # path('questioncreation', views.questioncreationpage),
     path('create', views.createquizpage),
-    path('addquestion', views.addquestion),
+    path('createquiz', views.createquiz),
+    # path('addquestion', views.addquestion),
     path('submitquiz', views.submitquiz),
-    path('validatequiz', views.validate_quiz),
-    path('deletequestion/<int:index>', views.deletequestion),
-    path('editquestion/<int:index>', views.editquestion),
+    # path('validatequiz', views.validate_quiz),
+    # path('deletequestion/<int:index>', views.deletequestion),
+    # path('editquestion/<int:index>', views.editquestion),
     path('deletequiz', views.deletequiz),
-    path('ajaxgetanswers', views.ajaxgetanswers),
-    path('ajaxcheckfields', views.ajaxcheckfields),
+    # path('ajaxgetanswers', views.ajaxgetanswers),
+    # path('ajaxcheckfields', views.ajaxcheckfields),
+    path('ajaxcheckquiz', views.ajaxcheckquiz),
+    path('ajaxcheckquestionfields', views.ajaxcheckquestionfields),
 ]

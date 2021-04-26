@@ -16,6 +16,12 @@ class Quiz(models.Model):
     def __str__(self):
         return str(self.title)
 
+    def get_questions(self):
+        return Question.objects.filter(quiz=self)
+
+    def add_temporary_question(self, question):
+        pass
+
 class Question(models.Model):
     title = models.TextField()
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
