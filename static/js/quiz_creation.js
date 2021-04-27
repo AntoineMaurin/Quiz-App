@@ -102,14 +102,28 @@ $(document).ready(function() {
 
   }
 
+  function get_question_form_fields() {
+    var question_title = $('#quiz-question-form').children().children().siblings().children("input").val().replace(/"/g, '&quot;');
+    var right_answer = $("input:checked").val();
+
+    var answers = [];
+    for (answer of $('input[name=answer]')) {
+      answers.push(answer.value);
+    }
+    return [question_title, right_answer, answers];
+  }
+
   $("#add-question-button").click(function () {
 
     set_checked_answer();
 
-    var form_data = $('#quiz_question_form').serializeArray();
-    var answers = [];
-    for (answer of $('input[name=answer]')) {
-      answers.push(answer.value);
+    form_fields = get_question_form_fields();
+    var question_title = JSON.stringify(form_fields[0]);
+    var right_answer = JSON.stringify(form_fields[1]);
+    var answers = JSON.stringify(form_fields[2]);
+
+    if (right_answer == null) {
+      right_answer = '""';
     }
 
     $.ajax({
@@ -117,8 +131,9 @@ $(document).ready(function() {
       url: "/ajaxcheckquestionfields",
       data: {
         // 'csrfmiddlewaretoken' : csrf,
-        'form_data': JSON.stringify(form_data),
-        'answers': JSON.stringify(answers)},
+        'question_title': question_title,
+        'answers': JSON.stringify(answers),
+        'right-answer' : right_answer},
       dataType: "json",
       success: function(question_data) {
 
@@ -163,7 +178,9 @@ $(document).ready(function() {
 
   });
 
-  $(document).on('click', '.delete-question', function() {
+  $(document).on('click', '.delete-question', function(event) {
+
+    event.stopPropagation();
 
     if ($(this).hasClass("d-none")) {
       var question_title = $(this).parent().parent().siblings('div').children('p').text();
@@ -192,6 +209,84 @@ $(document).ready(function() {
          console.log(e);
        }});
 
+  });
+
+  $(document).on('click', '.question-card-row', function() {
+
+    // Get the question to be edited
+
+    if ($(this).attr('id') == "question-card") {
+      return;
+    }
+    var title = $(this).children().children('p').text();
+    var answers_container = $(this).children().siblings('div').children().children("div");
+
+    var answers = [];
+    answers_container.each(function() {
+      answers.push($(this).text());
+    })
+
+    $.ajax({
+      type: "GET",
+      url: "/ajaxgetquestiontoedit",
+      data: {'question_title': title},
+      dataType: "json",
+      success: function() {
+
+        // Prepare the form to edit the question
+        $('#QuestionsList').hide();
+
+        var question_title_input = $('#quiz-creation-question-number').siblings("div").children('input');
+        var answers_inputs = ($('input[name=answer]'));
+
+        question_title_input.val(title);
+
+        answers_inputs.each(function (index) {
+          $(this).val(answers[index]);
+        });
+
+        $('#add-question-button').hide();
+        $('#edit-question-button').css('display', 'flex');
+        $('#QuestionForm').show();
+
+      },
+      error: function(rs, e) {
+         console.log(e);
+       }});
+
+  });
+
+  $('#edit-question-button').click( function() {
+
+    // Get the edited question form
+    form_fields = get_question_form_fields();
+    var question_title = JSON.stringify(form_fields[0]);
+    var right_answer = JSON.stringify(form_fields[1]);
+    var answers = JSON.stringify(form_fields[2]);
+
+    if (right_answer == null) {
+      right_answer = '""';
+    }
+
+    console.log(question_title, right_answer, answers);
+
+    $.ajax({
+      type: "GET",
+      url: "/ajaxeditquestion",
+      data: {'question_title': question_title,
+             'right_answer': right_answer,
+             'answers': answers},
+      dataType: "json",
+      success: function() {
+
+        // Displays message if the data was not correct
+        // If not, the question has been changed in the backend, and here we're
+        // gonna show again the QuestionList view
+
+      },
+      error: function(rs, e) {
+         console.log(e);
+       }});
   });
 
 });

@@ -197,47 +197,54 @@ def createquizpage(request):
 #     return True
 
 
-def get_dict_from_json(json_data):
-    form_data_dict = {}
-    form_data_list = json.loads(json_data)
-
-    for field in form_data_list:
-        form_data_dict[field["name"]] = field["value"]
-
-    return form_data_dict
-
 # Returns True if any of the args is empty
 def is_empty(*args):
+    print(args)
     return any([len(str(elt)) < 1 for elt in args])
 
 
-def ajaxcheckquestionfields(request):
-    form_data_dict = get_dict_from_json(request.GET['form_data'])
-
-    question = form_data_dict['question_text']
-    answers = json.loads(request.GET['answers'])
+def checkfields(question, right_answer, answers):
 
     if is_empty(question, *answers):
         message = "Tous les champs doivent être remplis."
-        return JsonResponse({'error': message})
+        return ('error', message)
 
-    elif 'right-answer' not in form_data_dict:
+    elif len(right_answer) < 1:
         message = "Il doit y avoir au moins une bonne réponse."
-        return JsonResponse({'error': message})
+        return ('error', message)
+
+    else:
+        return ('all good')
+
+def remove_quotes(string):
+    if string[0] == '"' and string[-1] == '"':
+        return string[1:-1]
+
+def ajaxcheckquestionfields(request):
+
+    question = remove_quotes(request.GET['question_title'])
+    answers = eval(json.loads(request.GET['answers']))
+    right_answer = remove_quotes(request.GET['right-answer'])
+
+    are_fields_ok = checkfields(question, right_answer, answers)
+
+    if 'error' in are_fields_ok:
+        return JsonResponse({'error': are_fields_ok[1]})
     else:
         question_data = {'question': question,
                          'answers': answers,
-                         'right-answer': form_data_dict['right-answer']}
+                         'right-answer': right_answer}
 
         print(question_data)
+
         # Saves the questions in session dict all along the quiz creation
         if "current_quiz_creation" not in request.session:
             request.session["current_quiz_creation"] = []
 
-        questions_list = request.session["current_quiz_creation"]
-        questions_list.append(question_data)
+        request.session["current_quiz_creation"].append(question_data)
+        request.session.modified = True
 
-        request.session["current_quiz_creation"] = questions_list
+        print(request.session["current_quiz_creation"])
 
         return JsonResponse(question_data)
 
@@ -300,12 +307,14 @@ def submitquiz(request):
 def deletequiz(request):
     if request.method == 'POST':
         try:
-            del(request.session['current_quiz_creation'])
             del(request.session['quiz_infos'])
+            del(request.session['current_quiz_creation'])
+            del(request.session['question_to_edit'])
             request.session.modified = True
         except:
             pass
     return redirect("/")
+
 
 def ajaxdeletequestion(request):
 
@@ -317,5 +326,41 @@ def ajaxdeletequestion(request):
 
             del(request.session['current_quiz_creation'][index])
             request.session.modified = True
+
+    return JsonResponse({})
+
+def ajaxgetquestiontoedit(request):
+
+    question_title = request.GET['question_title']
+
+    for index, question in enumerate(request.session['current_quiz_creation']):
+
+        if question['question'] == question_title:
+            request.session['question_to_edit'] = question
+            request.session.modified = True
+
+    return JsonResponse({})
+
+
+def ajaxeditquestion(request):
+    question = request.GET['question_title']
+    answers = json.loads(request.GET['answers'])
+    right_answer = request.GET['right_answer']
+
+    are_fields_ok = checkfields(question, right_answer, answers)
+
+    if 'error' in are_fields_ok:
+        return JsonResponse({'error': are_fields_ok[1]})
+    else:
+        question_to_edit = request.session['question_to_edit']
+        for elt in request.session['current_quiz_creation']:
+            if elt == question_to_edit:
+                elt['question'] = question
+                elt['answers'] = answers
+                elt['right_answer'] = right_answer
+
+        request.session.modified = True
+
+    print(request.session['current_quiz_creation'])
 
     return JsonResponse({})

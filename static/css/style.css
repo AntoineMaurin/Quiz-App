@@ -486,7 +486,7 @@ a, a:hover {
   display: none;
 } */
 
-#message-questions-list, #message-quiz-list {
+#message-questions-list, #message-quiz-list, #edit-question-button {
   display: none;
 }
 

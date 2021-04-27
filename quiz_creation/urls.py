@@ -16,5 +16,7 @@ urlpatterns = [
     # path('ajaxcheckfields', views.ajaxcheckfields),
     path('ajaxcheckquiz', views.ajaxcheckquiz),
     path('ajaxcheckquestionfields', views.ajaxcheckquestionfields),
+    path('ajaxgetquestiontoedit', views.ajaxgetquestiontoedit),
+    path('ajaxeditquestion', views.ajaxeditquestion),
     path('ajaxdeletequestion', views.ajaxdeletequestion),
 ]
