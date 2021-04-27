@@ -7,11 +7,27 @@ function CloseDeleteQuizForm() {
   document.getElementById('DeleteQuizFormDiv').style.display = 'none';
 }
 
+
 $(document).ready(function() {
 
   const csrf = $("input[name=csrfmiddlewaretoken]").val();
 
   var question_number = 1;
+
+  var card_model = $('#question-card').clone();
+
+  var card_container = $('#question-card').parent("div");
+
+  hide_delete_icons_on_model_card();
+
+  function hide_delete_icons_on_model_card() {
+    icon_1 = $('#question-card').children().children('.delete-question');
+    icon_2 = $('#question-card').children().siblings("div .secondary-bg").children().children('.delete-question');
+
+    icon_1.attr("style", "display: none !important");
+    icon_2.attr("style", "display: none !important");
+  }
+
   $("#quiz-creation-question-number").children("h5").text("Question " + question_number);
 
   $(".remove-alert").click(function() {
@@ -59,24 +75,31 @@ $(document).ready(function() {
     $("#quiz-creation-question-number").children("h5").text(question_text + question_number);
   }
 
-  function add_question(question_data) {
-    var card = $('#question_creation_card').clone();
-    var card_container = $("#question_creation_card").parent("div");
+  function decrement_question_number() {
+    var question_text = "Question "
+    question_number --;
+    $("#quiz-creation-question-number").children("h5").text(question_text + question_number);
+  }
 
-    card.children().children("p").text(question_data["question"]);
-    card.removeAttr("id");
+  function create_question_card(question_data) {
 
-    var answers = card.children().siblings().children().children("div");
+    new_card = card_model.clone();
 
-    answers.each(function (index) {
+    new_card.removeAttr("id");
+
+    new_card.children().children("p").text(question_data["question"]);
+
+    var answers_slots = new_card.children().siblings().children().children("div");
+
+    answers_slots.each(function (index) {
       if (question_data["answers"][index] == question_data["right-answer"]) {
         $(this).addClass("font-weight-bold");
       }
       $(this).text(question_data["answers"][index]);
     });
 
-    card_container.append(card);
-    card.css('display', 'flex');
+    return new_card;
+
   }
 
   $("#add-question-button").click(function () {
@@ -97,20 +120,19 @@ $(document).ready(function() {
         'form_data': JSON.stringify(form_data),
         'answers': JSON.stringify(answers)},
       dataType: "json",
-      success: function(result) {
+      success: function(question_data) {
 
-        // $("input[name=csrfmiddlewaretoken]").val(csrf);
-
-        if ('error' in result) {
-            $("#message-questions-text").text(result["error"]);
-            $("#message-questions-list").css('display', 'flex');
+        if ('error' in question_data) {
+          $("#message-questions-text").text(question_data["error"]);
+          $("#message-questions-list").css('display', 'flex');
         }
         else {
-            clear_fields();
-            increment_question_number();
-            $("#question_creation_card").hide();
-            $("#message-questions-list").hide();
-            add_question(result);
+          clear_fields();
+          $("#question-card").hide();
+          $("#message-questions-list").hide();
+          var new_question_card = create_question_card(question_data);
+          card_container.append(new_question_card);
+          increment_question_number();
         }
       },
       error: function(rs, e) {
@@ -119,7 +141,6 @@ $(document).ready(function() {
   });
 
   // On click -> check -> then submit, or show message
-
   $('#submit-quiz-button').click( function() {
 
     $.ajax({
@@ -135,6 +156,37 @@ $(document).ready(function() {
           $('#quiz-creation-form').submit();
         }
 
+      },
+      error: function(rs, e) {
+         console.log(e);
+       }});
+
+  });
+
+  $(document).on('click', '.delete-question', function() {
+
+    if ($(this).hasClass("d-none")) {
+      var question_title = $(this).parent().parent().siblings('div').children('p').text();
+      var parent_card = $(this).parent().parent().parent();
+    }
+    else {
+      var question_title = $(this).siblings('p').text();
+      var parent_card = $(this).parent().parent();
+    }
+
+    $.ajax({
+      type: "GET",
+      url: "/ajaxdeletequestion",
+      data: {'question_title': question_title},
+      dataType: "json",
+      success: function() {
+
+        parent_card.remove();
+        decrement_question_number();
+
+        if ($(".question-card-row").length == 1) {
+          $('#question-card').show();
+        }
       },
       error: function(rs, e) {
          console.log(e);

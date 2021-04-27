@@ -274,7 +274,6 @@ def ajaxcheckquiz(request):
 
 def submitquiz(request):
     quiz_questions = request.session['current_quiz_creation']
-    print(quiz_questions, len(quiz_questions))
 
     str_pickled_quiz = request.session['quiz_infos']
     bytes_pickled_quiz = str_pickled_quiz.encode('latin-1')
@@ -307,3 +306,16 @@ def deletequiz(request):
         except:
             pass
     return redirect("/")
+
+def ajaxdeletequestion(request):
+
+    question_title = request.GET['question_title']
+
+    for index, question in enumerate(request.session['current_quiz_creation']):
+
+        if question['question'] == question_title:
+
+            del(request.session['current_quiz_creation'][index])
+            request.session.modified = True
+
+    return JsonResponse({})
