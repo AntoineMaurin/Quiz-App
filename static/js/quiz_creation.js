@@ -34,6 +34,13 @@ $(document).ready(function() {
     $(".remove-alert").parent().parent().hide();
   });
 
+  $('#cancel-edit-button').click(function () {
+    $('#add-question-button').show();
+    $('#edit-question-button').hide();
+    $('#cancel-edit-button').hide();
+    clear_fields();
+  })
+
   $("#toggle-questions-list").click(function() {
     $('#QuestionForm').hide();
     $('#QuestionsList').show();
@@ -81,24 +88,26 @@ $(document).ready(function() {
     $("#quiz-creation-question-number").children("h5").text(question_text + question_number);
   }
 
-  function create_question_card(question_data) {
-
+  function create_question_card() {
     new_card = card_model.clone();
-
     new_card.removeAttr("id");
+    return new_card;
+  }
 
-    new_card.children().children("p").text(question_data["question"]);
+  function fill_quetion_card(card, question_data) {
+    card.children().children("p").text(question_data["question"]);
 
-    var answers_slots = new_card.children().siblings().children().children("div");
+    var answers_slots = card.children().siblings().children().children("div");
 
     answers_slots.each(function (index) {
-      if (question_data["answers"][index] == question_data["right-answer"]) {
+      if (question_data["answers"][index] == question_data["right_answer"]) {
         $(this).addClass("font-weight-bold");
+      }
+      else {
+        $(this).removeClass("font-weight-bold");
       }
       $(this).text(question_data["answers"][index]);
     });
-
-    return new_card;
 
   }
 
@@ -133,7 +142,7 @@ $(document).ready(function() {
         // 'csrfmiddlewaretoken' : csrf,
         'question_title': question_title,
         'answers': JSON.stringify(answers),
-        'right-answer' : right_answer},
+        'right_answer' : right_answer},
       dataType: "json",
       success: function(question_data) {
 
@@ -145,7 +154,8 @@ $(document).ready(function() {
           clear_fields();
           $("#question-card").hide();
           $("#message-questions-list").hide();
-          var new_question_card = create_question_card(question_data);
+          var new_question_card = create_question_card();
+          fill_quetion_card(new_question_card, question_data);
           card_container.append(new_question_card);
           increment_question_number();
         }
@@ -200,6 +210,9 @@ $(document).ready(function() {
 
         parent_card.remove();
         decrement_question_number();
+        clear_fields();
+        $('#add-question-button').show();
+        $('#edit-question-button').hide();
 
         if ($(".question-card-row").length == 1) {
           $('#question-card').show();
@@ -220,6 +233,7 @@ $(document).ready(function() {
     }
     var title = $(this).children().children('p').text();
     var answers_container = $(this).children().siblings('div').children().children("div");
+    var right_answer = answers_container.siblings(".font-weight-bold").text();
 
     var answers = [];
     answers_container.each(function() {
@@ -234,18 +248,28 @@ $(document).ready(function() {
       success: function() {
 
         // Prepare the form to edit the question
+
         $('#QuestionsList').hide();
 
         var question_title_input = $('#quiz-creation-question-number').siblings("div").children('input');
         var answers_inputs = ($('input[name=answer]'));
 
+        // TO DO -*-*-*-*-*-*- Check the right answer checkbox
+
         question_title_input.val(title);
 
         answers_inputs.each(function (index) {
           $(this).val(answers[index]);
+          if (answers[index] == right_answer) {
+
+            $(this).parent().parent().siblings().children('input').val();
+
+            $(this).parent().siblings().children().children("input").prop("checked", true);
+          }
         });
 
         $('#add-question-button').hide();
+        $('#cancel-edit-button').show();
         $('#edit-question-button').css('display', 'flex');
         $('#QuestionForm').show();
 
@@ -258,6 +282,7 @@ $(document).ready(function() {
 
   $('#edit-question-button').click( function() {
 
+    set_checked_answer();
     // Get the edited question form
     form_fields = get_question_form_fields();
     var question_title = JSON.stringify(form_fields[0]);
@@ -268,8 +293,6 @@ $(document).ready(function() {
       right_answer = '""';
     }
 
-    console.log(question_title, right_answer, answers);
-
     $.ajax({
       type: "GET",
       url: "/ajaxeditquestion",
@@ -277,11 +300,33 @@ $(document).ready(function() {
              'right_answer': right_answer,
              'answers': answers},
       dataType: "json",
-      success: function() {
+      success: function(result) {
 
         // Displays message if the data was not correct
-        // If not, the question has been changed in the backend, and here we're
-        // gonna show again the QuestionList view
+        // If it's ok, the question has been updated in the backend
+        // Then we display the modifications to the interface
+
+        if ('error' in result) {
+          $("#message-questions-text").text(result["error"]);
+          $("#message-questions-list").css('display', 'flex');
+        }
+        else {
+          var question_title_to_edit = result['ancient_question'];
+          var card_to_edit = 0;
+          $('.question-card-row').each(function() {
+            if ($(this).children().children("p").text() == question_title_to_edit) {
+              card_to_edit = $(this);
+            }
+          })
+
+          fill_quetion_card(card_to_edit, result);
+
+          clear_fields();
+          $("#edit-question-button").hide();
+          $("#add-question-button").show();
+          $("#QuestionForm").hide();
+          $("#QuestionsList").show();
+        }
 
       },
       error: function(rs, e) {

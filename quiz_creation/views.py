@@ -199,11 +199,15 @@ def createquizpage(request):
 
 # Returns True if any of the args is empty
 def is_empty(*args):
-    print(args)
     return any([len(str(elt)) < 1 for elt in args])
 
+# Returns True if the question in parameter is already in the quiz
+def is_already_in(request, question):
+    existing_questions = request.session["current_quiz_creation"]
+    return any([question == qu["question"] for qu in existing_questions])
 
-def checkfields(question, right_answer, answers):
+
+def checkfields(request, question, right_answer, answers):
 
     if is_empty(question, *answers):
         message = "Tous les champs doivent être remplis."
@@ -211,6 +215,14 @@ def checkfields(question, right_answer, answers):
 
     elif len(right_answer) < 1:
         message = "Il doit y avoir au moins une bonne réponse."
+        return ('error', message)
+
+    elif len(answers) != len(set(answers)):
+        message = "Il ne peut pas y avoir deux réponses identiques."
+        return ('error', message)
+
+    elif is_already_in(request, question):
+        message = "Cette question est déjà présente dans votre quiz."
         return ('error', message)
 
     else:
@@ -224,18 +236,17 @@ def ajaxcheckquestionfields(request):
 
     question = remove_quotes(request.GET['question_title'])
     answers = eval(json.loads(request.GET['answers']))
-    right_answer = remove_quotes(request.GET['right-answer'])
+    right_answer = remove_quotes(request.GET['right_answer'])
 
-    are_fields_ok = checkfields(question, right_answer, answers)
+    are_fields_ok = checkfields(request, question, right_answer, answers)
 
     if 'error' in are_fields_ok:
         return JsonResponse({'error': are_fields_ok[1]})
     else:
         question_data = {'question': question,
                          'answers': answers,
-                         'right-answer': right_answer}
+                         'right_answer': right_answer}
 
-        print(question_data)
 
         # Saves the questions in session dict all along the quiz creation
         if "current_quiz_creation" not in request.session:
@@ -243,8 +254,6 @@ def ajaxcheckquestionfields(request):
 
         request.session["current_quiz_creation"].append(question_data)
         request.session.modified = True
-
-        print(request.session["current_quiz_creation"])
 
         return JsonResponse(question_data)
 
@@ -292,7 +301,7 @@ def submitquiz(request):
                                            quiz=quiz)
 
         for answer in elt['answers']:
-            if answer == elt['right-answer']:
+            if answer == elt['right_answer']:
                 Answer.objects.create(title=answer,
                                       question=question,
                                       is_right=True)
@@ -343,11 +352,11 @@ def ajaxgetquestiontoedit(request):
 
 
 def ajaxeditquestion(request):
-    question = request.GET['question_title']
+    question = remove_quotes(request.GET['question_title'])
     answers = json.loads(request.GET['answers'])
-    right_answer = request.GET['right_answer']
+    right_answer = remove_quotes(request.GET['right_answer'])
 
-    are_fields_ok = checkfields(question, right_answer, answers)
+    are_fields_ok = checkfields(request, question, right_answer, answers)
 
     if 'error' in are_fields_ok:
         return JsonResponse({'error': are_fields_ok[1]})
@@ -361,6 +370,9 @@ def ajaxeditquestion(request):
 
         request.session.modified = True
 
-    print(request.session['current_quiz_creation'])
+    question_data = {'question': question,
+                     'answers': answers,
+                     'right_answer': right_answer,
+                     'ancient_question': question_to_edit['question']}
 
-    return JsonResponse({})
+    return JsonResponse(question_data)

@@ -716,6 +716,13 @@ a, a:hover {
   height: 15px;
 }
 
+#cancel-edit-button {
+  position: absolute;
+  top: 9px;
+  right: 12px;
+  display: none;
+}
+
  /* Smaller devices */
 @media (max-width: 768px) {
  .responsive-typo {
