@@ -204,7 +204,10 @@ def is_empty(*args):
 # Returns True if the question in parameter is already in the quiz
 def is_already_in(request, question):
     existing_questions = request.session["current_quiz_creation"]
-    return any([question == qu["question"] for qu in existing_questions])
+
+    for qu in existing_questions:
+        if qu != question:
+            return question == qu['question']
 
 
 def checkfields(request, question, right_answer, answers):

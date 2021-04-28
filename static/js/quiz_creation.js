@@ -31,22 +31,30 @@ $(document).ready(function() {
   $("#quiz-creation-question-number").children("h5").text("Question " + question_number);
 
   $(".remove-alert").click(function() {
-    $(".remove-alert").parent().parent().hide();
+    $(".remove-alert").each(function() {
+      $(this).parent().parent().hide();
+    })
+
   });
 
   $('#cancel-edit-button').click(function () {
-    $('#add-question-button').show();
-    $('#edit-question-button').hide();
     $('#cancel-edit-button').hide();
+    $('#edit-question-button').hide();
+    $('#add-question-button').show();  
     clear_fields();
   })
 
   $("#toggle-questions-list").click(function() {
     $('#QuestionForm').hide();
     $('#QuestionsList').show();
-  });
+  })
 
   $("#toggle-quiz-summary").click(function() {
+    $('#cancel-edit-button').hide();
+    $('#edit-question-button').hide();
+    $('#add-question-button').show();
+    clear_fields();
+
     $('#QuestionsList').hide();
     $('#QuestionForm').show();
   });
@@ -212,6 +220,7 @@ $(document).ready(function() {
         decrement_question_number();
         clear_fields();
         $('#add-question-button').show();
+        $('#cancel-edit-button').hide();
         $('#edit-question-button').hide();
 
         if ($(".question-card-row").length == 1) {
@@ -253,8 +262,6 @@ $(document).ready(function() {
 
         var question_title_input = $('#quiz-creation-question-number').siblings("div").children('input');
         var answers_inputs = ($('input[name=answer]'));
-
-        // TO DO -*-*-*-*-*-*- Check the right answer checkbox
 
         question_title_input.val(title);
 
