@@ -486,7 +486,7 @@ a, a:hover {
   display: none;
 } */
 
-#message-questions-list, #message-quiz-list, #edit-question-button {
+#message-question-form, #message-quiz-summary, #edit-question-button {
   display: none;
 }
 
@@ -697,7 +697,7 @@ a, a:hover {
   background-color: #3f474f;
 }
 
-#QuestionsList {
+#QuizSummary {
   display: none;
 }
 

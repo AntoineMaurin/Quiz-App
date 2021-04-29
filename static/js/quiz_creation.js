@@ -12,13 +12,47 @@ $(document).ready(function() {
 
   const csrf = $("input[name=csrfmiddlewaretoken]").val();
 
-  var question_number = 1;
+  set_question_number();
 
-  var card_model = $('#question-card').clone();
+  setup_card_model();
 
-  var card_container = $('#question-card').parent("div");
+  $(".remove-alert").click(function() {
+    hide_alerts();
+  });
 
-  hide_delete_icons_on_model_card();
+  $('#cancel-edit-button').click(function () {
+    switch_off_edition();
+    clear_fields();
+  })
+
+  $("#switch-to-quiz-summary").click(function() {
+    switch_to_quiz_summary();
+  })
+
+  $("#switch-to-question-form").click(function() {
+    switch_off_edition();
+    switch_to_question_form();
+  });
+
+  function setup_card_model() {
+    window.card_model = $('#question-card').clone();
+    window.card_container = $('#question-card').parent("div");
+
+    hide_delete_icons_on_model_card();
+  }
+
+
+  function set_question_number() {
+    var question_number = 1;
+
+    if ($(".question-card-row").length == 1) {
+      question_number = 1;
+    }
+    else {
+      question_number = $(".question-card-row").length;
+    }
+    $("#question-form-number").children("h5").text("Question " + question_number);
+  }
 
   function hide_delete_icons_on_model_card() {
     icon_1 = $('#question-card').children().children('.delete-question');
@@ -28,36 +62,33 @@ $(document).ready(function() {
     icon_2.attr("style", "display: none !important");
   }
 
-  $("#quiz-creation-question-number").children("h5").text("Question " + question_number);
-
-  $(".remove-alert").click(function() {
+  function hide_alerts() {
     $(".remove-alert").each(function() {
       $(this).parent().parent().hide();
     })
+  }
 
-  });
-
-  $('#cancel-edit-button').click(function () {
-    $('#cancel-edit-button').hide();
-    $('#edit-question-button').hide();
-    $('#add-question-button').show();  
-    clear_fields();
-  })
-
-  $("#toggle-questions-list").click(function() {
-    $('#QuestionForm').hide();
-    $('#QuestionsList').show();
-  })
-
-  $("#toggle-quiz-summary").click(function() {
-    $('#cancel-edit-button').hide();
-    $('#edit-question-button').hide();
-    $('#add-question-button').show();
-    clear_fields();
-
-    $('#QuestionsList').hide();
+  function switch_to_question_form() {
+    $('#QuizSummary').hide();
     $('#QuestionForm').show();
-  });
+    hide_alerts();
+    clear_fields();
+    set_question_number();
+  }
+
+  function switch_to_quiz_summary() {
+    $('#QuestionForm').hide();
+    $('#QuizSummary').show();
+    hide_alerts();
+  }
+
+  function switch_off_edition() {
+    $('#cancel-edit-button').hide();
+    $("#edit-question-button").hide();
+    $("#add-question-button").show();
+    hide_alerts();
+    remove_question_to_edit();
+  }
 
   function set_checked_answer() {
     $("input[type=radio]").each(function() {
@@ -72,7 +103,6 @@ $(document).ready(function() {
   }
 
   function clear_fields() {
-
     $("input:not([type=hidden]").each(function() {
       $(this).val('');
     });
@@ -84,16 +114,11 @@ $(document).ready(function() {
      });
   }
 
-  function increment_question_number() {
-    var question_text = "Question "
-    question_number ++;
-    $("#quiz-creation-question-number").children("h5").text(question_text + question_number);
-  }
-
-  function decrement_question_number() {
-    var question_text = "Question "
-    question_number --;
-    $("#quiz-creation-question-number").children("h5").text(question_text + question_number);
+  function remove_question_to_edit() {
+    $.ajax({
+      type: "GET",
+      url: "/ajaxremovequestiontoedit",
+    });
   }
 
   function create_question_card() {
@@ -116,7 +141,6 @@ $(document).ready(function() {
       }
       $(this).text(question_data["answers"][index]);
     });
-
   }
 
   function get_question_form_fields() {
@@ -128,6 +152,19 @@ $(document).ready(function() {
       answers.push(answer.value);
     }
     return [question_title, right_answer, answers];
+  }
+
+  function show_message(message_text) {
+
+    if ($("#QuizSummary").is(":visible")) {
+      var message_to_show = $('#message-quiz-summary');
+    }
+    else {
+      var message_to_show = $('#message-question-form');
+    }
+    var message_container = message_to_show.children().siblings(".col-9").children("h5");
+    message_container.text(message_text);
+    message_to_show.css('display', 'flex');
   }
 
   $("#add-question-button").click(function () {
@@ -155,17 +192,16 @@ $(document).ready(function() {
       success: function(question_data) {
 
         if ('error' in question_data) {
-          $("#message-questions-text").text(question_data["error"]);
-          $("#message-questions-list").css('display', 'flex');
+          show_message(question_data["error"]);
         }
         else {
           clear_fields();
           $("#question-card").hide();
-          $("#message-questions-list").hide();
+          $("#message-question-form").hide();
           var new_question_card = create_question_card();
           fill_quetion_card(new_question_card, question_data);
           card_container.append(new_question_card);
-          increment_question_number();
+          set_question_number();
         }
       },
       error: function(rs, e) {
@@ -182,13 +218,11 @@ $(document).ready(function() {
       success: function(result) {
 
         if ('error' in result) {
-          $("#message-quiz-text").text(result["error"]);
-          $("#message-quiz-list").css('display', 'flex');
+          show_message(result["error"]);
         }
         else {
           $('#quiz-creation-form').submit();
         }
-
       },
       error: function(rs, e) {
          console.log(e);
@@ -217,11 +251,9 @@ $(document).ready(function() {
       success: function() {
 
         parent_card.remove();
-        decrement_question_number();
+        // decrement_question_number();
         clear_fields();
-        $('#add-question-button').show();
-        $('#cancel-edit-button').hide();
-        $('#edit-question-button').hide();
+        switch_off_edition();
 
         if ($(".question-card-row").length == 1) {
           $('#question-card').show();
@@ -258,9 +290,9 @@ $(document).ready(function() {
 
         // Prepare the form to edit the question
 
-        $('#QuestionsList').hide();
+        $('#QuizSummary').hide();
 
-        var question_title_input = $('#quiz-creation-question-number').siblings("div").children('input');
+        var question_title_input = $('#question-form-number').siblings("div").children('input');
         var answers_inputs = ($('input[name=answer]'));
 
         question_title_input.val(title);
@@ -275,6 +307,7 @@ $(document).ready(function() {
           }
         });
 
+        // Opening edition mode
         $('#add-question-button').hide();
         $('#cancel-edit-button').show();
         $('#edit-question-button').css('display', 'flex');
@@ -314,8 +347,7 @@ $(document).ready(function() {
         // Then we display the modifications to the interface
 
         if ('error' in result) {
-          $("#message-questions-text").text(result["error"]);
-          $("#message-questions-list").css('display', 'flex');
+          show_message(result["error"]);
         }
         else {
           var question_title_to_edit = result['ancient_question'];
@@ -329,10 +361,8 @@ $(document).ready(function() {
           fill_quetion_card(card_to_edit, result);
 
           clear_fields();
-          $("#edit-question-button").hide();
-          $("#add-question-button").show();
-          $("#QuestionForm").hide();
-          $("#QuestionsList").show();
+          switch_off_edition();
+          switch_to_quiz_summary();
         }
 
       },
