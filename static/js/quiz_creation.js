@@ -41,7 +41,6 @@ $(document).ready(function() {
     hide_delete_icons_on_model_card();
   }
 
-
   function set_question_number() {
     var question_number = 1;
 
@@ -82,12 +81,19 @@ $(document).ready(function() {
     hide_alerts();
   }
 
+  function switch_to_edition() {
+    $('#add-question-button').hide();
+    $('#cancel-edit-button').show();
+    $('#edit-question-button').css('display', 'flex');
+  }
+
   function switch_off_edition() {
     $('#cancel-edit-button').hide();
     $("#edit-question-button").hide();
     $("#add-question-button").show();
     hide_alerts();
     remove_question_to_edit();
+    set_question_number();
   }
 
   function set_checked_answer() {
@@ -139,7 +145,14 @@ $(document).ready(function() {
       else {
         $(this).removeClass("font-weight-bold");
       }
-      $(this).text(question_data["answers"][index]);
+      if (question_data["answers"][index].length > 30 ){
+        let answer_text = question_data["answers"][index];
+        let limit = 30;
+        $(this).text(answer_text.substring(0, limit) + "...");
+      }
+      else {
+        $(this).text(question_data["answers"][index]);
+      }
     });
   }
 
@@ -251,7 +264,6 @@ $(document).ready(function() {
       success: function() {
 
         parent_card.remove();
-        // decrement_question_number();
         clear_fields();
         switch_off_edition();
 
@@ -272,6 +284,7 @@ $(document).ready(function() {
     if ($(this).attr('id') == "question-card") {
       return;
     }
+    var question_number = $(this).index();
     var title = $(this).children().children('p').text();
     var answers_container = $(this).children().siblings('div').children().children("div");
     var right_answer = answers_container.siblings(".font-weight-bold").text();
@@ -284,13 +297,16 @@ $(document).ready(function() {
     $.ajax({
       type: "GET",
       url: "/ajaxgetquestiontoedit",
-      data: {'question_title': title},
+      data: {'question_title': title,
+             'answers': answers},
       dataType: "json",
-      success: function() {
+      success: function(result) {
 
         // Prepare the form to edit the question
 
         $('#QuizSummary').hide();
+
+        $("#question-form-number").children("h5").text("Question " + question_number);
 
         var question_title_input = $('#question-form-number').siblings("div").children('input');
         var answers_inputs = ($('input[name=answer]'));
@@ -298,7 +314,7 @@ $(document).ready(function() {
         question_title_input.val(title);
 
         answers_inputs.each(function (index) {
-          $(this).val(answers[index]);
+          $(this).val(result['answers'][index]);
           if (answers[index] == right_answer) {
 
             $(this).parent().parent().siblings().children('input').val();
@@ -307,10 +323,7 @@ $(document).ready(function() {
           }
         });
 
-        // Opening edition mode
-        $('#add-question-button').hide();
-        $('#cancel-edit-button').show();
-        $('#edit-question-button').css('display', 'flex');
+        switch_to_edition();
         $('#QuestionForm').show();
 
       },

@@ -167,14 +167,14 @@ def ajaxdeletequestion(request):
 def ajaxgetquestiontoedit(request):
 
     question_title = request.GET['question_title']
-
     for index, question in enumerate(request.session['current_quiz_creation']):
 
         if question['question'] == question_title:
+            answers = question['answers']
             request.session['question_to_edit'] = question
             request.session.modified = True
 
-    return JsonResponse({})
+    return JsonResponse({'answers': answers})
 
 
 def ajaxeditquestion(request):

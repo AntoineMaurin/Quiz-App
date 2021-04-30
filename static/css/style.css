@@ -723,6 +723,26 @@ a, a:hover {
   display: none;
 }
 
+.question-card-row:active {
+  transform: scale(0.99);
+}
+
+.question-card-row:hover .gray-bg {
+  background: #485059;
+}
+
+.question-card-row:hover .secondary-bg {
+  background: #0a9977;
+}
+
+.white-thin-buttons:hover {
+  background: #0a9977;
+}
+
+.white-thin-buttons:active {
+  transform: scale(0.95);
+}
+
  /* Smaller devices */
 @media (max-width: 768px) {
  .responsive-typo {
