@@ -1,4 +1,4 @@
-<div id="pop-up-form" class="text-white">
+<div id="pop-up-form" class="text-white secondary-bg">
   <div class="pl-3 py-2 border-bottom">
     <!-- Pop up title -->
     <h4 class="my-1"></h4>
@@ -10,9 +10,9 @@
       <!-- Message -->
       <h5 class="mx-2 text-center responsive-typo"></h5>
     </div>
-    <div class="row justify-content-around text-center pt-2">
+    <div class="row justify-content-around text-center darker-text pt-2">
       <div class="col-auto">
-        <button onclick="ClosePopUpForm()" class="form-buttons px-3 py-1 font-size-20" type="submit">
+        <button onclick="ClosePopUpForm()" class="form-buttons primary-bg px-3 py-1 font-size-20" type="submit">
           {% if request.session.lang|default:"fr" == "fr" %}
             Oui
           {% else %}
@@ -21,7 +21,7 @@
         </button>
       </div>
       <div class="col-auto">
-        <div onclick="ClosePopUpForm()" class="form-buttons px-3 py-1 font-size-20">
+        <div onclick="ClosePopUpForm()" class="form-buttons primary-bg px-3 py-1 font-size-20">
           {% if request.session.lang|default:"fr" == "fr" %}
             Annuler
           {% else %}

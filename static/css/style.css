@@ -35,11 +35,11 @@ html {
 }
 
 .primary-bg {
-  background-color: #212529;
+  background-color: #f4e7d7;
 }
 
 .secondary-bg {
-  background-color: #066851;
+  background-color: #39373c;
 }
 
 .bg-primary {
@@ -182,7 +182,7 @@ html {
   border-radius: 15px;
   border: 3px solid white;
   color: inherit !important;
-  background-color: #098265;
+  background-color: #4ccc9b;
   cursor: pointer;
 }
 
@@ -198,17 +198,18 @@ html {
   color: white;
 }
 
-.form-buttons, .form-buttons:hover {
+.form-buttons {
   border: 2px solid white;
   border-radius: 15px;
-  cursor: pointer;
   color: inherit;
-  background-color: #098265;
+  cursor: pointer;
 }
 
 .form-buttons:hover {
-  background-color: #066c54;
+  color: white;
+  background-color: #4ccc9b;
 }
+
 
 a, a:hover {
   text-decoration: none;
@@ -245,12 +246,12 @@ a, a:hover {
   height: 30px;
   width: 30px;
   border-radius: 4px;
-  background-color: #eee;
+  background-color: #fff;
 }
 
 /* On mouse-over, add a grey background color */
 .checkboxes:hover input ~ .checkmark {
-  background-color: #ccc;
+  box-shadow: inset 0px 0px 2px #888;
 }
 
 .checkboxes input:checked ~ .checkmark {
@@ -280,7 +281,7 @@ a, a:hover {
 }
 
 .checkboxes.green-checkmark input:checked ~ .checkmark{
-  background-color: #098265;
+  background-color: #4ccc9b;
   content: "";
   cursor: default;
 }
@@ -343,7 +344,6 @@ a, a:hover {
   right: 50%;
   transform: translate(50%, -50%);
   z-index: 9;
-  background-color: #212529;
   padding: 0 30px 5px 20px;
   border-radius: 20px;
   box-shadow: 0px 0px 4px #152732cf;
@@ -409,7 +409,7 @@ a, a:hover {
 .quiz-creation-container {
 	padding: 0 20px;
 	border-radius: 20px;
-	box-shadow: 0px 0px 3px white;
+	box-shadow: 0px 0px 2px white;
 }
 
 .quiz-title {
@@ -552,7 +552,7 @@ a, a:hover {
 }
 
 .darker-text, .darker-text:hover {
-  color: #463d39;
+  color: #39373c;
 }
 
 .difficulty-easy {
@@ -739,16 +739,16 @@ a, a:hover {
   transform: scale(0.99);
 }
 
-.question-card-row:hover .gray-bg {
-  background: #485059;
+.question-card-row:hover .question-section {
+  background: #2e2d31;
 }
 
 .question-card-row:hover .answers-section {
-  background: #0a9977;
+  background: #42b98c;
 }
 
 .white-thin-buttons:hover {
-  background: #066c54;
+  background: #43b98c;
 }
 
 .white-thin-buttons:active {
@@ -756,7 +756,7 @@ a, a:hover {
 }
 
 .answers-section {
-  background-color: #098265;
+  background-color: #4ccc9b;
 }
 
  /* Smaller devices */
