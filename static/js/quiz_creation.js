@@ -1,12 +1,8 @@
-function OpenDeleteQuizForm(){
-  document.getElementById('DeleteQuizFormDiv').style.display = 'block';
-  // document.getElementsByClassName('page-section-covered')[0].style.backgroundColor = '#000000a3';
-}
 
-function CloseDeleteQuizForm() {
-  document.getElementById('DeleteQuizFormDiv').style.display = 'none';
+function ClosePopUpForm() {
+  document.getElementById('pop-up-form').style.display = 'none';
+  document.getElementsByClassName('page-mask')[0].style.display = 'none';
 }
-
 
 $(document).ready(function() {
 
@@ -18,7 +14,7 @@ $(document).ready(function() {
 
   $(".remove-alert").click(function() {
     hide_alerts();
-  });
+  })
 
   $('#cancel-edit-button').click(function () {
     switch_off_edition();
@@ -32,30 +28,48 @@ $(document).ready(function() {
   $("#switch-to-question-form").click(function() {
     switch_off_edition();
     switch_to_question_form();
-  });
+  })
+
+  $(".close").click(function() {
+    // document.getElementById('DeleteQuizFormDiv').style.display = 'block';
+    // document.getElementsByClassName('page-section-covered')[0].style.backgroundColor = '#000000a3';
+    var quiz_title = get_quiz_title();
+    var message = "Cette action va supprimer tout votre quizz.<br>Êtes-vous sûr de vouloir continuer ?";
+    var form_action = "/deletequiz";
+
+    $("#pop-up-form").children().children('h4').text(quiz_title);
+    $("#pop-up-form").children().siblings('form').attr('action', form_action);
+    $("#pop-up-form").children().siblings('form').children().children('h5').html(message);
+
+    $('#pop-up-form').fadeIn(50);
+    $('.page-mask').fadeIn(50);
+  })
+
+  function get_quiz_title() {
+    return $('h1').text();
+  }
 
   function setup_card_model() {
     window.card_model = $('#question-card').clone();
     window.card_container = $('#question-card').parent("div");
-
     hide_delete_icons_on_model_card();
   }
 
   function set_question_number() {
     var question_number = 1;
 
-    if ($(".question-card-row").length == 1) {
+    if ($(".question-card-row").length == 0) {
       question_number = 1;
     }
     else {
-      question_number = $(".question-card-row").length;
+      question_number = $(".question-card-row").length + 1;
     }
     $("#question-form-number").children("h5").text("Question " + question_number);
   }
 
   function hide_delete_icons_on_model_card() {
     icon_1 = $('#question-card').children().children('.delete-question');
-    icon_2 = $('#question-card').children().siblings("div .secondary-bg").children().children('.delete-question');
+    icon_2 = $('#question-card').children().siblings("div .answers-section").children().children('.delete-question');
 
     icon_1.attr("style", "display: none !important");
     icon_2.attr("style", "display: none !important");
@@ -96,14 +110,11 @@ $(document).ready(function() {
     set_question_number();
   }
 
-  function set_checked_answer() {
+  function set_checked_answer_value() {
     $("input[type=radio]").each(function() {
-
       if (this.checked) {
-
         let answer_text = $(this).parent().parent().siblings().children('input').val();
         $(this).attr("value", answer_text);
-
        }
      });
   }
@@ -129,6 +140,7 @@ $(document).ready(function() {
 
   function create_question_card() {
     new_card = card_model.clone();
+    new_card.addClass("question-card-row");
     new_card.removeAttr("id");
     return new_card;
   }
@@ -182,7 +194,7 @@ $(document).ready(function() {
 
   $("#add-question-button").click(function () {
 
-    set_checked_answer();
+    set_checked_answer_value();
 
     form_fields = get_question_form_fields();
     var question_title = JSON.stringify(form_fields[0]);
@@ -208,6 +220,7 @@ $(document).ready(function() {
           show_message(question_data["error"]);
         }
         else {
+          // The question has been added to the quiz
           clear_fields();
           $("#question-card").hide();
           $("#message-question-form").hide();
@@ -243,7 +256,7 @@ $(document).ready(function() {
 
   });
 
-  $(document).on('click', '.delete-question', function(event) {
+  $(document).on('mousedown', '.delete-question', function(event) {
 
     event.stopPropagation();
 
@@ -267,7 +280,7 @@ $(document).ready(function() {
         clear_fields();
         switch_off_edition();
 
-        if ($(".question-card-row").length == 1) {
+        if ($(".question-card-row").length == 0) {
           $('#question-card').show();
         }
       },
@@ -335,7 +348,7 @@ $(document).ready(function() {
 
   $('#edit-question-button').click( function() {
 
-    set_checked_answer();
+    set_checked_answer_value();
     // Get the edited question form
     form_fields = get_question_form_fields();
     var question_title = JSON.stringify(form_fields[0]);

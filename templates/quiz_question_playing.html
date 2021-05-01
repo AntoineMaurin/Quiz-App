@@ -9,8 +9,8 @@
 
 {% block body %}
 
-<div class="page-section-covered pt-5">
-  <div href="#" class="close" onclick="OpenExitQuizForm()"></div>
+<div class="page-mask"></div>
+  <div href="#" class="close"></div>
   <div class="row justify-content-center mt-5 mx-auto">
     <div class="col-auto">
       <div class="mx-auto"><h1 class="font-exo-medium text-white">{{ quiz.title }}</h1></div>
@@ -82,8 +82,6 @@
     </div>
   </div>
 
-</div>
-
-{% include "forms/exit_quiz_form.html" %}
+{% include "components/pop_up_form.html" %}
 
 {% endblock body %}

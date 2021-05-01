@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block js %}
+  <script src="{% static 'js/script.js' %}"></script>
+{% endblock js %}
+
 {% block body_class %}playing-bg{% endblock body_class %}
 
 {% block body %}

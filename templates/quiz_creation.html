@@ -8,15 +8,15 @@
 {% block body_class %}secondary-bg{% endblock body_class %}
 
 {% block body %}
-
-  <a href="#" class="close" onclick="OpenDeleteQuizForm()"></a>
+<div class="page-mask"></div>
+  <a href="#" class="close"></a>
   <div class="row justify-content-center pt-5 mx-auto mb-3 pb-3">
     <div class="col-auto">
       <div class="mx-auto"><h1 class="text-white font-kalam quiz-title">{{ quiz.title }}</h1></div>
     </div>
   </div>
 
-  <div id="QuestionForm" class="container-fluid">
+  <div id="QuestionForm" class="container-fluid z-index-0">
     <div class="row justify-content-center">
       <div class="col-11 col-sm-8 col-md-6 quiz-creation-container primary-bg h-min-c mb-5 text-center">
 
@@ -197,6 +197,6 @@
     </div>
   </div>
 
-{% include "forms/delete_quiz_form.html" %}
+{% include "components/pop_up_form.html" %}
 
 {% endblock body %}

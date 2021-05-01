@@ -2,29 +2,9 @@ function goBack() {
   window.history.back()
 }
 
-function CloseDeleteQuestionForm() {
-  document.getElementById('DeleteQuestionFormDiv').style.display = 'none';
-}
-
-function CloseEditQuestionForm() {
-  document.getElementById('EditQuestionFormDiv').style.display = 'none';
-}
-
-function OpenExitQuizForm() {
-  document.getElementById('ExitQuizFormDiv').style.display = 'block';
-  document.getElementsByClassName('page-section-covered')[0].style.backgroundColor = '#000000a3';
-}
-
-function CloseExitQuizForm() {
-  document.getElementById('ExitQuizFormDiv').style.display = 'none';
-  document.getElementsByClassName('page-section-covered')[0].style.backgroundColor = '#00000029';
-}
-
-function getNumberAndTitle(number_and_title) {
-  clean_text = $.trim(number_and_title);
-  var question_number = clean_text.split(" ")[0];
-  var question_title = clean_text.split(/ (.+)/)[1];
-  return [question_number, question_title];
+function ClosePopUpForm() {
+  document.getElementById('pop-up-form').style.display = 'none';
+  document.getElementsByClassName('page-mask')[0].style.display = 'none';
 }
 
 $(document).ready(function(){
@@ -37,86 +17,30 @@ $(document).ready(function(){
     }
   });
 
+  $(".close").click(function() {
+    // document.getElementById('DeleteQuizFormDiv').style.display = 'block';
+    // document.getElementsByClassName('page-section-covered')[0].style.backgroundColor = '#000000a3';
+    var quiz_title = get_quiz_title();
+    var message = "Votre progression sera perdue, êtes-vous sûr de vouloir quitter ?";
+    var form_action = "/cancelquiz";
+
+    $("#pop-up-form").children().children('h4').text(quiz_title);
+    $("#pop-up-form").children().siblings('form').attr('action', form_action);
+    $("#pop-up-form").children().siblings('form').children().children('h5').html(message);
+
+    $('#pop-up-form').fadeIn(50);
+    $('.page-mask').fadeIn(50);
+  })
+
+  function get_quiz_title() {
+    return $('h1').text();
+  }
+
   var csrf = $("input[name=csrfmiddlewaretoken]").val();
 
-  $('#quiz_question_form').submit(function(event) {
-    set_checkboxes_values_in_edition();
-  });
-  $('#DeleteQuestionForm').submit(function(event) {
-    set_checkboxes_values_in_edition();
-  });
-  $('#EditQuestionForm').submit(function checkfieldsfunction(event) {
-
-    event.preventDefault();
-
-    var answers_titles = [];
-    var answers_types = [];
-
-    $("input[name=answer]").each(function() {
-      answers_titles.push($(this).val());
-    })
-
-    $('input[name=is_ans_right]:checked').each(function() {
-      answers_types.push("true");
-    });
-
-    $.ajax({
-      type: "GET",
-      url: "/ajaxcheckfields",
-      data: {'answers_titles': answers_titles,
-             'answers_types': answers_types},
-      dataType: "json",
-      success: function(result) {
-
-        if (result["error"] == "answers not filled"){
-          $("#msg_uncompleted_answers").css('display', 'block');
-        }
-        else if (result["error"] == "no right answer") {
-          $("#msg_no_right_answer").css('display', 'block');
-        }
-        else {
-          set_checkboxes_values_in_edition();
-          $('#EditQuestionForm').submit();
-          $("#EditQuestionForm").off('submit', checkfieldsfunction);
-          CloseEditQuestionForm();
-        }
-      },
-      error: function(rs, e) {
-         console.log(e);
-       }});
-
-  });
-  $('#quiz_question_form').submit(function(event) {
-    set_checkboxes_values_in_creation();
-  });
   $('#quiz_form').submit(function(event) {
     set_checkboxes_values_in_playing();
   });
-
-
-  function set_checkboxes_values_in_edition() {
-    $("input[type=radio]").each(function() {
-
-      if (this.checked) {
-
-        let answer_text = $(this).parent().siblings('input').val();
-        $(this).attr("value", answer_text);
-
-       }
-     });
-  }
-
-  function set_checkboxes_values_in_creation() {
-    $("input[type=radio]").each(function() {
-
-      if (this.checked) {
-
-        let answer_text = $(this).parent().parent().siblings().children('input').val();
-        $(this).attr("value", answer_text);
-
-       }
-     });
-  }
 
   function set_checkboxes_values_in_playing() {
     $("input[type=radio]").each(function() {
@@ -129,77 +53,5 @@ $(document).ready(function(){
        }
      });
   }
-
-  $(".del-question").click(function() {
-
-    $("#DeleteQuestionFormDiv").css("display", "block");
-
-    var question_id = $(this).parent().parent().siblings('input[name=question_id]').val();
-    var question_number_and_title = $(this).parent().parent().siblings('.question-title')[0].innerHTML;
-    var question_index = $(this).parent().parent().siblings('.question-title')[0].id;
-
-    var question_number = getNumberAndTitle(question_number_and_title)[0];
-    var question_title = getNumberAndTitle(question_number_and_title)[1];
-
-    $("#delete_question_title").text("Question " + question_number);
-    $("#delete_question_id").val(question_id);
-    $("#delete_question_message").text(question_title);
-    $("#DeleteQuestionFormDiv").children('form').attr("action", "/deletequestion/" + question_index);
-
-  });
-
-  $(".edit-question").click(function() {
-
-    $("#EditQuestionFormDiv").css("display", "block");
-
-    var question_index = $(this).parent().parent().siblings('.question-title')[0].id;
-
-    var question_number_and_title = $(this).parent().parent().siblings('.question-title')[0].innerHTML;
-
-    var question_number = getNumberAndTitle(question_number_and_title)[0];
-    var question_title = getNumberAndTitle(question_number_and_title)[1];
-
-    $("#EditQuestionFormDiv").children('form').attr("action", "/editquestion/" + question_index);
-    $('#question_number').text("Question " + question_number);
-    $("#question_to_edit").val(question_title);
-
-    $.ajax({
-      type: "GET",
-      url: "/ajaxgetanswers",
-      data: {'question_index': question_index},
-      dataType: "json",
-      success: function(result) {
-
-        var number_of_rows = $('.answers-section').length;
-
-        var i;
-        for (i = 0; i < number_of_rows; i++) {
-          removeRow(1);
-        }
-
-        for (res of result) {
-          duplicate(7);
-        }
-        removeRow(1);
-
-        var j = 0;
-        $("input[name=answer]").each(function() {
-          $( this ).val(result[j][0]);
-          j++;
-        });
-
-        var k = 0;
-        $("input[name=is_ans_right]").each(function() {
-          if (result[k][1] != false) {
-            $(this).prop("checked", true);
-          }
-          k++;
-        });
-
-      },
-      error: function(rs, e) {
-         console.log(e);
-       }});
-  });
 
 });

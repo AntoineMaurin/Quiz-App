@@ -39,7 +39,7 @@ html {
 }
 
 .secondary-bg {
-  background-color: #098265;
+  background-color: #066851;
 }
 
 .bg-primary {
@@ -93,9 +93,20 @@ html {
   height: 100vh;
 }
 
-.page-section-covered {
-  background-color: #00000029;
-  min-height: 100vh;
+.page-mask {
+  background-color: #000000bd;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.z-index-0 {
+  z-index: 0;
+  position: relative;
 }
 
 .black-cover {
@@ -188,16 +199,15 @@ html {
 }
 
 .form-buttons, .form-buttons:hover {
-  width: 200px;
   border: 2px solid white;
   border-radius: 15px;
   cursor: pointer;
   color: inherit;
-  background-color: #212529;
+  background-color: #098265;
 }
 
 .form-buttons:hover {
-  background-color: #098265;
+  background-color: #066c54;
 }
 
 a, a:hover {
@@ -325,9 +335,10 @@ a, a:hover {
   display: block;
 }
 
-#DeleteQuestionFormDiv, #DeleteQuizFormDiv, #EditQuestionFormDiv, #ExitQuizFormDiv {
+#pop-up-form {
   display: none;
   position: absolute;
+  z-index: 100 !important;
   top: 50%;
   right: 50%;
   transform: translate(50%, -50%);
@@ -337,6 +348,7 @@ a, a:hover {
   border-radius: 20px;
   box-shadow: 0px 0px 4px #152732cf;
   border: 2px solid white;
+  width: 90%;
 }
 
 .peach-bg {
@@ -731,16 +743,20 @@ a, a:hover {
   background: #485059;
 }
 
-.question-card-row:hover .secondary-bg {
+.question-card-row:hover .answers-section {
   background: #0a9977;
 }
 
 .white-thin-buttons:hover {
-  background: #0a9977;
+  background: #066c54;
 }
 
 .white-thin-buttons:active {
   transform: scale(0.95);
+}
+
+.answers-section {
+  background-color: #098265;
 }
 
  /* Smaller devices */
@@ -768,11 +784,17 @@ a, a:hover {
   .responsive-typo {
     font-size: 1.15rem;
   }
+  #pop-up-form {
+    width: 50%;
+  }
 }
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .responsive-typo {
     font-size: 1.2rem;
+  }
+  #pop-up-form {
+    width: 30%;
   }
 }
 /* Extra large devices (large desktops, 1200px and up) */

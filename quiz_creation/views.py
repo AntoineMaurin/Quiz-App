@@ -64,6 +64,8 @@ def ajaxcheckquestionfields(request):
     answers = eval(json.loads(request.GET['answers']))
     right_answer = remove_quotes(request.GET['right_answer'])
 
+    print(question)
+
     are_fields_ok = checkfields(request, question, right_answer, answers)
 
     if 'error' in are_fields_ok:
@@ -212,3 +214,11 @@ def ajaxremovequestiontoedit(request):
     except:
         pass
     return JsonResponse({})
+
+
+# def ajaxgetquiztitle(request):
+#     str_pickled_quiz = request.session['quiz_infos']
+#     bytes_pickled_quiz = str_pickled_quiz.encode('latin-1')
+#
+#     quiz = pickle.loads(bytes_pickled_quiz)
+#     return JsonResponse({'quiz_title': quiz.title})
